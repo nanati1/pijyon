@@ -9,7 +9,7 @@
 Stage::Stage()
 {
 	// ステージデータの読み込み
-	CsvReader* csv = new CsvReader("data/map/stage.csv");
+	CsvReader* csv = new CsvReader("data/map/stage0.csv");
 	for (int line = 0; line < csv->GetLines(); line++) {
 		std::vector<int> mapLine;
 		for (int column = 0; column < csv->GetColumns(line); column++) {
@@ -55,7 +55,7 @@ void Stage::Draw()
 	int w = imageSize.x;
 	int h = imageSize.y;
 	
-	for (int y = 0; y < map.size(); y++) { 
+	/*for (int y = 0; y < map.size(); y++) { 
 		for (int x = 0; x < map[y].size(); x++) { 
 			int c = map[y][x]; if (c == 1) { 
 				DrawRectGraph(x * w - scrollX, y * h, 3 * w, 1 * h, w, h, hImage, TRUE); 
@@ -67,23 +67,33 @@ void Stage::Draw()
 				DrawRectGraph(x * w - scrollX, y * h, 3 * w, 0 * h, w, h, hImage, TRUE); 
 			} 
 		} 
+	}*/
+	for (int y = 0; y < map.size(); y++) {
+		for (int x = 0; x < map[y].size(); x++) {
+			int c = map[y][x];
+			int drawX = x * w - scrollX + Screen::startX; // ←左上から描く
+			int drawY = y * h + Screen::startY;
+
+
+			// 画面外なら描かない
+			if (drawX < Screen::startX - w || drawX > Screen::endX - w ) {
+				continue;
+			}
+			// 画面外なら描かない
+			if (drawY < Screen::startY - h || drawY > Screen::endY - h) {
+				continue;
+			}
+			if (c == 1) {
+				DrawRectGraph(drawX , drawY, 3 * w, 1 * h, w, h, hImage, TRUE);
+			}
+			else if (c == 2) {
+				DrawRectGraph(drawX , drawY, 0 * w, 1 * h, w, h, hImage, TRUE);
+			}
+			else if (c == 3) {
+				DrawRectGraph(drawX , drawY, 3 * w, 0 * h, w, h, hImage, TRUE);
+			}
+		}
 	}
-	//for (int y = 0; y < map.size(); y++) {
-	//	for (int x = 0; x < map[y].size(); x++) {
-	//		int c = map[y][x];
-	//		int drawX = x * w - scrollX + startX; // ←左上から描く
-	//		int drawY = y * h + startY;
-	//		if (c == 1) {
-	//			DrawRectGraph(drawX , drawY, 3 * w, 1 * h, w, h, hImage, TRUE);
-	//		}
-	//		else if (c == 2) {
-	//			DrawRectGraph(drawX , drawY, 0 * w, 1 * h, w, h, hImage, TRUE);
-	//		}
-	//		else if (c == 3) {
-	//			DrawRectGraph(drawX , drawY, 3 * w, 0 * h, w, h, hImage, TRUE);
-	//		}
-	//	}
-	//}
 
 }
 
