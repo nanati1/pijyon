@@ -70,11 +70,9 @@ void Stage::Draw()
 				continue;
 			}
 			// ‰æ–ÊŠO‚È‚ç•`‚©‚È‚¢
-			if (drawY < Screen::startY - h || drawY > Screen::endY  ) {
+			if (drawY < Screen::startY - h || drawY > Screen::endY - h ) {
 				continue;
 			}
-
-
 			if (c == 1) {
 				DrawRectGraph(drawX , drawY, 3 * w, 1 * h, w, h, hImage, TRUE);
 			}
