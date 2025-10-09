@@ -6,7 +6,7 @@
 #include "Screen.h"
 
 
-Player::Player() : Player(VECTOR2(100, 200))
+Player::Player() : Player(VECTOR2(1000, 2000))
 {
 }
 
@@ -107,7 +107,7 @@ void Player::Update()
 	if (st != nullptr) {
 		float drawX = position.x - st->ScrollX(); // ‚±‚ê‚ª•\Ž¦À•W
 		static const int RightLimit = 700;
-		static const int LeftLimit = 200;
+		static const int LeftLimit = 100;
 		if (drawX > RightLimit) {
 			st->SetScrollX(position.x - RightLimit);
 		}

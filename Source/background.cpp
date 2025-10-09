@@ -6,6 +6,7 @@ BackGround::BackGround()
 {
 	hImage = LoadGraph("data/image/white.jpg");
 	assert(hImage > 0);
+	wImage = LoadGraph("data/image/Sora.jpg");
 }
 
 BackGround::BackGround(VECTOR2 pos)
@@ -22,8 +23,8 @@ void BackGround::Update()
 
 void BackGround::Draw()
 {
-	DrawExtendGraph(0, 0, 160, 1080, hImage, 0);// 左端
-	DrawExtendGraph(1760, 0, 1920, 1080, hImage, 0);//右端
-	DrawExtendGraph(0, 0, 1920, 108, hImage, 0);//上
-	DrawExtendGraph(0, 822, 1920, 1080, hImage, 0);//下
+	//DrawExtendGraph(0, 0, 160, 1080, hImage, 0);// 左端
+	DrawExtendGraph(1360, 72, 1920, 765, hImage, 0);//右端
+	DrawExtendGraph(0, 0, 1920, 72, wImage, 0);//上
+	//DrawExtendGraph(0, 832, 1920, 1080, hImage, 0);//下
 }

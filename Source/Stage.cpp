@@ -36,6 +36,9 @@ Stage::Stage()
 			if (c == 9) {
 				int px = x * imageSize.x + imageSize.x / 2.0f;
 				int py = y * imageSize.y + imageSize.y / 2.0f;
+				// マップのズレ補正（上・左に2マスずれ対策）
+				/*px += 2 * imageSize.x;
+				py += 2 * imageSize.y;*/
 				new Player(VECTOR2(px, py));
 			}
 		}
@@ -50,7 +53,7 @@ Stage::~Stage()
 void Stage::Draw()
 {
 
-	//DrawExtendGraph(0, 0, 160, 1080, wImage, 0);
+	
 	DrawExtendGraph(Screen::startX, Screen::startY, Screen::endX, Screen::endY, bImage, 0);
 
 
@@ -143,6 +146,8 @@ bool Stage::IsWall(VECTOR2 pos)
 	if (x < 0 || x >= map[y].size()) {
 		return false;
 	}
+
+
 	// チップの番号を見て、壁かどうか確定する
 	switch (map[y][x]) {
 	case 0:
