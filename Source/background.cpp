@@ -6,7 +6,7 @@ BackGround::BackGround()
 {
 	hImage = LoadGraph("data/image/white.jpg");
 	assert(hImage > 0);
-	wImage = LoadGraph("data/image/Sora.jpg");
+	wImage = LoadGraph("data/image/red.jpg");
 }
 
 BackGround::BackGround(VECTOR2 pos)
