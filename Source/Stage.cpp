@@ -55,19 +55,7 @@ void Stage::Draw()
 	int w = imageSize.x;
 	int h = imageSize.y;
 	
-	/*for (int y = 0; y < map.size(); y++) { 
-		for (int x = 0; x < map[y].size(); x++) { 
-			int c = map[y][x]; if (c == 1) { 
-				DrawRectGraph(x * w - scrollX, y * h, 3 * w, 1 * h, w, h, hImage, TRUE); 
-			} 
-			else if (c == 2) { 
-				DrawRectGraph(x * w - scrollX, y * h, 0 * w, 1 * h, w, h, hImage, TRUE); 
-			}
-			else if (c == 3) { 
-				DrawRectGraph(x * w - scrollX, y * h, 3 * w, 0 * h, w, h, hImage, TRUE); 
-			} 
-		} 
-	}*/
+	
 	for (int y = 0; y < map.size(); y++) {
 		for (int x = 0; x < map[y].size(); x++) {
 			int c = map[y][x];
@@ -76,13 +64,15 @@ void Stage::Draw()
 
 
 			// 画面外なら描かない
-			if (drawX < Screen::startX - w || drawX > Screen::endX - w ) {
+			if (drawX < Screen::startX - w || drawX > Screen::endX   ) {
 				continue;
 			}
 			// 画面外なら描かない
-			if (drawY < Screen::startY - h || drawY > Screen::endY - h ) {
+			if (drawY < Screen::startY - h || drawY > Screen::endY  ) {
 				continue;
 			}
+
+
 			if (c == 1) {
 				DrawRectGraph(drawX , drawY, 3 * w, 1 * h, w, h, hImage, TRUE);
 			}
@@ -128,6 +118,7 @@ int Stage::CheckDown(VECTOR2 pos)
 	int y = pos.y / imageSize.y;
 	int dy = pos.y - y * imageSize.y; // チップの中の座標
 	return dy + 1;
+	
 }
 
 int Stage::CheckUp(VECTOR2 pos)
