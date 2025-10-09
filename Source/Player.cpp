@@ -107,7 +107,7 @@ void Player::Update()
 	if (st != nullptr) {
 		float drawX = position.x - st->ScrollX(); // ‚±‚ê‚ª•\Ž¦À•W
 		static const int RightLimit = 700;
-		static const int LeftLimit = 100;
+		static const int LeftLimit = 24;
 		if (drawX > RightLimit) {
 			st->SetScrollX(position.x - RightLimit);
 		}
