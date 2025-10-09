@@ -30,6 +30,7 @@ public:
 private:
 	float scrollX; // ‰¡ƒXƒNƒ[ƒ‹—Ê
 	int bImage;
+	int wImage;
 	bool IsWall(VECTOR2 pos);
 
 	std::vector<std::vector<int>> map;

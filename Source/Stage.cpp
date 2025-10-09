@@ -50,7 +50,9 @@ Stage::~Stage()
 void Stage::Draw()
 {
 
+	//DrawExtendGraph(0, 0, 160, 1080, wImage, 0);
 	DrawExtendGraph(Screen::startX, Screen::startY, Screen::endX, Screen::endY, bImage, 0);
+
 
 	int w = imageSize.x;
 	int h = imageSize.y;

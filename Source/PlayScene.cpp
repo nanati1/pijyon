@@ -1,11 +1,17 @@
 #include "PlayScene.h"
 #include <DxLib.h>
 #include "Screen.h"
+#include "background.h"
 #include "Stage.h"
+#include <assert.h>
 
 PlayScene::PlayScene()
 {
-	new Stage();
+	auto bg = new BackGround();
+	bg->SetDrawOrder(50);  // ”wŒi‚æ‚èè‘O
+
+	auto stage = new Stage();
+	stage->SetDrawOrder(100); // ‰œiæ‚É•`‰æj
 }
 
 PlayScene::~PlayScene()
@@ -31,7 +37,6 @@ void PlayScene::Draw()
 	DrawString(100, 400, "Push [G]Key To Title", GetColor(255, 255, 255));
 	DrawString(100, 500, "Push [C]Key To Title", GetColor(255, 255, 255));
 	
-
 	// ‘¾‚³1‚Ì˜g
 	//DrawBox(Screen::startX, Screen::startY, Screen::endX, Screen::endY, GetColor(255, 0, 0), FALSE);
 
