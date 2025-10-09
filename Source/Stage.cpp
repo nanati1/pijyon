@@ -80,7 +80,7 @@ void Stage::Draw()
 				continue;
 			}
 			// ‰æ–ÊŠO‚È‚ç•`‚©‚È‚¢
-			if (drawY < Screen::startY - h || drawY > Screen::endY - h) {
+			if (drawY < Screen::startY - h || drawY > Screen::endY - h ) {
 				continue;
 			}
 			if (c == 1) {
