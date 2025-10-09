@@ -3,6 +3,7 @@
 #include "Screen.h"
 #include "background.h"
 #include "Stage.h"
+#include"CommentArea.h"
 #include <assert.h>
 
 PlayScene::PlayScene()
@@ -12,6 +13,8 @@ PlayScene::PlayScene()
 
 	auto stage = new Stage();
 	stage->SetDrawOrder(100); // ‰œiæ‚É•`‰æj
+
+	new CommentArea();
 }
 
 PlayScene::~PlayScene()
