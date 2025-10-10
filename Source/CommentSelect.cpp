@@ -41,17 +41,17 @@ void CommentSelect::Update()
 	if (focus_ == Select::DIRECTION) {
 		if (CheckHitKey(KEY_INPUT_UP)) {
 			switch (dir_) {
-			case DirectionSelect::NONE:dir_ = DirectionSelect::LEFT; break;
-			case DirectionSelect::LEFT:dir_ = DirectionSelect::RGHT; break;
-			case DirectionSelect::RGHT:dir_ = DirectionSelect::NONE; break;
+			case DirectionSelect::NONE:dir_ = DirectionSelect::RIGHT; break;
+			case DirectionSelect::RIGHT:dir_ = DirectionSelect::LEFT; break;
+			case DirectionSelect::LEFT:dir_ = DirectionSelect::NONE; break;
 			default:break;
 			}
 		}
 		if (CheckHitKey(KEY_INPUT_DOWN)) {
 			switch (dir_) {
-			case DirectionSelect::NONE:dir_ = DirectionSelect::RGHT; break;
-			case DirectionSelect::LEFT:dir_ = DirectionSelect::NONE; break;
-			case DirectionSelect::RGHT:dir_ = DirectionSelect::LEFT; break;
+			case DirectionSelect::NONE:dir_ = DirectionSelect::LEFT; break;
+			case DirectionSelect::RIGHT:dir_ = DirectionSelect::NONE; break;
+			case DirectionSelect::LEFT:dir_ = DirectionSelect::RIGHT; break;
 			default:break;
 			}
 		}
@@ -103,5 +103,35 @@ void CommentSelect::Update()
 
 void CommentSelect::Draw()
 {
+	int commentSelectNumber = 3;
 
+	//コメント選択の描画
+	for (int i = 1; i <= commentSelectNumber; i++) {
+		DrawBox(CommentUi::BoxX, CommentUi::BoxY,
+			CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * i, 
+			CommentUi::BoxY + CommentUi::BoxHeight,
+			GetColor(0, 0, 255), FALSE,5);
+	}
+	//選択中の枠線の色を変える
+	switch (focus_) {
+	case Select::DIRECTION:
+		DrawBox(CommentUi::BoxX, CommentUi::BoxY,
+			CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber,
+			CommentUi::BoxY + CommentUi::BoxHeight,
+			GetColor(255, 0, 0), FALSE, 5);
+		break;
+	case Select::STATE:
+		DrawBox(CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber, CommentUi::BoxY,
+			CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * 2,
+			CommentUi::BoxY + CommentUi::BoxHeight,
+			GetColor(255, 0, 0), FALSE, 5);
+		break;
+	case Select::LEVEL:
+		DrawBox(CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * 2, CommentUi::BoxY,
+			CommentUi::BoxX + CommentUi::BoxWidth,
+			CommentUi::BoxY + CommentUi::BoxHeight,
+			GetColor(255, 0, 0), FALSE, 5);
+		break;
+	default:break;
+	}
 }

@@ -9,7 +9,7 @@ public:
 	void Update() override;
 	void Draw() override;
 private:
-	enum DirectionSelect {NONE,LEFT,RGHT,};
+	enum DirectionSelect {NONE,RIGHT,LEFT,};
 	enum StateSelect {STOP,WORK,RUN,JUMP,};
 	enum CommentLevel {KIND,NORMAL,SEVERE,};
 	enum Select{DIRECTION,STATE,LEVEL,};

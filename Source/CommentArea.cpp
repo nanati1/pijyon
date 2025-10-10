@@ -1,9 +1,11 @@
 #include "CommentArea.h"
 #include <DxLib.h>
 #include "Screen.h"
+#include"CommentSelect.h"
 
 CommentArea::CommentArea()
 {
+	new CommentSelect();
 }
 
 CommentArea::~CommentArea()
@@ -20,8 +22,8 @@ void CommentArea::Draw()
 	//DrawBox(commentAreaX, commentAreaY, commentAreaX + commentAreaWidth, commentAreaY + commentAreaHeight, GetColor(255, 255, 255), TRUE);
 
 	//コメント入力欄
-	DrawBox(commentBoxX, commentBoxY, commentBoxX + commentBoxWidth, commentBoxY + commentBoxHeight, GetColor(200, 200, 200), TRUE);
+	DrawBox(CommentUi::BoxX, CommentUi:: BoxY, CommentUi::BoxX + CommentUi::BoxWidth, CommentUi::BoxY + CommentUi::BoxHeight, GetColor(200, 200, 200), TRUE);
 
 	//コメント送信ボタン
-	DrawBox(commentSendButtonX, commentSendButtonY, commentSendButtonX + commentSendButtonWidth, commentSendButtonY + commentSendButtonHeight, GetColor(100, 100, 255), TRUE);
+	DrawBox(CommentUi::SendButtonX, CommentUi::SendButtonY, CommentUi::SendButtonX + CommentUi::SendButtonWidth, CommentUi::SendButtonY + CommentUi::SendButtonHeight, GetColor(100, 100, 255), TRUE);
 }
