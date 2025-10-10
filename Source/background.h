@@ -11,5 +11,6 @@ public:
 	void Draw() override;
 private:
 	int wImage;
+	int rImage;
 	
 };

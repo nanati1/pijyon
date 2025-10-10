@@ -107,7 +107,7 @@ void Player::Update()
 	if (st != nullptr) {
 		float drawX = position.x - st->ScrollX(); // ‚±‚ê‚ª•\Ž¦À•W
 		static const int RightLimit = 700;
-		static const int LeftLimit = 100;
+		static const int LeftLimit = 24;
 		if (drawX > RightLimit) {
 			st->SetScrollX(position.x - RightLimit);
 		}
@@ -121,7 +121,7 @@ void Player::Update()
 	ImGui::End();
 
 	//—Ž‰º‚µ
-	if (position.y >= 800)
+	if (position.y >= 710)
 	{
 		SceneManager::ChangeScene("GAMEOVER");
 	}
@@ -129,6 +129,7 @@ void Player::Update()
 
 void Player::Draw()
 {
+
 	Object2D::Draw();
 	Stage* st = FindGameObject<Stage>();
 	float x = position.x - st->ScrollX();
