@@ -77,6 +77,9 @@
     <ClCompile Include="Source\CommentArea.cpp">
       <Filter>PlayScene\Comment</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CommentSelect.cpp">
+      <Filter>PlayScene\Comment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\SceneFactory.h" />
@@ -163,6 +166,9 @@
       <Filter>PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\CommentArea.h">
+      <Filter>PlayScene\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CommentSelect.h">
       <Filter>PlayScene\Comment</Filter>
     </ClInclude>
   </ItemGroup>

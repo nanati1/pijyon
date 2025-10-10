@@ -155,6 +155,7 @@
     <ClInclude Include="Source\BootScene.h" />
     <ClInclude Include="Source\ClearScene.h" />
     <ClInclude Include="Source\CommentArea.h" />
+    <ClInclude Include="Source\CommentSelect.h" />
     <ClInclude Include="Source\CsvReader.h" />
     <ClInclude Include="Source\GameOverScene.h" />
     <ClInclude Include="Source\Input.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="Source\BootScene.cpp" />
     <ClCompile Include="Source\ClearScene.cpp" />
     <ClCompile Include="Source\CommentArea.cpp" />
+    <ClCompile Include="Source\CommentSelect.cpp" />
     <ClCompile Include="Source\CsvReader.cpp" />
     <ClCompile Include="Source\GameOverScene.cpp" />
     <ClCompile Include="Source\Input.cpp" />
