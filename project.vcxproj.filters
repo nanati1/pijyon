@@ -65,9 +65,6 @@
     <ClCompile Include="Source\Stage.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Input.cpp">
-      <Filter>PlayScene</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CsvReader.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
@@ -163,9 +160,6 @@
       <Filter>PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Screen.h" />
-    <ClInclude Include="Source\Input.h">
-      <Filter>PlayScene</Filter>
-    </ClInclude>
     <ClInclude Include="Source\background.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
