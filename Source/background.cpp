@@ -1,6 +1,7 @@
 #include "background.h"
 #include <DxLib.h>
 #include <assert.h>
+#include "Avatar.h"
 
 BackGround::BackGround()
 {
@@ -10,6 +11,8 @@ BackGround::BackGround()
 	assert(rImage > 0);
 	hImage = LoadGraph("data/image/skin color.jpg");
 	assert(hImage > 0);
+
+	new Avatar();
 }
 
 BackGround::BackGround(VECTOR2 pos)
