@@ -121,7 +121,7 @@ void Player::Update()
 	ImGui::End();
 
 	//—Ž‰º‚µ
-	if (position.y >= 800)
+	if (position.y >= 710)
 	{
 		SceneManager::ChangeScene("GAMEOVER");
 	}
@@ -129,6 +129,7 @@ void Player::Update()
 
 void Player::Draw()
 {
+
 	Object2D::Draw();
 	Stage* st = FindGameObject<Stage>();
 	float x = position.x - st->ScrollX();
