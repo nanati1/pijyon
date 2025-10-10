@@ -22,5 +22,5 @@ void Avatar::Update()
 
 void Avatar::Draw()
 {
-	DrawExtendGraph(1100, 500, 1360, 765, hImage, 0);
+	DrawExtendGraph(1100, 500, 1360, 765, hImage, 1);
 }
