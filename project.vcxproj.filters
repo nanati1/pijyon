@@ -75,7 +75,7 @@
       <Filter>PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\CommentArea.cpp">
-      <Filter>PlayScene</Filter>
+      <Filter>PlayScene\Comment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +163,7 @@
       <Filter>PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\CommentArea.h">
-      <Filter>PlayScene</Filter>
+      <Filter>PlayScene\Comment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +187,9 @@
     </Filter>
     <Filter Include="ClearScene">
       <UniqueIdentifier>{b324123a-0135-42e4-9b56-5cbc2446aa01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\Comment">
+      <UniqueIdentifier>{03656013-d035-4563-97de-21aa384466aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
