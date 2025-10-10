@@ -23,7 +23,7 @@ void CommentArea::Draw()
 	int commentAreaY = 958;
 	DrawBox(commentAreaX, commentAreaY, commentAreaX + commentAreaWidth, commentAreaY + commentAreaHeight, GetColor(255, 255, 255), TRUE);
 
-	//コメント入力欄
+	//コメント入力欄a
 	int commentBoxWidth = commentAreaWidth*18/20;
 	int commentBoxHeight = commentAreaHeight*4/6;
 	int commentBoxX = commentAreaWidth/20;
