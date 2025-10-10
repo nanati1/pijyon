@@ -1,6 +1,7 @@
 #include"CommentSelect.h"
 #include <DxLib.h>
 #include"CommentArea.h"
+#include"../Library/Input.h"
 
 CommentSelect::CommentSelect()
 	:focus_(Select::DIRECTION), dir_(DirectionSelect::NONE), st_(StateSelect::STOP), lv_(CommentLevel::KIND)
@@ -10,6 +11,7 @@ CommentSelect::CommentSelect()
 	st_=STOP;
 	lv_ = KIND;
 
+	Input::Initialize();
 
 }
 
@@ -19,8 +21,9 @@ CommentSelect::~CommentSelect()
 
 void CommentSelect::Update()
 {
+	Input::Update();
 	//コメント欄の選択
-	if (CheckHitKey(KEY_INPUT_RIGHT)) {
+	if (Input::IsKeyDown(KEY_INPUT_RIGHT)) {
 		switch (focus_) {
 		case Select::DIRECTION:focus_ = Select::STATE; break;
 		case Select::STATE:focus_ = Select::LEVEL; break;
@@ -28,7 +31,7 @@ void CommentSelect::Update()
 		default:break;
 		}
 	}
-	if (CheckHitKey(KEY_INPUT_LEFT)) {
+	if (Input::IsKeyDown(KEY_INPUT_LEFT)) {
 		switch (focus_) {
 		case Select::DIRECTION:focus_ = Select::LEVEL; break;
 		case Select::STATE:focus_ = Select::DIRECTION; break;
@@ -39,7 +42,7 @@ void CommentSelect::Update()
 	
 	//方向の選択
 	if (focus_ == Select::DIRECTION) {
-		if (CheckHitKey(KEY_INPUT_UP)) {
+		if (Input::IsKeyDown(KEY_INPUT_UP)) {
 			switch (dir_) {
 			case DirectionSelect::NONE:dir_ = DirectionSelect::RIGHT; break;
 			case DirectionSelect::RIGHT:dir_ = DirectionSelect::LEFT; break;
@@ -47,7 +50,7 @@ void CommentSelect::Update()
 			default:break;
 			}
 		}
-		if (CheckHitKey(KEY_INPUT_DOWN)) {
+		if (Input::IsKeyDown(KEY_INPUT_DOWN)) {
 			switch (dir_) {
 			case DirectionSelect::NONE:dir_ = DirectionSelect::LEFT; break;
 			case DirectionSelect::RIGHT:dir_ = DirectionSelect::NONE; break;
@@ -59,7 +62,7 @@ void CommentSelect::Update()
 	
 	//命令の選択
 	if (focus_ == Select::STATE) {
-		if (CheckHitKey(KEY_INPUT_UP)) {
+		if (Input::IsKeyDown(KEY_INPUT_UP)) {
 			switch (st_) {
 			case StateSelect::STOP:st_ = StateSelect::WORK; break;
 			case StateSelect::WORK:st_ = StateSelect::RUN; break;
@@ -68,7 +71,7 @@ void CommentSelect::Update()
 			default:break;
 			}
 		}
-		if (CheckHitKey(KEY_INPUT_DOWN)) {
+		if (Input::IsKeyDown(KEY_INPUT_DOWN)) {
 			switch (st_) {
 			case StateSelect::STOP:st_ = StateSelect::JUMP; break;
 			case StateSelect::WORK:st_ = StateSelect::STOP; break;
@@ -81,7 +84,7 @@ void CommentSelect::Update()
 
 	//コメントのレベルの選択
 	if (focus_ == Select::LEVEL) {
-		if (CheckHitKey(KEY_INPUT_UP)) {
+		if (Input::IsKeyDown(KEY_INPUT_UP)) {
 			switch (lv_) {
 			case CommentLevel::KIND:lv_ = CommentLevel::NORMAL; break;
 			case CommentLevel::NORMAL:lv_ = CommentLevel::SEVERE; break;
@@ -89,7 +92,7 @@ void CommentSelect::Update()
 			default:break;
 			}
 		}
-		if (CheckHitKey(KEY_INPUT_DOWN)) {
+		if (Input::IsKeyDown(KEY_INPUT_DOWN)) {
 			switch (lv_) {
 			case CommentLevel::KIND:lv_ = CommentLevel::SEVERE; break;
 			case CommentLevel::NORMAL:lv_ = CommentLevel::KIND; break;

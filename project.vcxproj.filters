@@ -80,6 +80,10 @@
     <ClCompile Include="Source\CommentSelect.cpp">
       <Filter>PlayScene\Comment</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Avatar.cpp" />
+    <ClCompile Include="Library\Input.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\SceneFactory.h" />
@@ -170,6 +174,10 @@
     </ClInclude>
     <ClInclude Include="Source\CommentSelect.h">
       <Filter>PlayScene\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Avatar.h" />
+    <ClInclude Include="Library\Input.h">
+      <Filter>Library</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
