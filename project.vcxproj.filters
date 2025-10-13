@@ -81,6 +81,12 @@
     <ClCompile Include="Library\Input.cpp">
       <Filter>Library</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CommentOutput.cpp">
+      <Filter>PlayScene\Comment</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CommentDatabase.cpp">
+      <Filter>PlayScene\Comment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\SceneFactory.h" />
@@ -172,6 +178,15 @@
     <ClInclude Include="Source\Avatar.h" />
     <ClInclude Include="Library\Input.h">
       <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CommentTypes.h">
+      <Filter>PlayScene\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CommentOutput.h">
+      <Filter>PlayScene\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CommentDatabase.h">
+      <Filter>PlayScene\Comment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

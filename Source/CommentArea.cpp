@@ -2,10 +2,12 @@
 #include <DxLib.h>
 #include "Screen.h"
 #include"CommentSelect.h"
+#include"CommentOutput.h"
 
 CommentArea::CommentArea()
 {
 	new CommentSelect();
+	new CommentOutput();
 }
 
 CommentArea::~CommentArea()

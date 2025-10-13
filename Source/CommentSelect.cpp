@@ -1,6 +1,7 @@
 #include"CommentSelect.h"
 #include <DxLib.h>
 #include"CommentArea.h"
+#include"CommentDatabase.h"
 #include"../Library/Input.h"
 
 CommentSelect::CommentSelect()
@@ -11,6 +12,7 @@ CommentSelect::CommentSelect()
 	st_=STOP;
 	lv_ = KIND;
 
+	commentOutputInstance = new CommentOutput();
 	Input::Initialize();
 
 }
@@ -39,7 +41,7 @@ void CommentSelect::Update()
 		default:break;
 		}
 	}
-	
+
 	//方向の選択
 	if (focus_ == Select::DIRECTION) {
 		if (Input::IsKeyDown(KEY_INPUT_UP)) {
@@ -55,17 +57,17 @@ void CommentSelect::Update()
 			case DirectionSelect::NONE:dir_ = DirectionSelect::LEFT; break;
 			case DirectionSelect::RIGHT:dir_ = DirectionSelect::NONE; break;
 			case DirectionSelect::LEFT:dir_ = DirectionSelect::RIGHT; break;
-			default:break;
+			default:dir_ = DirectionSelect::NONE; break;
 			}
 		}
 	}
-	
+
 	//命令の選択
 	if (focus_ == Select::STATE) {
 		if (Input::IsKeyDown(KEY_INPUT_UP)) {
 			switch (st_) {
-			case StateSelect::STOP:st_ = StateSelect::WORK; break;
-			case StateSelect::WORK:st_ = StateSelect::RUN; break;
+			case StateSelect::STOP:st_ = StateSelect::WARK; break;
+			case StateSelect::WARK:st_ = StateSelect::RUN; break;
 			case StateSelect::RUN:st_ = StateSelect::JUMP; break;
 			case StateSelect::JUMP:st_ = StateSelect::STOP; break;
 			default:break;
@@ -74,8 +76,8 @@ void CommentSelect::Update()
 		if (Input::IsKeyDown(KEY_INPUT_DOWN)) {
 			switch (st_) {
 			case StateSelect::STOP:st_ = StateSelect::JUMP; break;
-			case StateSelect::WORK:st_ = StateSelect::STOP; break;
-			case StateSelect::RUN:st_ = StateSelect::WORK; break;
+			case StateSelect::WARK:st_ = StateSelect::STOP; break;
+			case StateSelect::RUN:st_ = StateSelect::WARK; break;
 			case StateSelect::JUMP:st_ = StateSelect::RUN; break;
 			default:break;
 			}
@@ -102,6 +104,20 @@ void CommentSelect::Update()
 		}
 	}
 
+	if (Input::IsKeyDown(KEY_INPUT_RETURN)) {
+
+		if(st_==StateSelect::STOP) {
+			dir_ = DirectionSelect::NONE;
+		}
+		if (commentOutputInstance) {
+			std::string comment = CommentDatabase::GetComment(dir_, st_, lv_);
+			commentOutputInstance->SetCommentText(comment);
+		}
+	}
+
+	if( commentOutputInstance) {
+		commentOutputInstance->Update();
+	}
 }
 
 void CommentSelect::Draw()
@@ -111,9 +127,9 @@ void CommentSelect::Draw()
 	//コメント選択の描画
 	for (int i = 1; i <= commentSelectNumber; i++) {
 		DrawBox(CommentUi::BoxX, CommentUi::BoxY,
-			CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * i, 
+			CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * i,
 			CommentUi::BoxY + CommentUi::BoxHeight,
-			GetColor(0, 0, 255), FALSE,5);
+			GetColor(0, 0, 255), FALSE, 5);
 	}
 	//選択中の枠線の色を変える
 	switch (focus_) {
@@ -137,4 +153,49 @@ void CommentSelect::Draw()
 		break;
 	default:break;
 	}
+	//文字の描画
+	switch (dir_) {
+		case DirectionSelect::NONE:
+			break;
+		case DirectionSelect::RIGHT:
+			DrawString(CommentUi::BoxX + 20, CommentUi::BoxY + 20, "RIGHT", GetColor(255, 255, 255));
+			break;
+		case DirectionSelect::LEFT:
+			DrawString(CommentUi::BoxX + 20, CommentUi::BoxY + 20, "LEFT", GetColor(255, 255, 255));
+			break;
+		default:break;
+
+	}
+	switch (st_) {
+	case StateSelect::STOP:
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "STOP", GetColor(255, 255, 255));
+		break;
+	case StateSelect::WARK:
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "WARK", GetColor(255, 255, 255));
+		break;
+	case StateSelect::RUN:
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "RUN", GetColor(255, 255, 255));
+		break;
+	case StateSelect::JUMP:
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "JUMP", GetColor(255, 255, 255));
+		break;
+	default:break;
+	}
+	switch (lv_) {
+	case CommentLevel::KIND:
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "KIND", GetColor(255, 255, 255));
+		break;
+	case CommentLevel::NORMAL:
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "NORMAL", GetColor(255, 255, 255));
+		break;
+	case CommentLevel::SEVERE:
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "SEVERE", GetColor(255, 255, 255));
+		break;
+	default:break;
+	}
+
+	if (commentOutputInstance) {
+		commentOutputInstance->Draw();
+	}
+
 }
