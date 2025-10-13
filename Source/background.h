@@ -12,5 +12,6 @@ public:
 private:
 	int wImage;
 	int rImage;
+	int tImage;
 	
 };
