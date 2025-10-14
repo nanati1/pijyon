@@ -4,6 +4,7 @@
 
 void CommentOutput::SetCommentText(const std::string& comment) {
     currentComment_ = comment;
+    x_ = 1360;
 }
 
 void CommentOutput::Update() {
