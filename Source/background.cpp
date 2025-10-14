@@ -13,7 +13,8 @@ BackGround::BackGround()
 	assert(tImage > 0);
 	hImage = LoadGraph("data/image/skin color.jpg");
 	assert(hImage > 0);
-
+	iImage = LoadGraph("data/image/Icon2.png");
+	assert(iImage > 0);
 	new Avatar();
 }
 
@@ -36,5 +37,6 @@ void BackGround::Draw()
 	DrawExtendGraph(0, 0, 1920, 72, wImage, 0);//上
 	DrawExtendGraph(100, 0, 280, 72, rImage, 1);//ロゴ
 	DrawExtendGraph(0, 0, 72, 72, tImage, 1);//タブ
+	DrawExtendGraph(1720, 0, 1820, 72, iImage, 1);//アイコン
 	DrawExtendGraph(0, 765, 1920, 1080, wImage, 0);//下
 }

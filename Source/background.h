@@ -13,5 +13,5 @@ private:
 	int wImage;
 	int rImage;
 	int tImage;
-	
+	int iImage;
 };
