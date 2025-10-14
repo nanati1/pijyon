@@ -6,6 +6,7 @@
 #include "PlayScene.h"
 #include "GameOverScene.h"
 #include "ClearScene.h"
+#include "RetryScene.h"
 
 SceneBase* SceneFactory::CreateFirst()
 {
@@ -29,6 +30,10 @@ SceneBase * SceneFactory::Create(const std::string & name)
 	if (name == "CLEAR")
 	{
 		return new ClearScene();
+	}
+	if (name == "RETRY")
+	{
+		return new RetryScene();
 	}
 	MessageBox(NULL, ("éüÇÃÉVÅ[ÉìÇÕÇ†ÇËÇ‹ÇπÇÒ\n" + name).c_str(), "SceneFactory", MB_ICONERROR | MB_OK);
 	assert(false);

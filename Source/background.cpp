@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include <assert.h>
 #include "Avatar.h"
+#include "CommentArea.h"
 
 BackGround::BackGround()
 {
@@ -16,6 +17,7 @@ BackGround::BackGround()
 	iImage = LoadGraph("data/image/Icon2.png");
 	assert(iImage > 0);
 	new Avatar();
+	new CommentArea();
 }
 
 BackGround::BackGround(VECTOR2 pos)
@@ -32,7 +34,6 @@ void BackGround::Update()
 
 void BackGround::Draw()
 {
-	//DrawExtendGraph(0, 0, 160, 1080, hImage, 0);// ç∂í[
 	DrawExtendGraph(1360, 72, 1920, 765, hImage, 0);//âEí[
 	DrawExtendGraph(0, 0, 1920, 72, wImage, 0);//è„
 	DrawExtendGraph(100, 0, 280, 72, rImage, 1);//ÉçÉS

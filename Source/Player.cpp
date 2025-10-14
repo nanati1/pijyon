@@ -123,11 +123,12 @@ void Player::Update()
 	//画面買いに出たらスタート地点に戻る
 	if (position.y >= 710)
 	{
-		position = VECTOR2(100, 635);
+		/*position = VECTOR2(100, 635);
 		Stage* st = FindGameObject<Stage>();
 		if (st != nullptr) {
 			st->SetScrollX(0);
-		}
+		}*/
+		SceneManager::ChangeScene("RETRY");
 
 	}
 }

@@ -77,7 +77,6 @@
     <ClCompile Include="Source\CommentSelect.cpp">
       <Filter>PlayScene\Comment</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Avatar.cpp" />
     <ClCompile Include="Library\Input.cpp">
       <Filter>Library</Filter>
     </ClCompile>
@@ -86,6 +85,12 @@
     </ClCompile>
     <ClCompile Include="Source\CommentDatabase.cpp">
       <Filter>PlayScene\Comment</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Avatar.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RetryScene.cpp">
+      <Filter>Retry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +180,6 @@
     <ClInclude Include="Source\CommentSelect.h">
       <Filter>PlayScene\Comment</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Avatar.h" />
     <ClInclude Include="Library\Input.h">
       <Filter>Library</Filter>
     </ClInclude>
@@ -187,6 +191,12 @@
     </ClInclude>
     <ClInclude Include="Source\CommentDatabase.h">
       <Filter>PlayScene\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Avatar.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RetryScene.h">
+      <Filter>Retry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +223,9 @@
     </Filter>
     <Filter Include="PlayScene\Comment">
       <UniqueIdentifier>{03656013-d035-4563-97de-21aa384466aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Retry">
+      <UniqueIdentifier>{11769468-8b0f-48c2-86fb-7242cb9012bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -165,6 +165,7 @@
     <ClInclude Include="Source\GameOverScene.h" />
     <ClInclude Include="Source\Object2D.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\RetryScene.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\SceneFactory.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Source\Object2D.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />
+    <ClCompile Include="Source\RetryScene.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Source\Stage.cpp" />
     <ClCompile Include="Source\TitleScene.cpp" />
