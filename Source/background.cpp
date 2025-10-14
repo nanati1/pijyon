@@ -7,7 +7,7 @@ BackGround::BackGround()
 {
 	wImage = LoadGraph("data/image/white.jpg");
 	assert(wImage > 0);
-	rImage = LoadGraph("data/image/Rogo.png");
+	rImage = LoadGraph("data/image/Rogo1.png");
 	assert(rImage > 0);
 	tImage = LoadGraph("data/image/Tab.png");
 	assert(tImage > 0);

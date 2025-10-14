@@ -6,7 +6,7 @@
 #include "Screen.h"
 
 
-Player::Player() : Player(VECTOR2(1000, 2000))
+Player::Player() : Player(VECTOR2(100, 300))
 {
 }
 
@@ -120,10 +120,15 @@ void Player::Update()
 	ImGui::InputFloat("positionY", &position.y);
 	ImGui::End();
 
-	//落下し
+	//画面買いに出たらスタート地点に戻る
 	if (position.y >= 710)
 	{
-		SceneManager::ChangeScene("GAMEOVER");
+		position = VECTOR2(100, 635);
+		Stage* st = FindGameObject<Stage>();
+		if (st != nullptr) {
+			st->SetScrollX(0);
+		}
+
 	}
 }
 

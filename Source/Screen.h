@@ -17,11 +17,6 @@ namespace Screen
 
 	static const int boxWidth = WIDTHSMALL;
 	static const int boxHeight = HEIGHTSMALL;
-	/*static const int startX = (int)(WIDTH * 0.5f - boxWidth * 0.5f * WINDOW_EXTEND);
-	static const int startY = (int)(HEIGHT * 0.3f - boxHeight * 0.3f * WINDOW_EXTEND);
-	static const int endX = startX + (int)(boxWidth * WINDOW_EXTEND);
-	static const int endY = startY + (int)(boxHeight * WINDOW_EXTEND);*/
-
 	static const int startX = 0;      
 	static const int startY = 0;     
 	static const int endX = startX + boxWidth;  
