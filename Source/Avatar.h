@@ -7,10 +7,10 @@ public:
 	Avatar();
 	Avatar(VECTOR2 pos);
 	~Avatar();
-	void Update() override;
+	void Update(int stress);
 	void Draw() override;
 private:
-	int aImage;
-	int rImage;
+	int hImage;//画像ハンドル
 
+	int animX;//表情を変えるための変数。0～3,大きくなるほど怒る
 };
