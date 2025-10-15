@@ -45,7 +45,16 @@ Player::~Player()
 
 void Player::Update()
 {
+	//常に右に移動
 	Stage* st = FindGameObject<Stage>();
+	position.x += moveSpeed;
+	int push = st->CheckRight(position + VECTOR2(24, -31)); // 右上
+	position.x -= push;
+	push = st->CheckRight(position + VECTOR2(24, 31)); // 右下
+	position.x -= push;
+
+
+	
 	if (CheckHitKey(KEY_INPUT_D)) {
 		position.x += moveSpeed;
 		int push = st->CheckRight(position + VECTOR2(24, -31)); // 右上
