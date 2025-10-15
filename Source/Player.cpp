@@ -4,7 +4,7 @@
 #include "../ImGui/imgui.h"
 #include "CsvReader.h"
 #include "Screen.h"
-
+#include "Avatar.h"
 
 Player::Player() : Player(VECTOR2(100, 300))
 {
@@ -120,16 +120,21 @@ void Player::Update()
 	ImGui::InputFloat("positionY", &position.y);
 	ImGui::End();
 
+
+	
 	//画面買いに出たらスタート地点に戻る
 	if (position.y >= 710)
 	{
+		Avatar* avt = FindGameObject<Avatar>();
+		avt->StressSet(10);
 		/*position = VECTOR2(100, 635);
 		Stage* st = FindGameObject<Stage>();
 		if (st != nullptr) {
 			st->SetScrollX(0);
 		}*/
 		SceneManager::ChangeScene("RETRY");
-
+		
+		
 	}
 }
 
