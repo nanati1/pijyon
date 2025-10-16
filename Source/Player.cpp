@@ -5,6 +5,8 @@
 #include "CsvReader.h"
 #include "Screen.h"
 #include "Avatar.h"
+#include"CommentSelect.h"
+#include"../Library/Input.h"
 
 Player::Player() : Player(VECTOR2(100, 300))
 {
@@ -38,7 +40,6 @@ Player::Player(VECTOR2 pos)
 	position = pos;
 	velocityY = 0.0f;
 
-	bool autoMovingRight = true;
 }
 
 Player::~Player()
@@ -49,36 +50,87 @@ void Player::Update()
 {
 	Stage* st = FindGameObject<Stage>();
 
-	
-	// 右に自動移動中なら右移動処理
-	if (autoMovingRight) {
-		position.x += moveSpeed;
-		int push = st->CheckRight(position + VECTOR2(24, -31)); // 右上
-		position.x -= push;
-		push = st->CheckRight(position + VECTOR2(24, 31)); // 右下
-		position.x -= push;
+	if (Input::IsKeyDown(KEY_INPUT_RETURN)) { 
+		if (auto* cs = FindGameObject<CommentSelect>()) {
+			const int dir = cs->GetDirectionValue(); // 0:None,1:Right,2:Left
+			const int state = cs->GetStateValue();     // 0:Stop,1:Walk,...
+
+			if (state == 1) { // WALK のときだけ継続歩行を更新
+				if (dir == 1) {             // RIGHT
+					walkByCommentActive = true;
+					walkByCommentDir = +1;
+					directionRight = true;
+				}
+				else if (dir == 2) {        // LEFT
+					walkByCommentActive = true;
+					walkByCommentDir = -1;
+					directionRight = false;
+				}
+				else {                      // NONE
+					walkByCommentActive = true;
+					walkByCommentDir = (directionRight ? +1 : -1);
+				}
+			}
+			else if (state == 0) { // STOP 指示で止める
+				walkByCommentActive = false;
+				walkByCommentDir = 0;
+				autoMovingRight = false;
+			}
+			// RUN/JUMP は後から
+		}
 	}
 
-	// Dキーは、自動移動していないときだけ有効
-	if (!autoMovingRight && CheckHitKey(KEY_INPUT_D)) {
-		position.x += moveSpeed;
-		int push = st->CheckRight(position + VECTOR2(24, -31));
-		position.x -= push;
-		push = st->CheckRight(position + VECTOR2(24, 31));
-		position.x -= push;
-
-		autoMovingRight = true;// Dキーを押したら自動移動開始
+	// ==== コメント由来の継続歩行 ====
+	if (walkByCommentActive) {
+		if (walkByCommentDir == +1) {
+			// 右へ（衝突補正込み）
+			position.x += moveSpeed;
+			int push = st->CheckRight(position + VECTOR2(24, -31)); // 右上
+			position.x -= push;
+			push = st->CheckRight(position + VECTOR2(24, 31));      // 右下
+			position.x -= push;
+		}
+		else if (walkByCommentDir == -1) {
+			// 左へ（衝突補正込み）
+			position.x -= moveSpeed;
+			int push = st->CheckLeft(position + VECTOR2(-24, -31)); // 左上
+			position.x += push;
+			push = st->CheckLeft(position + VECTOR2(-24, 31));      // 左下
+			position.x += push;
+		}
 	}
+	else {
+
+		// 右に自動移動中なら右移動処理
+		if (autoMovingRight) {
+			position.x += moveSpeed;
+			int push = st->CheckRight(position + VECTOR2(24, -31)); // 右上
+			position.x -= push;
+			push = st->CheckRight(position + VECTOR2(24, 31)); // 右下
+			position.x -= push;
+		}
+
+		// Dキーは、自動移動していないときだけ有効
+		if (!autoMovingRight && CheckHitKey(KEY_INPUT_D)) {
+			position.x += moveSpeed;
+			int push = st->CheckRight(position + VECTOR2(24, -31));
+			position.x -= push;
+			push = st->CheckRight(position + VECTOR2(24, 31));
+			position.x -= push;
+
+			autoMovingRight = true;// Dキーを押したら自動移動開始
+		}
 
 
-	if (CheckHitKey(KEY_INPUT_A)) {
-		position.x -= moveSpeed;
-		int push = st->CheckLeft(position + VECTOR2(-24, -31)); // 左上
-		position.x += push;
-		push = st->CheckLeft(position + VECTOR2(-24, 31)); // 左下
-		position.x += push;
+		if (CheckHitKey(KEY_INPUT_A)) {
+			position.x -= moveSpeed;
+			int push = st->CheckLeft(position + VECTOR2(-24, -31)); // 左上
+			position.x += push;
+			push = st->CheckLeft(position + VECTOR2(-24, 31)); // 左下
+			position.x += push;
 
-		autoMovingRight = false;// Aキーを押したら自動移動解除
+			autoMovingRight = false;// Aキーを押したら自動移動解除
+		}
 	}
 	if (onGround) {
 		if (CheckHitKey(KEY_INPUT_SPACE)) {

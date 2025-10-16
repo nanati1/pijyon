@@ -13,10 +13,13 @@ private:
 	float velocityY;
 	bool onGround;
 	bool prevPushed;
-	bool autoMovingRight;
+	bool autoMovingRight=true;
 
 	float Gravity;
 	float JumpHeight;
 	float JumpV0;
 	float moveSpeed;
+	bool directionRight = true;//向き　右:true　左:false
+	bool  walkByCommentActive = false; // コメント由来の継続歩行中か
+	int   walkByCommentDir = 0;     // -1:左 / 0:停止 / +1:右
 };

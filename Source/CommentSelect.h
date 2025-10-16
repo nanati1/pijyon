@@ -14,6 +14,11 @@ public:
 	~CommentSelect();
 	void Update() override;
 	void Draw() override;
+
+	int GetDirectionValue() const { return static_cast<int>(dir_); }
+	int GetStateValue()     const { return static_cast<int>(st_); }
+	int GetLevelValue()     const { return static_cast<int>(lv_); }
+
 private:
 	enum Select{DIRECTION,STATE,LEVEL,};
 
