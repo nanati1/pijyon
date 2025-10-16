@@ -238,7 +238,7 @@ void Player::Update()
 	{
 		Avatar* avt = FindGameObject<Avatar>();
 		avt->StressSet(10);
-		
+	
 		SceneManager::ChangeScene("RETRY");
 	}
 }

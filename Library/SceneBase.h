@@ -17,4 +17,6 @@ public:
 
 	virtual void Update() {}
 	virtual void Draw() {}
+
+	virtual bool KeepPreviousScene() const { return false; }
 };

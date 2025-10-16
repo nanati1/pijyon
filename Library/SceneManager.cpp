@@ -6,7 +6,7 @@
 namespace
 {
 	std::string* currentName; // 現在のシーンの名称
-	std::string* nextName;    // 次のシーンの名称
+	std::string* nextName;    // 次のシーンの名称 
 	SceneBase* currentScene; // 今のシーンのインスタンスを保持
 	SceneFactory* factory;   // シーン切り替え用のFactoryのポインター
 	bool exitRequest;

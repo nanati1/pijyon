@@ -1,17 +1,17 @@
 #include "Avatar.h"
 #include <assert.h>
 
-
-
 Avatar::Avatar()
 	:animX(0), hImage(-1),stress(0){
 	hImage = LoadGraph("data/image/AvaterChip.png");
 	assert(hImage > 0);
-}
 
-Avatar::Avatar(VECTOR2 pos)
-	:animX(3), hImage(-1)
-{
+	std::string voicePath[4] = {
+		"data/voice/AngryLevel1.mp4",//‚à[
+		"data/voice/AngryLevel2.mp4",//‚Î‚©
+		"data/voice/AngryLevel3.mp4",//‚¨‚±‚Á‚½
+		"data/voice/AngryLevel4.mp4"//‚µ‚ç‚È‚¢I
+	};
 }
 
 Avatar::~Avatar()
@@ -21,10 +21,15 @@ Avatar::~Avatar()
 
 void Avatar::Update()
 {
-	animX = (stress/10);
-	ImGui::Begin("Stress");
-	ImGui::InputInt("stress", &stress);
+	animX = (Screen::stress/10);
+	ImGui::Begin("Screen::stress");
+	ImGui::InputInt("Screen::stress", &Screen::stress);
 	ImGui::End();
+	if (Screen::stress > 40)
+	{
+		Screen::stress = 0;
+		SceneManager::ChangeScene("GAMEOVER");
+	}
 }
 
 
@@ -37,9 +42,9 @@ void Avatar::Draw()
 
 void Avatar::StressSet(int s)
 {
-	if (stress < 40)
+	if (Screen::stress < 40)
 	{
-		stress += s;
+		Screen::stress += s;
 	}
 	
 }

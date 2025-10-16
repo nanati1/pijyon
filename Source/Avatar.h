@@ -2,15 +2,16 @@
 #include "Object2D.h"
 #include <vector>
 #include "../ImGui/imgui.h"
+#include "Screen.h"
 class Avatar : public Object2D {
 public:
+
 	Avatar();
-	Avatar(VECTOR2 pos);
 	~Avatar();
 	void Update()override;
 	void Draw() override;
 	void StressSet(int s);
-	int GetStress() { return stress; }
+	int GetStress() { return Screen::stress; }
 private:
 	int stress ; //ストレス値を取得するための変数
 	int hImage;//画像ハンドル
