@@ -66,6 +66,8 @@ void Player::Update()
 		position.x -= push;
 		push = st->CheckRight(position + VECTOR2(24, 31));
 		position.x -= push;
+
+		autoMovingRight = true;// Dキーを押したら自動移動開始
 	}
 
 
@@ -75,6 +77,8 @@ void Player::Update()
 		position.x += push;
 		push = st->CheckLeft(position + VECTOR2(-24, 31)); // 左下
 		position.x += push;
+
+		autoMovingRight = false;// Aキーを押したら自動移動解除
 	}
 	if (onGround) {
 		if (CheckHitKey(KEY_INPUT_SPACE)) {
@@ -138,19 +142,13 @@ void Player::Update()
 
 
 	
-	//画面買いに出たらスタート地点に戻る
+	//画面の外に出たらスタート地点に戻る
 	if (position.y >= 710)
 	{
 		Avatar* avt = FindGameObject<Avatar>();
 		avt->StressSet(10);
-		/*position = VECTOR2(100, 635);
-		Stage* st = FindGameObject<Stage>();
-		if (st != nullptr) {
-			st->SetScrollX(0);
-		}*/
+		
 		SceneManager::ChangeScene("RETRY");
-		
-		
 	}
 }
 
