@@ -12,10 +12,11 @@ BackGround::BackGround()
 	assert(rImage > 0);
 	tImage = LoadGraph("data/image/Tab.png");
 	assert(tImage > 0);
-	hImage = LoadGraph("data/image/skin color.jpg");
+	hImage = LoadGraph("data/image/chat.jpg");
 	assert(hImage > 0);
 	iImage = LoadGraph("data/image/Icon2.png");
 	assert(iImage > 0);
+	
 	new Avatar();
 	new CommentArea();
 }
@@ -35,7 +36,8 @@ void BackGround::Update()
 
 void BackGround::Draw()
 {
-	DrawExtendGraph(1360, 72, 1920, 765, hImage, 0);//右端
+	//DrawExtendGraph(1360, 72, 1920, 765, wImage, 0);//右端
+	DrawExtendGraph(1360, 72, 1920, 765, hImage, 1);//右端
 	DrawExtendGraph(0, 0, 1920, 72, wImage, 0);//上
 	DrawExtendGraph(100, 0, 280, 72, rImage, 1);//ロゴ
 	DrawExtendGraph(0, 0, 72, 72, tImage, 1);//タブ

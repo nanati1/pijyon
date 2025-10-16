@@ -68,9 +68,6 @@
     <ClCompile Include="Source\CsvReader.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\background.cpp">
-      <Filter>PlayScene</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CommentArea.cpp">
       <Filter>PlayScene\Comment</Filter>
     </ClCompile>
@@ -91,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="Source\RetryScene.cpp">
       <Filter>Retry</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\background.cpp">
+      <Filter>PlayScene\background</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +171,6 @@
       <Filter>PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Screen.h" />
-    <ClInclude Include="Source\background.h">
-      <Filter>PlayScene</Filter>
-    </ClInclude>
     <ClInclude Include="Source\CommentArea.h">
       <Filter>PlayScene\Comment</Filter>
     </ClInclude>
@@ -197,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="Source\RetryScene.h">
       <Filter>Retry</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\background.h">
+      <Filter>PlayScene\background</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +226,9 @@
     </Filter>
     <Filter Include="Retry">
       <UniqueIdentifier>{11769468-8b0f-48c2-86fb-7242cb9012bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayScene\background">
+      <UniqueIdentifier>{91bb5ff2-6b3b-4dea-81ee-14e50e150c71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
