@@ -49,11 +49,14 @@ Player::~Player()
 void Player::Update()
 {
 	Stage* st = FindGameObject<Stage>();
+	Avatar* avt = FindGameObject<Avatar>();
+
 
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) { 
 		if (auto* cs = FindGameObject<CommentSelect>()) {
 			const int dir = cs->GetDirectionValue(); // 0:None,1:Right,2:Left
-			const int state = cs->GetStateValue();     // 0:Stop,1:Walk,...
+			const int state = cs->GetStateValue();     // 0:Stop,1:Walk,2:Run,3Jump
+			const int lv = cs->GetLevelValue();
 
 			if (state == 1) { // WALK ‚Ì‚Æ‚«‚¾‚¯Œp‘±•às‚ðXV
 				if (dir == 1) {             // RIGHT
@@ -77,6 +80,42 @@ void Player::Update()
 				autoMovingRight = false;
 			}
 			// RUN/JUMP ‚ÍŒã‚©‚ç
+			else if (state == 2) //RUN
+			{
+				if (dir == 1) {             // RIGHT
+					walkByCommentActive = true;
+					walkByCommentDir = +1;
+					directionRight = true;
+				}
+				else if (dir == 2) {        // LEFT
+					walkByCommentActive = true;
+					walkByCommentDir = -1;
+					directionRight = false;
+				}
+				else {                      // NONE
+					walkByCommentActive = true;
+					walkByCommentDir = (directionRight ? +1 : -1);
+				}
+
+			}
+			else if (state == 3) {//JUMP
+				if (onGround) {
+					if (prevPushed == false) {
+						velocityY = JumpV0;
+					}
+					prevPushed = true;
+				}
+			}
+			else {
+				prevPushed = false;
+			}
+
+			
+			if (lv == 0) { avt->StressSet(1); }//KIND
+			if (lv == 1) { avt->StressSet(5); }//NORMAL
+			if (lv == 2) { avt->StressSet(10); }//SEVERE
+
+
 		}
 	}
 
