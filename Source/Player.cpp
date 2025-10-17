@@ -27,6 +27,9 @@ Player::Player(VECTOR2 pos)
 		else if (tag == "MoveSpeed") {
 			moveSpeed = csv->GetFloat(i, 1);
 		}
+		else if (tag == "DashSpeed") {
+			DashSpeed = csv->GetFloat(i, 1);
+		}
 	}
 	JumpV0 = -sqrtf(2.0f * Gravity * JumpHeight);
 
@@ -59,6 +62,7 @@ void Player::Update()
 			const int lv = cs->GetLevelValue();
 
 			if (state == 1) { // WALK のときだけ継続歩行を更新
+				commentMoveSpeed = moveSpeed;
 				if (dir == 1) {             // RIGHT
 					walkByCommentActive = true;
 					walkByCommentDir = +1;
@@ -82,6 +86,7 @@ void Player::Update()
 			// RUN/JUMP は後から
 			else if (state == 2) //RUN
 			{
+				commentMoveSpeed = DashSpeed;
 				if (dir == 1) {             // RIGHT
 					walkByCommentActive = true;
 					walkByCommentDir = +1;
@@ -99,31 +104,70 @@ void Player::Update()
 
 			}
 			else if (state == 3) {//JUMP
+				const bool idleNow = (!walkByCommentActive && !autoMovingRight);
 				if (onGround) {
 					if (prevPushed == false) {
 						velocityY = JumpV0;
+						int dirH = 0;
+						if (dir == 1)dirH = +1;//RIGHT
+						else if (dir == 2)dirH = -1;//LEFT
+						else dirH = (directionRight ? +1 : -1);//NONE:現在の向き
+						if (idleNow && dirH != 0) {
+							jumpMoveActive = true;
+							jumpMoveDir = dirH;
+							airMoveSpeed = (DashSpeed > 0.0f) ? DashSpeed : moveSpeed;
+							directionRight = (dirH > 0);
+							stopAfterLanding = true;   // ★ 着地したら完全停止
+						}
 					}
+
 					prevPushed = true;
 				}
+
 			}
 			else {
-				prevPushed = false;
+				autoMovingRight = false;
+
 			}
 
 			
-			if (lv == 0) { avt->StressSet(1); }//KIND
-			if (lv == 1) { avt->StressSet(5); }//NORMAL
-			if (lv == 2) { avt->StressSet(10); }//SEVERE
-
+			if (lv == 0) { //KIND
+				avt->StressSet(1); 
+			}
+			if (lv == 1) {//NORMAL
+				avt->StressSet(5); 
+			}
+			if (lv == 2) {//SEVERE
+				avt->StressSet(10); 
+			}
+			
 
 		}
 	}
+	//空中移動
+	if (jumpMoveActive) {
+		const float spd = (airMoveSpeed > 0.0f) ? airMoveSpeed : moveSpeed;
 
-	// ==== コメント由来の継続歩行 ====
+		if (jumpMoveDir == +1) {
+			position.x += spd;
+			int push = st->CheckRight(position + VECTOR2(24, -31));
+			position.x -= push;
+			push = st->CheckRight(position + VECTOR2(24, 31));
+			position.x -= push;
+		}
+		else if (jumpMoveDir == -1) {
+			position.x -= spd;
+			int push = st->CheckLeft(position + VECTOR2(-24, -31));
+			position.x += push;
+			push = st->CheckLeft(position + VECTOR2(-24, 31));
+			position.x += push;
+		}
+	}
+	//  コメント由来の継続歩行 
 	if (walkByCommentActive) {
 		if (walkByCommentDir == +1) {
 			// 右へ（衝突補正込み）
-			position.x += moveSpeed;
+			position.x += commentMoveSpeed;
 			int push = st->CheckRight(position + VECTOR2(24, -31)); // 右上
 			position.x -= push;
 			push = st->CheckRight(position + VECTOR2(24, 31));      // 右下
@@ -131,7 +175,7 @@ void Player::Update()
 		}
 		else if (walkByCommentDir == -1) {
 			// 左へ（衝突補正込み）
-			position.x -= moveSpeed;
+			position.x -= commentMoveSpeed;
 			int push = st->CheckLeft(position + VECTOR2(-24, -31)); // 左上
 			position.x += push;
 			push = st->CheckLeft(position + VECTOR2(-24, 31));      // 左下
@@ -205,12 +249,36 @@ void Player::Update()
 			velocityY = 0.0f;
 			onGround = true;
 			position.y -= push - 1;
+
+			if (jumpMoveActive) {//コメントのジャンプ時の挙動
+				jumpMoveActive = false;
+				jumpMoveDir = 0;
+
+				if (stopAfterLanding) {
+					walkByCommentActive = false;
+					walkByCommentDir = 0;
+					autoMovingRight = false;
+					stopAfterLanding = false;
+				}
+			}
 		}
 		push = st->CheckDown(position + VECTOR2(24, 31 + 1)); // 右下
 		if (push > 0) {
 			velocityY = 0.0f;
 			onGround = true;
 			position.y -= push - 1;
+
+			if (jumpMoveActive) {//コメントのジャンプ時の挙動
+				jumpMoveActive = false;
+				jumpMoveDir = 0;
+
+				if (stopAfterLanding) {
+					walkByCommentActive = false;
+					walkByCommentDir = 0;
+					autoMovingRight = false;
+					stopAfterLanding = false;
+				}
+			}
 		}
 	}
 
