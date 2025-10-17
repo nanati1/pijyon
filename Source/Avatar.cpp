@@ -2,34 +2,52 @@
 #include <assert.h>
 
 Avatar::Avatar()
-	:animX(0), hImage(-1),stress(0){
+	:animX(0), hImage(-1), prevAnim(0), IsVoice(true) {
 	hImage = LoadGraph("data/image/AvaterChip.png");
 	assert(hImage > 0);
+	Screen::stress = 0;
 
-	std::string voicePath[4] = {
-		"data/voice/AngryLevel1.mp4",//‚à[
-		"data/voice/AngryLevel2.mp4",//‚Î‚©
-		"data/voice/AngryLevel3.mp4",//‚¨‚±‚Á‚½
-		"data/voice/AngryLevel4.mp4"//‚µ‚ç‚È‚¢I
-	};
 }
 
 Avatar::~Avatar()
 {
-
+	DeleteGraph(hImage);
 }
 
 void Avatar::Update()
 {
 	animX = (Screen::stress/10);
+	if (prevAnim!=animX)
+	{
+		if (animX == 1)
+		{
+			PlaySoundFile("data/voice/AngryLevel1.mp3", DX_PLAYTYPE_BACK);
+		}
+		else if(animX==2)
+		{
+			PlaySoundFile("data/voice/AngryLevel2.mp3", DX_PLAYTYPE_BACK);
+		}
+		else if (animX == 3)
+		{
+			PlaySoundFile("data/voice/AngryLevel3.mp3", DX_PLAYTYPE_BACK);
+		}
+		else
+		{
+			PlaySoundFile("data/voice/AngryLevel4.mp3", DX_PLAYTYPE_BACK);
+		}
+	}
+
+	
+	if (Screen::stress >= 40)
+	{
+		SceneManager::ChangeScene("GAMEOVER");
+	}
+	prevAnim = animX;
+
 	ImGui::Begin("Screen::stress");
 	ImGui::InputInt("Screen::stress", &Screen::stress);
 	ImGui::End();
-	if (Screen::stress > 40)
-	{
-		Screen::stress = 0;
-		SceneManager::ChangeScene("GAMEOVER");
-	}
+
 }
 
 
@@ -42,9 +60,6 @@ void Avatar::Draw()
 
 void Avatar::StressSet(int s)
 {
-	if (Screen::stress < 40)
-	{
 		Screen::stress += s;
-	}
 	
 }
