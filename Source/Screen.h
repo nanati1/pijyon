@@ -22,5 +22,6 @@ namespace Screen
 	static const int endX = startX + boxWidth;  
 	static const int endY = startY + boxHeight; 
 	static int stress = 0;
+	static const int maxStress = 40;
 };
 
