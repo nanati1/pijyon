@@ -83,7 +83,6 @@ void Player::Update()
 				walkByCommentDir = 0;
 				autoMovingRight = false;
 			}
-			// RUN/JUMP は後から
 			else if (state == 2) //RUN
 			{
 				commentMoveSpeed = DashSpeed;
@@ -109,15 +108,16 @@ void Player::Update()
 					if (prevPushed == false) {
 						velocityY = JumpV0;
 						int dirH = 0;
-						if (dir == 1)dirH = +1;//RIGHT
+						if (dir == 0)velocityY = JumpV0;
+						else if (dir == 1)dirH = +1;//RIGHT
 						else if (dir == 2)dirH = -1;//LEFT
 						else dirH = (directionRight ? +1 : -1);//NONE:現在の向き
 						if (idleNow && dirH != 0) {
 							jumpMoveActive = true;
 							jumpMoveDir = dirH;
-							airMoveSpeed = (DashSpeed > 0.0f) ? DashSpeed : moveSpeed;
+							airMoveSpeed =  moveSpeed;
 							directionRight = (dirH > 0);
-							stopAfterLanding = true;   // ★ 着地したら完全停止
+							stopAfterLanding = true;   // 着地したら完全停止
 						}
 					}
 
