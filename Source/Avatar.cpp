@@ -1,12 +1,21 @@
 #include "Avatar.h"
 #include <assert.h>
 
+namespace {
+	std::string voicePath[4] = {
+		"data/voice/AngryLevel1.mp3",//‚à[
+		"data/voice/AngryLevel2.mp3",//‚Î‚©
+		"data/voice/AngryLevel3.mp3",//‚¨‚±‚Á‚½
+		"data/voice/AngryLevel4.mp3"//‚µ‚ç‚È‚¢I
+	};
+}
+
 Avatar::Avatar()
-	:animX(0), hImage(-1), prevAnim(0), IsVoice(true) {
+	:animX(0), hImage(-1), prevAnim(0) {
 	hImage = LoadGraph("data/image/AvaterChip.png");
 	assert(hImage > 0);
-	Screen::stress = 0;
-
+	animX = (Screen::stress / 10);
+	prevAnim = animX;
 }
 
 Avatar::~Avatar()
@@ -16,30 +25,15 @@ Avatar::~Avatar()
 
 void Avatar::Update()
 {
-	animX = (Screen::stress/10);
-	if (prevAnim!=animX)
-	{
-		if (animX == 1)
-		{
-			PlaySoundFile("data/voice/AngryLevel1.mp3", DX_PLAYTYPE_BACK);
-		}
-		else if(animX==2)
-		{
-			PlaySoundFile("data/voice/AngryLevel2.mp3", DX_PLAYTYPE_BACK);
-		}
-		else if (animX == 3)
-		{
-			PlaySoundFile("data/voice/AngryLevel3.mp3", DX_PLAYTYPE_BACK);
-		}
-		else
-		{
-			PlaySoundFile("data/voice/AngryLevel4.mp3", DX_PLAYTYPE_BACK);
-		}
-	}
+	animX = (Screen::stress / 10);
 
-	
-	if (Screen::stress >= 40)
+	if (prevAnim != animX)
 	{
+		PlaySoundFile(voicePath[animX - 1].c_str(), DX_PLAYTYPE_BACK);
+	}
+	if (Screen::stress >= Screen::maxStress)
+	{
+		Screen::stress = 0;
 		SceneManager::ChangeScene("GAMEOVER");
 	}
 	prevAnim = animX;
@@ -50,16 +44,14 @@ void Avatar::Update()
 
 }
 
-
 void Avatar::Draw()
 {
-	//DrawExtendGraph(1100, 500, 1360, 765, hImage, 1);
-	DrawRectExtendGraph(1040, 500, 1380, 765, 200*(animX), 0, 200, 150, hImage, 1);
+	DrawRectExtendGraph(1040, 500, 1380, 765, 200 * (animX), 0, 200, 150, hImage, 1);
 }
 
 
 void Avatar::StressSet(int s)
 {
-		Screen::stress += s;
-	
+	Screen::stress += s;
+
 }
