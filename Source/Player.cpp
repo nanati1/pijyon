@@ -7,6 +7,8 @@
 #include "Avatar.h"
 #include"CommentSelect.h"
 #include"../Library/Input.h"
+#include<stdlib.h>
+#include<time.h>
 
 Player::Player() : Player(VECTOR2(100, 300))
 {
@@ -58,86 +60,101 @@ void Player::Update()
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) { 
 		if (auto* cs = FindGameObject<CommentSelect>()) {
 			const int dir = cs->GetDirectionValue(); // 0:None,1:Right,2:Left
-			const int state = cs->GetStateValue();     // 0:Stop,1:Walk,2:Run,3Jump
+			const int state = cs->GetStateValue();     // 0:Stop,1:Wark,2:Run,3Jump
 			const int lv = cs->GetLevelValue();
-
-			if (state == 1) { // WALK のときだけ継続歩行を更新
-				commentMoveSpeed = moveSpeed;
-				if (dir == 1) {             // RIGHT
-					walkByCommentActive = true;
-					walkByCommentDir = +1;
-					directionRight = true;
-				}
-				else if (dir == 2) {        // LEFT
-					walkByCommentActive = true;
-					walkByCommentDir = -1;
-					directionRight = false;
-				}
-				else {                      // NONE
-					walkByCommentActive = true;
-					walkByCommentDir = (directionRight ? +1 : -1);
-				}
+			int r = rand() % 100;
+			//コメントに従う確率
+			bool movePlayer = false; 
+			if (lv == SEVERE) { 
+				movePlayer = (r < 80);
 			}
-			else if (state == 0) { // STOP 指示で止める
-				walkByCommentActive = false;
-				walkByCommentDir = 0;
-				autoMovingRight = false;
+			else if (lv == NORMAL) {
+				movePlayer = (r < 50);
 			}
-			else if (state == 2) //RUN
+			else if(lv==KIND)
 			{
-				commentMoveSpeed = DashSpeed;
-				if (dir == 1) {             // RIGHT
-					walkByCommentActive = true;
-					walkByCommentDir = +1;
-					directionRight = true;
-				}
-				else if (dir == 2) {        // LEFT
-					walkByCommentActive = true;
-					walkByCommentDir = -1;
-					directionRight = false;
-				}
-				else {                      // NONE
-					walkByCommentActive = true;
-					walkByCommentDir = (directionRight ? +1 : -1);
-				}
-
+				movePlayer=(r < 20);
 			}
-			else if (state == 3) {//JUMP
-				const bool idleNow = (!walkByCommentActive && !autoMovingRight);
-				if (onGround) {
-					if (prevPushed == false) {
-						velocityY = JumpV0;
-						int dirH = 0;
-						if (dir == 0)velocityY = JumpV0;
-						else if (dir == 1)dirH = +1;//RIGHT
-						else if (dir == 2)dirH = -1;//LEFT
-						else dirH = (directionRight ? +1 : -1);//NONE:現在の向き
-						if (idleNow && dirH != 0) {
-							jumpMoveActive = true;
-							jumpMoveDir = dirH;
-							airMoveSpeed =  moveSpeed;
-							directionRight = (dirH > 0);
-							stopAfterLanding = true;   // 着地したら完全停止
-						}
+
+			if (movePlayer) {
+
+				if (state == WARK) { // WARK のときだけ継続歩行を更新
+					commentMoveSpeed = moveSpeed;
+					if (dir == RIGHT) {             // RIGHT
+						walkByCommentActive = true;
+						walkByCommentDir = +1;
+						directionRight = true;
+					}
+					else if (dir == LEFT) {        // LEFT
+						walkByCommentActive = true;
+						walkByCommentDir = -1;
+						directionRight = false;
+					}
+					else {                      // NONE
+						walkByCommentActive = true;
+						walkByCommentDir = (directionRight ? +1 : -1);
+					}
+				}
+				else if (state == STOP) { // STOP 指示で止める
+					walkByCommentActive = false;
+					walkByCommentDir = 0;
+					autoMovingRight = false;
+				}
+				else if (state == RUN) //RUN
+				{
+					commentMoveSpeed = DashSpeed;
+					if (dir == RIGHT) {             // RIGHT
+						walkByCommentActive = true;
+						walkByCommentDir = +1;
+						directionRight = true;
+					}
+					else if (dir == LEFT) {        // LEFT
+						walkByCommentActive = true;
+						walkByCommentDir = -1;
+						directionRight = false;
+					}
+					else {                      // NONE
+						walkByCommentActive = true;
+						walkByCommentDir = (directionRight ? +1 : -1);
 					}
 
-					prevPushed = true;
 				}
+				else if (state == JUMP) {//JUMP
+					const bool idleNow = (!walkByCommentActive && !autoMovingRight);
+					if (onGround) {
+						if (prevPushed == false) {
+							velocityY = JumpV0;
+							int dirH = 0;
+							if (dir == 0)velocityY = JumpV0;
+							else if (dir == RIGHT)dirH = +1;//RIGHT
+							else if (dir == LEFT)dirH = -1;//LEFT
+							else dirH = (directionRight ? +1 : -1);//NONE:現在の向き
+							if (idleNow && dirH != 0) {
+								jumpMoveActive = true;
+								jumpMoveDir = dirH;
+								airMoveSpeed = moveSpeed;
+								directionRight = (dirH > 0);
+								stopAfterLanding = true;   // 着地したら完全停止
+							}
+						}
 
+						prevPushed = true;
+					}
+
+				}
+				else {
+					autoMovingRight = false;
+
+				}
 			}
-			else {
-				autoMovingRight = false;
-
-			}
-
 			
-			if (lv == 0) { //KIND
+			if (lv == KIND) { //KIND
 				avt->StressSet(1); 
 			}
-			if (lv == 1) {//NORMAL
+			if (lv == NORMAL) {//NORMAL
 				avt->StressSet(5); 
 			}
-			if (lv == 2) {//SEVERE
+			if (lv == SEVERE) {//SEVERE
 				avt->StressSet(10); 
 			}
 			

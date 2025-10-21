@@ -3,6 +3,8 @@
 #include"CommentArea.h"
 #include"CommentDatabase.h"
 #include"../Library/Input.h"
+#include<stdlib.h>
+#include<time.h>
 
 CommentSelect::CommentSelect()
 	:focus_(Select::DIRECTION), dir_(DirectionSelect::NONE), st_(StateSelect::STOP), lv_(CommentLevel::KIND)
@@ -105,8 +107,8 @@ void CommentSelect::Update()
 	}
 
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) {
-
-		if(st_==StateSelect::STOP) {
+		srand((unsigned int)time(NULL));
+		if (st_ == StateSelect::STOP) {
 			dir_ = DirectionSelect::NONE;
 		}
 		if (commentOutputInstance) {

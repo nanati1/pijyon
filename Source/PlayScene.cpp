@@ -14,7 +14,6 @@ PlayScene::PlayScene()
 	auto stage = new Stage();
 	stage->SetDrawOrder(100); // ‰œiæ‚É•`‰æj
 
-	//new CommentArea();
 }
 
 PlayScene::~PlayScene()
