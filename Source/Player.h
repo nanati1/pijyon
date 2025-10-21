@@ -20,6 +20,13 @@ private:
 	float JumpV0;
 	float moveSpeed;
 	float DashSpeed;
+	float severeProbability;
+	float normalProbability;
+	float kindProbability;
+	int severeCommentStress;
+	int normalCommentStress;
+	int kindCommentStress;
+
 	float commentMoveSpeed ;
 	float airMoveSpeed;//空中横移動の速度
 	bool directionRight = true;//向き　右:true　左:false

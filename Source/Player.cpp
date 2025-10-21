@@ -33,6 +33,30 @@ Player::Player(VECTOR2 pos)
 			DashSpeed = csv->GetFloat(i, 1);
 		}
 	}
+	CsvReader* commentCsv = new CsvReader("data/commentParam.csv");
+	for (int i = 0; i < commentCsv->GetLines(); i++) {
+		std::string tag = commentCsv->GetString(i, 0);
+		if (tag == "SevereProbability") {
+			severeProbability = commentCsv->GetFloat(i, 1);
+		}
+		else if (tag == "NormalProbability") {
+			normalProbability = commentCsv->GetFloat(i, 1);
+		}
+		else if (tag == "KindProbability") {
+			kindProbability = commentCsv->GetFloat(i, 1);
+		}
+		else if (tag == "SevereCommentStress") {
+			severeCommentStress = commentCsv->GetInt(i, 1);
+		}
+		else if (tag == "NormalCommentStress") { 
+			normalCommentStress = commentCsv->GetInt(i, 1);
+		}
+		else if (tag == "KindCommentStress") {
+			kindCommentStress = commentCsv->GetInt(i, 1);
+		}
+		
+
+	}
 	JumpV0 = -sqrtf(2.0f * Gravity * JumpHeight);
 
 	hImage = LoadGraph("data/image/tamadot.png");
@@ -62,21 +86,22 @@ void Player::Update()
 			const int dir = cs->GetDirectionValue(); // 0:None,1:Right,2:Left
 			const int state = cs->GetStateValue();     // 0:Stop,1:Wark,2:Run,3Jump
 			const int lv = cs->GetLevelValue();
-			int r = rand() % 100;
+			float r = rand() % 1000/10;
+
 			//コメントに従う確率
-			bool movePlayer = false; 
+			bool moveProbabillity = false; 
 			if (lv == SEVERE) { 
-				movePlayer = (r < 80);
+				moveProbabillity = (r < severeProbability);
 			}
 			else if (lv == NORMAL) {
-				movePlayer = (r < 50);
+				moveProbabillity = (r < normalProbability);
 			}
 			else if(lv==KIND)
 			{
-				movePlayer=(r < 20);
+				moveProbabillity=(r < kindProbability);
 			}
 
-			if (movePlayer) {
+			if (moveProbabillity) {
 
 				if (state == WARK) { // WARK のときだけ継続歩行を更新
 					commentMoveSpeed = moveSpeed;
@@ -148,14 +173,14 @@ void Player::Update()
 				}
 			}
 			
-			if (lv == KIND) { //KIND
-				avt->StressSet(1); 
+			if (lv == KIND) { 
+				avt->StressSet(kindCommentStress); 
 			}
-			if (lv == NORMAL) {//NORMAL
-				avt->StressSet(5); 
+			if (lv == NORMAL) {
+				avt->StressSet(normalCommentStress); 
 			}
-			if (lv == SEVERE) {//SEVERE
-				avt->StressSet(10); 
+			if (lv == SEVERE) {
+				avt->StressSet(severeCommentStress); 
 			}
 			
 
