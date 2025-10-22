@@ -2,7 +2,6 @@
 #include "Object2D.h"
 #include <vector>
 #include "../ImGui/imgui.h"
-#include "Screen.h"
 class Avatar : public Object2D {
 public:
 
@@ -11,9 +10,11 @@ public:
 	void Update()override;
 	void Draw() override;
 	void StressSet(int s);
-	int GetStress() { return Screen::stress; }
+	int GetStress() { return stress; }
 private:
 	int prevAnim; //ストレス値を取得するための変数
 	int hImage;//画像ハンドル
 	int animX;//表情を変えるための変数。0～3,大きくなるほど怒る
+	static int stress; //ストレス値
+	static const int maxStress = 40; //最大ストレス値
 };
