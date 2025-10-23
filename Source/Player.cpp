@@ -68,7 +68,7 @@ Player::Player(VECTOR2 pos)
 
 	position = pos;
 	velocityY = 0.0f;
-
+	prevPushed = false;
 }
 
 Player::~Player()
@@ -165,6 +165,7 @@ void Player::Update()
 
 						prevPushed = true;
 					}
+					
 
 				}
 				else {
@@ -235,41 +236,41 @@ void Player::Update()
 			position.x -= push;
 		}
 
-		// Dキーは、自動移動していないときだけ有効
-		if (!autoMovingRight && CheckHitKey(KEY_INPUT_D)) {
-			position.x += moveSpeed;
-			int push = st->CheckRight(position + VECTOR2(24, -31));
-			position.x -= push;
-			push = st->CheckRight(position + VECTOR2(24, 31));
-			position.x -= push;
+		//	// Dキーは、自動移動していないときだけ有効
+		//	if (!autoMovingRight && CheckHitKey(KEY_INPUT_D)) {
+		//		position.x += moveSpeed;
+		//		int push = st->CheckRight(position + VECTOR2(24, -31));
+		//		position.x -= push;
+		//		push = st->CheckRight(position + VECTOR2(24, 31));
+		//		position.x -= push;
 
-			autoMovingRight = true;// Dキーを押したら自動移動開始
-		}
+		//		autoMovingRight = true;// Dキーを押したら自動移動開始
+		//	}
 
 
-		if (CheckHitKey(KEY_INPUT_A)) {
-			position.x -= moveSpeed;
-			int push = st->CheckLeft(position + VECTOR2(-24, -31)); // 左上
-			position.x += push;
-			push = st->CheckLeft(position + VECTOR2(-24, 31)); // 左下
-			position.x += push;
+		//	if (CheckHitKey(KEY_INPUT_A)) {
+		//		position.x -= moveSpeed;
+		//		int push = st->CheckLeft(position + VECTOR2(-24, -31)); // 左上
+		//		position.x += push;
+		//		push = st->CheckLeft(position + VECTOR2(-24, 31)); // 左下
+		//		position.x += push;
 
-			autoMovingRight = false;// Aキーを押したら自動移動解除
-		}
-	}
-	if (onGround) {
-		if (CheckHitKey(KEY_INPUT_SPACE)) {
-			if (prevPushed == false) {
-				velocityY = JumpV0;
+		//		autoMovingRight = false;// Aキーを押したら自動移動解除
+		//	}
+		//}
+		/*if (onGround) {
+			if (CheckHitKey(KEY_INPUT_SPACE)) {
+				if (prevPushed == false) {
+					velocityY = JumpV0;
+				}
+				prevPushed = true;
 			}
-			prevPushed = true;
-		}
-		else {
-			prevPushed = false;
-		}
+			else {
+				prevPushed = false;
+			}
+		}*/
+
 	}
-
-
 	position.y += velocityY;
 	velocityY += Gravity;
 	onGround = false;
@@ -309,7 +310,7 @@ void Player::Update()
 			velocityY = 0.0f;
 			onGround = true;
 			position.y -= push - 1;
-
+			prevPushed = false;
 			if (jumpMoveActive) {//コメントのジャンプ時の挙動
 				jumpMoveActive = false;
 				jumpMoveDir = 0;

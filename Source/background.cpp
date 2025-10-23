@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "Avatar.h"
 #include "CommentArea.h"
+#include "KeyInput.h"
 
 BackGround::BackGround()
 {
@@ -21,6 +22,7 @@ BackGround::BackGround()
 	bImage = LoadGraph("data/image/bell.png");
 	new Avatar();
 	new CommentArea();
+
 }
 
 BackGround::BackGround(VECTOR2 pos)

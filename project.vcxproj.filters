@@ -92,6 +92,9 @@
     <ClCompile Include="Source\background.cpp">
       <Filter>PlayScene\background</Filter>
     </ClCompile>
+    <ClCompile Include="Source\KeyInput.cpp">
+      <Filter>PlayScene\Comment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\SceneFactory.h" />
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="Source\background.h">
       <Filter>PlayScene\background</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyInput.h">
+      <Filter>PlayScene\Comment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
