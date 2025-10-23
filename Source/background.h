@@ -14,4 +14,6 @@ private:
 	int rImage;
 	int tImage;
 	int iImage;
+	int sImage;
+	int bImage;
 };
