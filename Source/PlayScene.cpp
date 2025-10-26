@@ -14,10 +14,16 @@ PlayScene::PlayScene()
 	auto stage = new Stage();
 	stage->SetDrawOrder(100); // âúÅiêÊÇ…ï`âÊÅj
 
+	hBGM_ = LoadSoundMem("data/sound/bgm/SeaSide_Dreamer.mp3");
+	assert(hBGM_ > 0);
+	ChangeVolumeSoundMem(255 * 40 / 100, hBGM_);//âπó í≤êÆ(40%)
+	PlaySoundMem(hBGM_, DX_PLAYTYPE_LOOP);
 }
 
 PlayScene::~PlayScene()
 {
+	StopSoundMem(hBGM_);
+	DeleteSoundMem(hBGM_);
 }
 
 void PlayScene::Update()
