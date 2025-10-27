@@ -95,6 +95,9 @@
     <ClCompile Include="Source\KeyInput.cpp">
       <Filter>PlayScene\Comment</Filter>
     </ClCompile>
+    <ClCompile Include="Source\AnalyzeKey.cpp">
+      <Filter>PlayScene\Comment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\SceneFactory.h" />
@@ -202,6 +205,9 @@
       <Filter>PlayScene\background</Filter>
     </ClInclude>
     <ClInclude Include="Source\KeyInput.h">
+      <Filter>PlayScene\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AnalyzeKey.h">
       <Filter>PlayScene\Comment</Filter>
     </ClInclude>
   </ItemGroup>

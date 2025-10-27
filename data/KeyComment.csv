@@ -1,0 +1,8 @@
+type,word,level,priority
+move,右,0,2
+move,左,0,2
+move,止まれ,0,3
+move,ジャンプ,0,1
+bad,バカ,1,0
+bad,クソ,2,0
+bad,死ね,3,0

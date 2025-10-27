@@ -152,6 +152,7 @@
     <ClInclude Include="Library\SceneBase.h" />
     <ClInclude Include="Library\SceneManager.h" />
     <ClInclude Include="Library\Time.h" />
+    <ClInclude Include="Source\AnalyzeKey.h" />
     <ClInclude Include="Source\Avatar.h" />
     <ClInclude Include="Source\background.h" />
     <ClInclude Include="Source\BootScene.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="Library\ObjectManager.cpp" />
     <ClCompile Include="Library\SceneManager.cpp" />
     <ClCompile Include="Library\Time.cpp" />
+    <ClCompile Include="Source\AnalyzeKey.cpp" />
     <ClCompile Include="Source\Avatar.cpp" />
     <ClCompile Include="Source\background.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
