@@ -22,7 +22,7 @@ BackGround::BackGround()
 	bImage = LoadGraph("data/image/bell.png");
 	new Avatar();
 	new CommentArea();
-
+	new KeyInput();
 }
 
 BackGround::BackGround(VECTOR2 pos)
