@@ -1,7 +1,6 @@
 
 #include "CommentOutput.h"
 #include <DxLib.h>
-
 void CommentOutput::SetCommentText(const std::string& comment) {
     currentComment_ = comment;
     x_ = 1360;

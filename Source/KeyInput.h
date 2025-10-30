@@ -1,9 +1,11 @@
 #pragma once  
 #include "Object2D.h"  
-#include "AnalyzeKey.h" 
 #include <string>
 
-class KeyInput  
+class AnalyzeKey;
+class CommentOutput;
+
+class KeyInput
 :public  Object2D  
 {  
 public:  
@@ -17,6 +19,6 @@ std::string  GetComment() { return String; }
 private:  
 char String[256];  
 int InputHandle;  
-AnalyzeKey* Ana; // "Ana" メンバーを追加  
-CsvReader* command; // command をメンバー変数として追加  
+AnalyzeKey* AnK;
+CommentOutput* comOut;
 };
