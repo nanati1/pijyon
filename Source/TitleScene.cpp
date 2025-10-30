@@ -1,8 +1,14 @@
 #include "TitleScene.h"
 #include <DxLib.h>
+#include"Time.h"
 
 TitleScene::TitleScene()
 {
+	static bool sTimeInited = false;
+	if (!sTimeInited) {
+		Time::Init();
+		sTimeInited = true;
+	}
 }
 
 TitleScene::~TitleScene()
@@ -11,6 +17,7 @@ TitleScene::~TitleScene()
 
 void TitleScene::Update()
 {
+	Time::Refresh();
 	if (CheckHitKey(KEY_INPUT_P)) {
 		SceneManager::ChangeScene("PLAY");
 	}

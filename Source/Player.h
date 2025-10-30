@@ -14,7 +14,6 @@ private:
 	bool onGround;
 	bool prevPushed;
 	bool autoMovingRight=true;
-
 	float Gravity;
 	float JumpHeight;
 	float JumpV0;
@@ -33,6 +32,7 @@ private:
 	bool  walkByCommentActive = false; // コメント由来の継続歩行中か
 	bool jumpMoveActive = false;//ジャンプ中の横移動
 	bool stopAfterLanding = false;//停止状態からのジャンプの際着地時停止
+	bool superChatMode;
 	int  walkByCommentDir = 0;      // -1:左 / 0:そのまま / +1:右
 	int  jumpMoveDir=0;				//↑と同じ
 };

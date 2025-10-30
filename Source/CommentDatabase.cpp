@@ -23,7 +23,7 @@ std::string CommentDatabase::GetComment(DirectionSelect dir, StateSelect state, 
     case DirectionSelect::NONE:  head = R({ "そのまま", "今のまま" }); break;
     case DirectionSelect::RIGHT: head = R({ "右へ", "右方向に" });     break;
     case DirectionSelect::LEFT:  head = R({ "左へ", "左方向に" });     break;
-    default: head = "不明な方向"; break; // ここに来るなら dir_ が壊れてます
+    default: head = "不明な方向"; break; 
     }
 
     std::string body; // 状態×レベル

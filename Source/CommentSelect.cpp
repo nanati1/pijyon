@@ -3,8 +3,9 @@
 #include"CommentArea.h"
 #include"CommentDatabase.h"
 #include"../Library/Input.h"
+#include "CsvReader.h"
 #include<stdlib.h>
-#include<time.h>
+#include"Time.h"
 
 CommentSelect::CommentSelect()
 	:focus_(Select::DIRECTION), dir_(DirectionSelect::NONE), st_(StateSelect::STOP), lv_(CommentLevel::KIND)
@@ -16,7 +17,14 @@ CommentSelect::CommentSelect()
 
 	commentOutputInstance = new CommentOutput();
 	Input::Initialize();
+	CsvReader* commentCsv = new CsvReader("data/commentParam.csv");
+	for (int i = 0; i < commentCsv->GetLines(); i++) {
+		std::string tag = commentCsv->GetString(i, 0);
+		if (tag == "SuperChatTimer") {
+			superChatTimerCount = commentCsv->GetFloat(i, 1);
+		}
 
+	}
 }
 
 CommentSelect::~CommentSelect()
@@ -25,6 +33,8 @@ CommentSelect::~CommentSelect()
 
 void CommentSelect::Update()
 {
+	Time::Refresh();
+	float dt = Time::DeltaTime();
 	Input::Update();
 	//コメント欄の選択
 	if (Input::IsKeyDown(KEY_INPUT_RIGHT)) {
@@ -115,10 +125,29 @@ void CommentSelect::Update()
 			std::string comment = CommentDatabase::GetComment(dir_, st_, lv_);
 			commentOutputInstance->SetCommentText(comment);
 		}
+		if (superChatOn_) {
+			superChatMode_ = true;
+		}
+	}
+
+	if (Input::IsKeyDown(KEY_INPUT_LSHIFT) || Input::IsKeyDown(KEY_INPUT_RSHIFT)) {
+		ToggleSuperChat();
 	}
 
 	if( commentOutputInstance) {
 		commentOutputInstance->Update();
+	}
+	if (superChatMode_) {
+		if (superChatTimer > 0.0f) {
+			superChatTimer -= dt;
+		}
+		if (superChatTimer < 0.0f) {
+			superChatMode_ = false;
+			superChatOn_ = false;
+		}
+	}
+	else {
+		superChatTimer = superChatTimerCount;
 	}
 }
 
@@ -131,7 +160,7 @@ void CommentSelect::Draw()
 		DrawBox(CommentUi::BoxX, CommentUi::BoxY,
 			CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * i,
 			CommentUi::BoxY + CommentUi::BoxHeight,
-			GetColor(0, 0, 255), FALSE, 5);
+			(superChatMode_?GetColor(255,215,0):GetColor(0, 0, 255)), FALSE, 5);
 	}
 	//選択中の枠線の色を変える
 	switch (focus_) {
@@ -200,4 +229,9 @@ void CommentSelect::Draw()
 		commentOutputInstance->Draw();
 	}
 
+}
+
+void CommentSelect::ToggleSuperChat()
+{
+	superChatOn_ = !superChatOn_;
 }

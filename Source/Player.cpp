@@ -79,6 +79,9 @@ void Player::Update()
 {
 	Stage* st = FindGameObject<Stage>();
 	Avatar* avt = FindGameObject<Avatar>();
+	if (auto* cs = FindGameObject<CommentSelect>()) {
+		const bool superChatMode = cs->IsSuperChatMode();
+	}
 
 
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) { 
@@ -173,15 +176,16 @@ void Player::Update()
 
 				}
 			}
-			
-			if (lv == KIND) { 
-				avt->StressSet(kindCommentStress); 
-			}
-			if (lv == NORMAL) {
-				avt->StressSet(normalCommentStress); 
-			}
-			if (lv == SEVERE) {
-				avt->StressSet(severeCommentStress); 
+			if (!superChatMode) {
+				if (lv == KIND) {
+					avt->StressSet(kindCommentStress);
+				}
+				if (lv == NORMAL) {
+					avt->StressSet(normalCommentStress);
+				}
+				if (lv == SEVERE) {
+					avt->StressSet(severeCommentStress);
+				}
 			}
 			
 

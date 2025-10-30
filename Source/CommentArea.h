@@ -24,7 +24,7 @@ public:
 	~CommentArea();
 	void Update() override;
 	void Draw() override;
-protected:
+	bool superChatOnUI = false;
 
 
 	
