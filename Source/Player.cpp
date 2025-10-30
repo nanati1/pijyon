@@ -10,6 +10,7 @@
 #include<stdlib.h>
 #include<time.h>
 
+
 Player::Player() : Player(VECTOR2(100, 300))
 {
 }

@@ -1,6 +1,5 @@
 #include "KeyInput.h"  
-#include "AnalyzeKey.h"  
-#include "CsvReader.h"  
+#include "AnalyzeKey.h"   
 
 KeyInput::KeyInput()  
 {  
@@ -10,14 +9,14 @@ KeyInput::KeyInput()
    SetActiveKeyInput(InputHandle);  
    //キー入力の色を変更  
    SetKeyInputStringColor2(DX_KEYINPSTRCOLOR_NORMAL_STR, GetColor(0, 0, 0));  
-   command = new CsvReader("data/KeyComment.csv"); 
+
+   AnK = new AnalyzeKey();
 }  
 
 KeyInput::~KeyInput()  
 {  
    // 用済みのインプットハンドルを削除する  
    DeleteKeyInput(InputHandle); 
-   delete command; // command のメモリを解放  
 }  
 
 void KeyInput::Update()  
