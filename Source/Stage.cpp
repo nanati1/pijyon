@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "CsvReader.h"
 #include "Screen.h"
+#include "Enemy.h"
 
 
 Stage::Stage()
@@ -41,6 +42,12 @@ Stage::Stage()
 				py += 2 * imageSize.y;*/
 				new Player(VECTOR2(px, py));
 			}
+			if (c == 8) {
+				int ex = x * imageSize.x + imageSize.x / 2.0f;
+				int ey = y * imageSize.y + imageSize.y / 2.0f;
+				new Enemy(VECTOR2(ex, ey));
+			}
+			
 		}
 	}
 

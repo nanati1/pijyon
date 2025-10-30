@@ -1,7 +1,6 @@
 #include "KeyInput.h"  
-#include "AnalyzeKey.h"  
-#include "CsvReader.h"  
-
+#include "AnalyzeKey.h"   
+#include "CommentOutput.h"
 KeyInput::KeyInput()  
 {  
    // キー入力ハンドルを作る(キャンセルなし全角文字有り数値入力じゃなし)  
@@ -10,14 +9,15 @@ KeyInput::KeyInput()
    SetActiveKeyInput(InputHandle);  
    //キー入力の色を変更  
    SetKeyInputStringColor2(DX_KEYINPSTRCOLOR_NORMAL_STR, GetColor(0, 0, 0));  
-   command = new CsvReader("data/KeyComment.csv"); 
+
+   AnK = new AnalyzeKey();
+   comOut=new CommentOutput();
 }  
 
 KeyInput::~KeyInput()  
 {  
    // 用済みのインプットハンドルを削除する  
    DeleteKeyInput(InputHandle); 
-   delete command; // command のメモリを解放  
 }  
 
 void KeyInput::Update()  
@@ -26,9 +26,12 @@ void KeyInput::Update()
    if (CheckKeyInput(InputHandle) == true)  
    {  
        GetKeyInputString(String, InputHandle); //値を取得 
+       comOut->SetCommentText(String);
        SetKeyInputString("", InputHandle); //中を初期化  
+       
        SetActiveKeyInput(InputHandle); //もう一度入力可能状態に  
    }  
+   comOut->Update();
 }  
 
 void KeyInput::Draw()  
@@ -38,5 +41,9 @@ void KeyInput::Draw()
 
    // 入力途中の文字列を描画  
    DrawKeyInputString(30, 800, InputHandle);  
+
+   if (comOut) {
+       comOut->Draw();
+   }
 }
         
