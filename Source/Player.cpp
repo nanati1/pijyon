@@ -83,9 +83,6 @@ void Player::Update()
 {
 	Stage* st = FindGameObject<Stage>();
 	Avatar* avt = FindGameObject<Avatar>();
-	if (auto* cs = FindGameObject<CommentSelect>()) {
-		const bool superChatMode = cs->IsSuperChatMode();
-	}
 
 
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) { 
@@ -93,19 +90,24 @@ void Player::Update()
 			const int dir = cs->GetDirectionValue(); // 0:None,1:Right,2:Left
 			const int state = cs->GetStateValue();     // 0:Stop,1:Wark,2:Run,3Jump
 			const int lv = cs->GetLevelValue();
-			float r = rand() % 1000/10;
+			const bool superChatMode = cs->IsSuperChatMode();
+			float r = rand() % 1000/10.0f;
 
 			//ƒRƒƒ“ƒg‚É]‚¤Šm—¦
 			bool moveProbabillity = false; 
-			if (lv == SEVERE) { 
-				moveProbabillity = (r < severeProbability);
-			}
-			else if (lv == NORMAL) {
-				moveProbabillity = (r < normalProbability);
-			}
-			else if(lv==KIND)
-			{
-				moveProbabillity=(r < kindProbability);
+			if (superChatMode == true) {
+				moveProbabillity = true;
+			}else{
+				if (lv == SEVERE) {
+					moveProbabillity = (r < severeProbability);
+				}
+				else if (lv == NORMAL) {
+					moveProbabillity = (r < normalProbability);
+				}
+				else if (lv == KIND)
+				{
+					moveProbabillity = (r < kindProbability);
+				}
 			}
 
 			if (moveProbabillity) {
@@ -180,7 +182,7 @@ void Player::Update()
 
 				}
 			}
-			if (!superChatMode) {
+			if (superChatMode==false) {
 				if (lv == KIND) {
 					avt->StressSet(kindCommentStress);
 				}
