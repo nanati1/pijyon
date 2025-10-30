@@ -3,6 +3,7 @@
 #include <string>
 
 class AnalyzeKey;
+class CommentOutput;
 
 class KeyInput
 :public  Object2D  
@@ -19,6 +20,5 @@ private:
 char String[256];  
 int InputHandle;  
 AnalyzeKey* AnK;
-CommandResult result;
-
+CommentOutput* comOut;
 };
