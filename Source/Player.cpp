@@ -5,10 +5,14 @@
 #include "CsvReader.h"
 #include "Screen.h"
 #include "Avatar.h"
+#include "Enemy.h"
 #include"CommentSelect.h"
 #include"../Library/Input.h"
 #include<stdlib.h>
 #include<time.h>
+
+
+
 
 Player::Player() : Player(VECTOR2(100, 300))
 {
@@ -271,6 +275,25 @@ void Player::Update()
 		}*/
 
 	}
+
+	// 敵との当たり判定
+	auto enemies = FindGameObjects<Enemy>();
+	for (Enemy* e : enemies) {
+		bool isFront = false;
+		if (e->HitCheckWithDir(position, 30.0f, isFront)) {
+			if (isFront) {
+				// 前から当たった → プレイヤー死亡
+				Avatar* avt = FindGameObject<Avatar>();
+				avt->StressSet(10);
+				SceneManager::ChangeScene("RETRY");
+			}
+			else {
+				// 背後から当たった → （例）相殺や何もしない
+			}
+		}
+	}
+
+
 	position.y += velocityY;
 	velocityY += Gravity;
 	onGround = false;
