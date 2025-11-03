@@ -21,7 +21,7 @@ BackGround::BackGround()
 	assert(sImage > 0);
 	bImage = LoadGraph("data/image/bell.png");
 	new Avatar();
-	new CommentArea();
+	//new CommentArea();
 	new KeyInput();
 }
 

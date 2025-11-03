@@ -10,6 +10,8 @@
 #include"../Library/Input.h"
 #include<stdlib.h>
 #include<time.h>
+#include "KeyInput.h"
+#include "AnalyzeKey.h"
 
 
 
@@ -83,14 +85,14 @@ void Player::Update()
 {
 	Stage* st = FindGameObject<Stage>();
 	Avatar* avt = FindGameObject<Avatar>();
-
-
-	if (Input::IsKeyDown(KEY_INPUT_RETURN)) { 
-		if (auto* cs = FindGameObject<CommentSelect>()) {
-			const int dir = cs->GetDirectionValue(); // 0:None,1:Right,2:Left
-			const int state = cs->GetStateValue();     // 0:Stop,1:Wark,2:Run,3Jump
-			const int lv = cs->GetLevelValue();
-			const bool superChatMode = cs->IsSuperChatMode();
+	AnalyzeKey* cs = FindGameObject<AnalyzeKey>();
+	KeyInput* ki = FindGameObject<KeyInput>();
+	if (ki->GetKeyCheck()==true) { 
+		//if (AnalyzeKey* cs = FindGameObject<AnalyzeKey>()) {
+			const int dir = cs->GetDir(); // 0:None,1:Right,2:Left
+			const std::string state = cs->GetAction();
+			const int lv = cs->GetLevel();
+			//const bool superChatMode = cs->IsSuperChatMode();
 			float r = rand() % 1000/10.0f;
 
 			//コメントに従う確率
@@ -112,7 +114,7 @@ void Player::Update()
 
 			if (moveProbabillity) {
 
-				if (state == WARK) { // WARK のときだけ継続歩行を更新
+				if (state == "WALK") { // WARK のときだけ継続歩行を更新
 					commentMoveSpeed = moveSpeed;
 					if (dir == RIGHT) {             // RIGHT
 						walkByCommentActive = true;
@@ -129,12 +131,12 @@ void Player::Update()
 						walkByCommentDir = (directionRight ? +1 : -1);
 					}
 				}
-				else if (state == STOP) { // STOP 指示で止める
+				else if (state == "STOP") { // STOP 指示で止める
 					walkByCommentActive = false;
 					walkByCommentDir = 0;
 					autoMovingRight = false;
 				}
-				else if (state == RUN) //RUN
+				else if (state == "RUN") //RUN
 				{
 					commentMoveSpeed = DashSpeed;
 					if (dir == RIGHT) {             // RIGHT
@@ -153,7 +155,8 @@ void Player::Update()
 					}
 
 				}
-				else if (state == JUMP) {//JUMP
+				else if (state == "JUMP") {//JUMP
+					
 					const bool idleNow = (!walkByCommentActive && !autoMovingRight);
 					if (onGround) {
 						if (prevPushed == false) {
@@ -171,8 +174,8 @@ void Player::Update()
 								stopAfterLanding = true;   // 着地したら完全停止
 							}
 						}
-
 						prevPushed = true;
+						
 					}
 					
 
@@ -195,7 +198,7 @@ void Player::Update()
 			}
 			
 
-		}
+		//}
 	}
 	//空中移動
 	if (jumpMoveActive) {

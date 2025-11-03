@@ -10,7 +10,7 @@ KeyInput::KeyInput()
    //キー入力の色を変更  
    SetKeyInputStringColor2(DX_KEYINPSTRCOLOR_NORMAL_STR, GetColor(0, 0, 0));  
 
-   AnK = new AnalyzeKey();
+   new AnalyzeKey();
    comOut=new CommentOutput();
 }  
 
@@ -24,9 +24,12 @@ void KeyInput::Update()
 {  
    //キー入力が終了したら  
    if (CheckKeyInput(InputHandle) == true)  
-   {  
+   { 
+       keyCheck = CheckKeyInput(InputHandle);
        GetKeyInputString(String, InputHandle); //値を取得 
        comOut->SetCommentText(String);
+       if(AnalyzeKey* al = FindGameObject<AnalyzeKey>())
+       al->AnalyzeComm(String);
        SetKeyInputString("", InputHandle); //中を初期化  
        
        SetActiveKeyInput(InputHandle); //もう一度入力可能状態に  

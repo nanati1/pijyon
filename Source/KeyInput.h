@@ -2,7 +2,6 @@
 #include "Object2D.h"  
 #include <string>
 
-class AnalyzeKey;
 class CommentOutput;
 
 class KeyInput
@@ -13,12 +12,12 @@ KeyInput();
 ~KeyInput();  
 void Update() override;  
 void Draw() override;  
-bool GetKeyCheck() { return CheckKeyInput(InputHandle); }
+int GetKeyCheck() { return keyCheck; }
 std::string  GetComment() { return String; }
 
 private:  
 char String[256];  
 int InputHandle;  
-AnalyzeKey* AnK;
 CommentOutput* comOut;
+int keyCheck;
 };

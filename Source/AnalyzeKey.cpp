@@ -6,7 +6,7 @@
 
 AnalyzeKey::AnalyzeKey()
 {
-	CsvReader* csv=new CsvReader("data/map/KeyComment.csv");
+	CsvReader* csv=new CsvReader("data/KeyComment.csv");
 
 
 	for (int i = 1; i < csv->GetLines(); i++)
@@ -16,6 +16,7 @@ AnalyzeKey::AnalyzeKey()
 		cmd.type	 = csv->GetString(i,1);
 		cmd.level	 = csv->GetInt(i,2);
 		cmd.priority = csv->GetInt(i,3);
+		cmd.dir		 = csv->GetInt(i, 4);
 		commands.push_back(cmd);
 	}
 
@@ -31,18 +32,17 @@ void AnalyzeKey::Update()
 
 CommandResult AnalyzeKey::AnalyzeComm(std::string comment )
 {
-	CommandResult result;
-	result.action = nullptr;
+	//result.action = nullptr;
 	result.badLevel = 0;
 	for (auto cmd : commands)
 	{
-		if (comment.find(cmd.word) != 0)
+		if (comment.find(cmd.word) != std::string::npos)
 		{
-			if (cmd.priority>prevPri)
-			{
-				result.action = cmd.type;
-				prevPri = cmd.priority;
-			}
+			result.dir = cmd.dir;
+			
+			result.action = cmd.type;
+			prevPri		  = cmd.priority;
+			
 			result.badLevel += cmd.level;
 		}
 	}
