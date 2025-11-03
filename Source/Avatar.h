@@ -12,9 +12,9 @@ public:
 	void StressSet(int s);
 	int GetStress() { return stress; }
 private:
-	int prevAnim; //ストレス値を取得するための変数
-	int hImage;//画像ハンドル
 	int animX;//表情を変えるための変数。0～3,大きくなるほど怒る
+	int hImage;//画像ハンドル
+	static int prevAnim; //ストレス値を取得するための変数
 	static int stress; //ストレス値
 	static const int maxStress = 40; //最大ストレス値
 };

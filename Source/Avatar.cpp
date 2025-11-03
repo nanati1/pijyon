@@ -10,14 +10,14 @@ namespace {
 	};
 }
 
-int Avatar::stress = 0;	
+int Avatar::stress = 0;
+int Avatar::prevAnim = 0;
 
 Avatar::Avatar()
-	:animX(0), hImage(-1), prevAnim(0) {
+	:hImage(-1), animX(0) {
 	hImage = LoadGraph("data/image/AvaterChip.png");
 	assert(hImage > 0);
 	animX = (stress / 10);
-	prevAnim = animX;
 }
 
 Avatar::~Avatar()
@@ -32,13 +32,16 @@ void Avatar::Update()
 	if (prevAnim != animX)
 	{
 		PlaySoundFile(voicePath[animX - 1].c_str(), DX_PLAYTYPE_BACK);
+		prevAnim = animX;
 	}
 	if (stress >= maxStress)
 	{
 		stress = 0;
+		prevAnim = animX;
 		SceneManager::ChangeScene("GAMEOVER");
+
 	}
-	prevAnim = animX;
+
 
 	ImGui::Begin("Screen::stress");
 	ImGui::InputInt("Screen::stress", &stress);
