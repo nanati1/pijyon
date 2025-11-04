@@ -11,6 +11,7 @@ public:
     void Update()override;
     void Draw()override;
 
+
     void SetY(int y) { baseY_ = y; }
     void SetSpeed(int vx, int vy = 0) { defaultVx_ = vx; defaultVy_ = vy; }
     void SetScreenWidth(int w) { screenW_ = w; }
@@ -37,7 +38,7 @@ private:
     int defaultVx_ = 2;  
     int defaultVy_ = 0;
     //”zM‰æ–Ê‚Ì”ÍˆÍ
-    int streamX_ = 0, streamY_ = 0, streamW_ = 1360, streamH_ = 765;
+    int streamX_ = 0, streamY_ = 72, streamW_ = 1360, streamH_ = 765;
     int lineHeight_ = 28;
 
     std::vector<Item> items_;
