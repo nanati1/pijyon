@@ -6,6 +6,7 @@ class Stage : public Object2D {
 public:
 	Stage();
 	~Stage();
+	void Update() override;
 	void Draw() override;
 	float ScrollX() { return scrollX; }
 
@@ -31,6 +32,7 @@ private:
 	float scrollX; // â°ÉXÉNÉçÅ[Éãó 
 	int bImage;
 	int wImage;
+	int iImage;
 	bool IsWall(VECTOR2 pos);
 
 	std::vector<std::vector<int>> map;
