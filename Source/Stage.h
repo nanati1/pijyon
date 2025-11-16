@@ -28,6 +28,8 @@ public:
 	int CheckDown(VECTOR2 pos);
 
 	int CheckUp(VECTOR2 pos);
+
+	bool IsGoal(VECTOR2 pos);
 private:
 	float scrollX; // â°ÉXÉNÉçÅ[Éãó 
 	int bImage;

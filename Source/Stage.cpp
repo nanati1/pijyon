@@ -164,10 +164,23 @@ bool Stage::IsWall(VECTOR2 pos)
 
 	// チップの番号を見て、壁かどうか確定する
 	switch (map[y][x]) {
+	case 4:
 	case 0:
 	case 9:
 	case 8:
 		return false;
+
 	}
 	return true;
+}
+
+bool Stage::IsGoal(VECTOR2 pos)
+{
+	int x = pos.x / imageSize.x;
+	int y = pos.y / imageSize.y;
+
+	if (y < 0 || y >= map.size()) return false;
+	if (x < 0 || x >= map[y].size()) return false;
+
+	return (map[y][x] ==4); // ゴール
 }
