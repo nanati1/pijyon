@@ -12,7 +12,7 @@ TitleScene::TitleScene()
 		sTimeInited = true;
 	}
 
-	hImage = LoadGraph("data/image/Title.png");
+	hImage = LoadGraph("data/image/Title2.png");
 	assert(hImage > 0);
 
 }
@@ -56,7 +56,7 @@ void TitleScene::Draw()
 
 	// ˆÊ’u
 	int x = (Screen::WIDTH - textW) / 2;
-	int y = Screen::HEIGHT / 3;
+	int y = Screen::HEIGHT - 400;
 
 	// “_–Å’†‚È‚ç•`‰æ‚·‚é
 	if (visible) {
