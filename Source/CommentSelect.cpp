@@ -16,6 +16,7 @@ CommentSelect::CommentSelect()
 	lv_ = KIND;
 
 	commentOutputInstance = new CommentOutput();
+	chatOutputInstance = new ChatOutput();
 	Input::Initialize();
 	CsvReader* commentCsv = new CsvReader("data/commentParam.csv");
 	for (int i = 0; i < commentCsv->GetLines(); i++) {
@@ -117,6 +118,10 @@ void CommentSelect::Update()
 	}
 
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) {
+		if (superChatOn_) {
+			superChatMode_ = true;
+		}
+
 		srand((unsigned int)time(NULL));
 		if (st_ == StateSelect::STOP) {
 			dir_ = DirectionSelect::NONE;
@@ -124,9 +129,9 @@ void CommentSelect::Update()
 		if (commentOutputInstance) {
 			std::string comment = CommentDatabase::GetComment(dir_, st_, lv_);
 			commentOutputInstance->SetCommentText(comment);
-		}
-		if (superChatOn_) {
-			superChatMode_ = true;
+			if (chatOutputInstance) {
+				chatOutputInstance->AddChat(comment);
+			}
 		}
 	}
 

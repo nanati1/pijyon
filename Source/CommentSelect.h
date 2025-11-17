@@ -1,5 +1,6 @@
 #pragma once
 #include "CommentOutput.h"
+#include "ChatOutput.h"
 #include "../Library/SceneBase.h"
 #include"../Library/GameObject.h"
 
@@ -34,5 +35,6 @@ private:
 	StateSelect st_;
 	CommentLevel lv_;
 	CommentOutput* commentOutputInstance;
+	ChatOutput* chatOutputInstance;
 };
 

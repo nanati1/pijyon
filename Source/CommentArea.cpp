@@ -3,11 +3,13 @@
 #include "Screen.h"
 #include"CommentSelect.h"
 #include"CommentOutput.h"
+#include"ChatOutput.h"
 
 CommentArea::CommentArea()
 {
 	new CommentSelect();
 	new CommentOutput();
+	new ChatOutput();
 }
 
 CommentArea::~CommentArea()

@@ -156,6 +156,7 @@
     <ClInclude Include="Source\Avatar.h" />
     <ClInclude Include="Source\background.h" />
     <ClInclude Include="Source\BootScene.h" />
+    <ClInclude Include="Source\ChatOutput.h" />
     <ClInclude Include="Source\ClearScene.h" />
     <ClInclude Include="Source\CommentArea.h" />
     <ClInclude Include="Source\CommentDatabase.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="Source\Avatar.cpp" />
     <ClCompile Include="Source\background.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
+    <ClCompile Include="Source\ChatOutput.cpp" />
     <ClCompile Include="Source\ClearScene.cpp" />
     <ClCompile Include="Source\CommentArea.cpp" />
     <ClCompile Include="Source\CommentDatabase.cpp" />
