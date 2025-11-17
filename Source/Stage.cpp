@@ -25,6 +25,7 @@ Stage::Stage()
 	assert(bImage > 0);
 	hImage = LoadGraph("data/image/parts.png");
 	assert(hImage > 0);
+	iImage = LoadGraph("data/image/item.png");
 	imageSize = VECTOR2(64, 64);
 	anim = 3;
 	animY = 1;
@@ -37,9 +38,6 @@ Stage::Stage()
 			if (c == 9) {
 				int px = x * imageSize.x + imageSize.x / 2.0f;
 				int py = y * imageSize.y + imageSize.y / 2.0f;
-				// マップのズレ補正（上・左に2マスずれ対策）
-				/*px += 2 * imageSize.x;
-				py += 2 * imageSize.y;*/
 				new Player(VECTOR2(px, py));
 			}
 			if (c == 8) {
@@ -55,6 +53,11 @@ Stage::Stage()
 
 Stage::~Stage()
 {
+}
+
+void Stage::Update()
+{
+	
 }
 
 void Stage::Draw()
@@ -92,6 +95,10 @@ void Stage::Draw()
 			else if (c == 3) {
 				DrawRectGraph(drawX , drawY, 3 * w, 0 * h, w, h, hImage, TRUE);
 			}
+			else if (c == 4) {
+				DrawRectGraph(drawX, drawY, 0 * w, 0 * h, w, h, iImage, TRUE);
+			}
+			
 		}
 	}
 
@@ -157,10 +164,23 @@ bool Stage::IsWall(VECTOR2 pos)
 
 	// チップの番号を見て、壁かどうか確定する
 	switch (map[y][x]) {
+	case 4:
 	case 0:
 	case 9:
 	case 8:
 		return false;
+
 	}
 	return true;
+}
+
+bool Stage::IsGoal(VECTOR2 pos)
+{
+	int x = pos.x / imageSize.x;
+	int y = pos.y / imageSize.y;
+
+	if (y < 0 || y >= map.size()) return false;
+	if (x < 0 || x >= map[y].size()) return false;
+
+	return (map[y][x] ==4); // ゴール
 }

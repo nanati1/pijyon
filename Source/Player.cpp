@@ -282,6 +282,7 @@ void Player::Update()
 
 	}
 
+	
 	// “G‚Æ‚Ì“–‚½‚è”»’è
 	auto enemies = FindGameObjects<Enemy>();
 	for (Enemy* e : enemies) {
@@ -370,6 +371,14 @@ void Player::Update()
 	ImGui::Checkbox("onGround", &onGround);
 	ImGui::InputFloat("positionY", &position.y);
 	ImGui::End();
+
+
+
+	if (st->IsGoal(position))
+	{
+		SceneManager::ChangeScene("CLEAR");
+	}
+
 
 
 	
