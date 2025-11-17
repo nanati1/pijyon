@@ -1,39 +1,63 @@
-
-#include "CommentOutput.h"
+ï»¿#include "CommentOutput.h"
+#include"CommentSelect.h"
 #include <DxLib.h>
-#include<algorithm>
-void CommentOutput::SetCommentText(const std::string& comment) {
-    Item it;
-    it.text = comment;
-    it.x = streamX_ + streamW_;
+#include <algorithm>
+#include <assert.h>
 
-    // --- Y‚ğ”zM‰æ–Ê“à‚Åƒ‰ƒ“ƒ_ƒ€‚É‚·‚é ---
-    // ã‰º‚É‚Í‚İo‚³‚È‚¢‚æ‚¤‚É lineHeight_ ‚ğˆø‚¢‚½”ÍˆÍ‚Å—”
+CommentOutput::CommentOutput()
+{
+    bImage_ = LoadGraph("data/image/chat.jpg");
+    assert(bImage_ > 0);
+
+}
+
+CommentOutput::~CommentOutput()
+{
+    if (bImage_ > 0) {
+        DeleteGraph(bImage_);
+    }
+}
+
+void CommentOutput::SetCommentText(const std::string& comment) {
+    Comment com;
+    com.text = comment;
+    com.x = streamX_ + streamW_;  // å³ç«¯ã‹ã‚‰
+    // ä¸Šä¸‹ã«ã¯ã¿å‡ºã•ãªã„ã‚ˆã†ã« lineHeight_ ã‚’å¼•ã„ãŸç¯„å›²ã§ä¹±æ•°
     int maxYSpan = (std::max)(0, streamH_ - lineHeight_);
     int randOff = (maxYSpan > 0) ? GetRand(maxYSpan) : 0;
-    it.y = streamY_ + randOff;
+    com.y = streamY_ + randOff;
 
-    it.vx = defaultVx_;
-    it.vy = defaultVy_;
-    it.width = GetDrawStringWidth(it.text.c_str(), (int)it.text.size());
-    items_.push_back(std::move(it));
+    com.vx = defaultVx_;
+    com.vy = defaultVy_;
+    com.width = GetDrawStringWidth(com.text.c_str(), (int)com.text.size());
+    com.height = lineHeight_;
+	if (auto* cs = FindGameObject<CommentSelect>()) {
+		com.superChatMode = cs->IsSuperChatMode();
+	}
+
+    comments_.push_back(std::move(com));
+
 }
 
 void CommentOutput::Update() {
-    for (auto& it : items_) {
-        it.x -= it.vx;
-        it.y += it.vy;
+    for (auto& com : comments_) {
+        com.x -= com.vx;
+        com.y += com.vy;
     }
-    // ¶‚É‰æ–ÊŠO‚Öo‚½‚à‚Ì‚¾‚¯íœi––”ö‚ª0–¢–j
-    items_.erase(
-        std::remove_if(items_.begin(), items_.end(),
-            [](const Item& it) { return (it.x + it.width) < 0; }),
-        items_.end()
+    // å·¦ã«ç”»é¢å¤–ã¸å‡ºãŸã‚‚ã®ã ã‘å‰Šé™¤
+    comments_.erase(
+        std::remove_if(comments_.begin(), comments_.end(),
+            [](const Comment& com) { return (com.x + com.width) < 0; }),
+        comments_.end()
     );
 }
 
 void CommentOutput::Draw() {
-    for (const auto& it : items_) {
-        DrawString(it.x, it.y, it.text.c_str(), GetColor(0, 0, 0));
+    for (const auto& com : comments_) {
+        if (com.superChatMode) {
+            DrawBox(com.x, com.y, com.x + com.width, com.y + com.height, GetColor(255, 0, 0), TRUE);
+        }
+        DrawString(com.x, com.y, com.text.c_str(), GetColor(0, 0, 0));
     }
+
 }

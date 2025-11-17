@@ -42,7 +42,7 @@ void BackGround::Draw()
 {
 	//DrawExtendGraph(1360, 72, 1920, 765, wImage, 0);//右端
 	DrawExtendGraph(1360, 72, 1920, 765, wImage, 0);//右端 白
-	DrawExtendGraph(1360, 72, 1920, 765, hImage, 1);//右端　枠
+	//DrawExtendGraph(1360, 72, 1920, 765, hImage, 1);//右端　枠
 	DrawExtendGraph(0, 0, 1920, 72, wImage, 0);//上
 	DrawExtendGraph(400, 0, 1400, 72, sImage, 0);//上 検索
 	DrawExtendGraph(100, 0, 280, 72, rImage, 1);//ロゴ

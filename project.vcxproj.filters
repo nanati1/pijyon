@@ -98,6 +98,10 @@
     <ClCompile Include="Source\AnalyzeKey.cpp">
       <Filter>PlayScene\Comment</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\ChatOutput.cpp">
+      <Filter>PlayScene\Comment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\SceneFactory.h" />
@@ -208,6 +212,10 @@
       <Filter>PlayScene\Comment</Filter>
     </ClInclude>
     <ClInclude Include="Source\AnalyzeKey.h">
+      <Filter>PlayScene\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\ChatOutput.h">
       <Filter>PlayScene\Comment</Filter>
     </ClInclude>
   </ItemGroup>
