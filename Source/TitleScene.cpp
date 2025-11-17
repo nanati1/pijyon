@@ -1,6 +1,8 @@
 #include "TitleScene.h"
 #include <DxLib.h>
 #include"Time.h"
+#include <assert.h>
+#include "Screen.h"
 
 TitleScene::TitleScene()
 {
@@ -9,6 +11,10 @@ TitleScene::TitleScene()
 		Time::Init();
 		sTimeInited = true;
 	}
+
+	hImage = LoadGraph("data/image/Title.png");
+	assert(hImage > 0);
+
 }
 
 TitleScene::~TitleScene()
@@ -18,7 +24,7 @@ TitleScene::~TitleScene()
 void TitleScene::Update()
 {
 	Time::Refresh();
-	if (CheckHitKey(KEY_INPUT_P)) {
+	if (CheckHitKey(KEY_INPUT_SPACE)) {
 		SceneManager::ChangeScene("PLAY");
 	}
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
@@ -29,6 +35,7 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
+	DrawExtendGraph(Screen::startX, Screen::startY, Screen::WIDTH, Screen::HEIGHT, hImage, 0);
 	DrawString(0, 0, "TITLE SCENE", GetColor(255,255,255));
-	DrawString(100, 400, "Push [P]Key To Play", GetColor(255, 255, 255));
+	DrawString(100, 400, "Push [SPACE]Key To Play", GetColor(255, 255, 255));
 }
