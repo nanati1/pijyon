@@ -1,72 +1,110 @@
 // CommentDatabase.cpp
 #include "CommentDatabase.h"
+#include "CsvReader.h"
 #include <vector>
 #include <cstdlib>
 #include <ctime>
 
+struct CommandComment {
+    DirectionSelect dir;
+    StateSelect state;
+    CommentLevel level;
+    std::string text;
+};
+
 namespace {
+    std::vector<CommandComment> g_comments;
+    bool g_loaded = false;
+    bool g_randInit = false;
+
     void InitRandom() {
-        static bool inited = false;
-        if (!inited) { std::srand((unsigned)std::time(nullptr)); inited = true; }
+        if (!g_randInit) {
+            std::srand((unsigned)std::time(nullptr));
+            g_randInit = true;
+        }
     }
-    std::string R(const std::vector<std::string>& v) {
-        if (v.empty()) return "";
-        return v[std::rand() % v.size()];
+
+    DirectionSelect ToDir(const std::string& s) {
+        if (s == "NONE")  return DirectionSelect::NONE;
+        if (s == "RIGHT") return DirectionSelect::RIGHT;
+        if (s == "LEFT")  return DirectionSelect::LEFT;
+        // 不正値はとりあえず NONE
+        return DirectionSelect::NONE;
+    }
+
+    StateSelect ToState(const std::string& s) {
+        if (s == "STOP") return StateSelect::STOP;
+        if (s == "WALK") return StateSelect::WARK; 
+        if (s == "WARK") return StateSelect::WARK;
+        if (s == "RUN")  return StateSelect::RUN;
+        if (s == "JUMP") return StateSelect::JUMP;
+        return StateSelect::STOP;
+    }
+
+    CommentLevel ToLevel(const std::string& s) {
+        if (s == "KIND")   return CommentLevel::KIND;
+        if (s == "NORMAL") return CommentLevel::NORMAL;
+        if (s == "SEVERE") return CommentLevel::SEVERE;
+        return CommentLevel::NORMAL;
+    }
+
+    void LoadIfNeeded() {
+        if (g_loaded) return;
+
+        CsvReader csv("data/commentCommand.csv"); // パスはプロジェクトに合わせて
+
+        int lines = csv.GetLines();
+        if (lines > 1) {
+            for (int i = 1; i < lines; ++i) { // 0行目はヘッダ前提
+                CommandComment c;
+                c.dir = ToDir(csv.GetString(i, 0)); // Direction
+                c.state = ToState(csv.GetString(i, 1)); // State
+                c.level = ToLevel(csv.GetString(i, 2)); // Level
+                c.text = csv.GetString(i, 3);  // Text
+
+                if (!c.text.empty()) {
+                    g_comments.push_back(c);
+                }
+            }
+        }
+        g_loaded = true;
+    }
+
+    // 条件に合うコメント群からランダムに1つ返す
+    std::string PickRandom(DirectionSelect dir, StateSelect state, CommentLevel level, bool ignoreStateLevel) {
+        InitRandom();
+        LoadIfNeeded();
+
+        std::vector<std::string> candidates;
+
+        for (auto& c : g_comments) {
+            if (c.dir != dir) continue;
+
+            if (!ignoreStateLevel) {
+                if (c.state != state) continue;
+                if (c.level != level) continue;
+            }
+            candidates.push_back(c.text);
+        }
+
+        if (candidates.empty()) {
+            return "コメント未登録";
+        }
+
+        int r = std::rand() % candidates.size();
+        return candidates[r];
     }
 }
 
-std::string CommentDatabase::GetComment(DirectionSelect dir, StateSelect state, CommentLevel level) {
-    InitRandom();
+// dir のみ指定版（state/level 無視して方向だけで選ぶ）
+std::string CommentDatabase::GetComment(DirectionSelect dir)
+{
+    // State/Level は無視して、その dir に合うコメントから適当に
+    return PickRandom(dir, StateSelect::STOP, CommentLevel::NORMAL, true);
+}
 
-    std::string head; // 方向
-    switch (dir) {
-    case DirectionSelect::NONE:  head = R({ "そのまま", "今のまま" }); break;
-    case DirectionSelect::RIGHT: head = R({ "右へ", "右方向に" });     break;
-    case DirectionSelect::LEFT:  head = R({ "左へ", "左方向に" });     break;
-    default: head = "不明な方向"; break; 
-    }
-
-    std::string body; // 状態×レベル
-    switch (state) {
-    case StateSelect::STOP:
-        switch (level) {
-        case CommentLevel::KIND:   body = R({ "止まってください", "いったん止まって" }); break;
-        case CommentLevel::NORMAL: body = R({ "止まって", "そこで止まれ" });             break;
-        case CommentLevel::SEVERE: body = R({ "止まれ!!!", "止まれ、バカ" });            break;
-        }
-        break;
-
-    case StateSelect::WARK: 
-        switch (level) {
-        case CommentLevel::KIND:   body = R({ "歩いて", "少しずつ進んで" }); break;
-        case CommentLevel::NORMAL: body = R({ "歩け", "進め" });             break;
-        case CommentLevel::SEVERE: body = R({ "歩け!!!", "歩け、バカ" });     break;
-        }
-        break;
-
-    case StateSelect::RUN:
-        switch (level) {
-        case CommentLevel::KIND:   body = R({ "走って", "急いで" });           break;
-        case CommentLevel::NORMAL: body = R({ "走れ", "ダッシュ" });           break;
-        case CommentLevel::SEVERE: body = R({ "全力で走れ", "走れ!!!" });       break;
-        }
-        break;
-
-    case StateSelect::JUMP:
-        switch (level) {
-        case CommentLevel::KIND:   body = R({ "ジャンプして", "飛び越えて" }); break;
-        case CommentLevel::NORMAL: body = R({ "ジャンプしろ", "飛び越えろ" }); break;
-        case CommentLevel::SEVERE: body = R({ "ジャンプしろ!!!" });            break;
-        }
-        break;
-
-    default:
-        body = "不明な状態";
-        break;
-    }
-
-    if (!head.empty() && !body.empty()) return head + " " + body;
-    if (!head.empty()) return head;
-    if (!body.empty()) return body;
-    return "コメント未定義";
+// dir + state + level 版（完全一致）
+std::string CommentDatabase::GetComment(DirectionSelect dir, StateSelect state, CommentLevel level)
+{
+    return PickRandom(dir, state, level, false);
 }
