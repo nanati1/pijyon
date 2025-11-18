@@ -8,7 +8,7 @@ CommentOutput::CommentOutput()
 {
     bImage_ = LoadGraph("data/image/chat.jpg");
     assert(bImage_ > 0);
-
+	mobDB_.Load("data/mobComments.csv");
 }
 
 CommentOutput::~CommentOutput()
@@ -16,6 +16,16 @@ CommentOutput::~CommentOutput()
     if (bImage_ > 0) {
         DeleteGraph(bImage_);
     }
+}
+
+void CommentOutput::AddMobComment() {
+    std::string text = mobDB_.GetRandom();
+    if (text.empty())return;
+    SetCommentText(text);
+
+	if (auto* chat = FindGameObject<ChatOutput>()) {
+		chat->AddChat(text);
+	}
 }
 
 void CommentOutput::SetCommentText(const std::string& comment) {
@@ -50,14 +60,34 @@ void CommentOutput::Update() {
             [](const Comment& com) { return (com.x + com.width) < 0; }),
         comments_.end()
     );
+
+    mobCommentTimer++;
+    if (mobCommentTimer >= nextMobComment) {
+        mobCommentTimer = 0;
+
+        nextMobComment = GetRand(120) + 60;
+
+        AddMobComment();
+    }
 }
 
 void CommentOutput::Draw() {
-    for (const auto& com : comments_) {
-        if (com.superChatMode) {
-            DrawBox(com.x, com.y, com.x + com.width, com.y + com.height, GetColor(255, 0, 0), TRUE);
-        }
-        DrawString(com.x, com.y, com.text.c_str(), GetColor(0, 0, 0));
-    }
+    RECT oldRect;
+    GetDrawArea(&oldRect);
 
+    SetDrawArea(
+		streamX_, 
+        streamY_, 
+        streamX_ + streamW_,
+        streamY_ + streamH_
+    );
+
+    for (const auto& com : comments_) {
+        if (com.superChatMode == TRUE) {
+			DrawBox(com.x, com.y, com.x + com.width, com.y + com.height, GetColor(255, 0, 0), TRUE);
+        }
+        DrawString(com.x, com.y, com.text.c_str(), GetColor(0, 0, 0)); 
+
+    }
+    SetDrawAreaFull();
 }

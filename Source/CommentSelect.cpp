@@ -80,7 +80,11 @@ void CommentSelect::Update()
 		if (Input::IsKeyDown(KEY_INPUT_UP)) {
 			switch (st_) {
 			case StateSelect::STOP:st_ = StateSelect::WARK; break;
+#if 0
 			case StateSelect::WARK:st_ = StateSelect::RUN; break;
+#else
+			case StateSelect::WARK:st_=StateSelect::JUMP;break;
+#endif
 			case StateSelect::RUN:st_ = StateSelect::JUMP; break;
 			case StateSelect::JUMP:st_ = StateSelect::STOP; break;
 			default:break;
@@ -89,8 +93,11 @@ void CommentSelect::Update()
 		if (Input::IsKeyDown(KEY_INPUT_DOWN)) {
 			switch (st_) {
 			case StateSelect::STOP:st_ = StateSelect::JUMP; break;
+#if 0
 			case StateSelect::WARK:st_ = StateSelect::STOP; break;
+#else
 			case StateSelect::RUN:st_ = StateSelect::WARK; break;
+#endif
 			case StateSelect::JUMP:st_ = StateSelect::RUN; break;
 			default:break;
 			}

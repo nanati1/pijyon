@@ -167,6 +167,7 @@
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\GameOverScene.h" />
     <ClInclude Include="Source\KeyInput.h" />
+    <ClInclude Include="Source\MobCommentDatabase.h" />
     <ClInclude Include="Source\Object2D.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\RetryScene.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\GameOverScene.cpp" />
     <ClCompile Include="Source\KeyInput.cpp" />
+    <ClCompile Include="Source\MobCommentDatabase.cpp" />
     <ClCompile Include="Source\Object2D.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />

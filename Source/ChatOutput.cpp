@@ -19,13 +19,16 @@ ChatOutput::~ChatOutput()
 
 void ChatOutput::AddChat(const std::string& text)
 {
+    int h = lineHeight_;
+    for (auto& c : chats_) {
+        c.y -= h;
+    }
+
     Chat cht;
     cht.text = text;
-    cht.x = chatX_;
-    cht.y = chatY_0_;
-    cht.vx = chatVx_;
-    cht.vy = chatVy_;
-    cht.height = lineHeight_;
+    cht.vx = 0;
+    cht.vy = 0;
+    cht.height = h;
 	cht.width = GetDrawStringWidth(cht.text.c_str(), (int)cht.text.size());
 
     if (auto* cs = FindGameObject<CommentSelect>()) {
@@ -35,32 +38,34 @@ void ChatOutput::AddChat(const std::string& text)
 		cht.superChatMode = false;
     }
 
+    cht.x = chatX_;
+    cht.y = areaY_ + areaH_ - h;
     chats_.push_back(std::move(cht));
 }
 
 void ChatOutput::Update()
 {
-    for (auto& cht : chats_) {
-        cht.x -= cht.vx;
-        cht.y -= cht.vy; // 上に流す
-    }
+    //for (auto& cht : chats_) {
+    //    cht.x -= cht.vx;
+    //    cht.y -= cht.vy; // 上に流す
+    //}
 
     // 上に画面外へ出たものだけ削除
     chats_.erase(
         std::remove_if(chats_.begin(), chats_.end(),
-            [&](const Chat& cht) {
-                // チャット欄上端(areaY_)より上に消えたら削除
-                return (cht.y + lineHeight_) < areaY_;
+            [&](const Chat& c) {
+                return c.y + c.height < areaY_;
             }),
         chats_.end()
     );
+    
 }
 
 void ChatOutput::Draw()
 {
-  //  DrawExtendGraph(areaX_, areaY_, areaX_ + areaW_, areaY_ + areaH_, bImage_, TRUE);
+
     for (const auto& cht : chats_) {
-        DrawBox(areaX_, areaY_, areaX_ + areaW_, areaY_ + areaH_, GetColor(255, 255, 255), TRUE);
+      //  DrawBox(areaX_, areaY_, areaX_ + areaW_, areaY_ + areaH_, GetColor(255, 255, 255), TRUE);
         if (cht.superChatMode) {
             DrawBox(cht.x, cht.y, cht.x+cht.width, cht.y + cht.height, GetColor(255, 0, 0), TRUE);
         }

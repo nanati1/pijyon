@@ -35,6 +35,22 @@ Stage::Stage()
 	for (int y = 0; y < map.size(); y++) {
 		for (int x = 0; x < map[y].size(); x++) {
 			int c = map[y][x];
+
+			int w = imageSize.x;
+			int h = imageSize.y;
+
+			int drawX = x * w - scrollX + Screen::startX; // ©¶ã‚©‚ç•`‚­
+			int drawY = y * h + Screen::startY;
+
+			// ‰æ–ÊŠO‚È‚ç•`‚©‚È‚¢
+			if (drawX < Screen::startX - w || drawX > Screen::endX) {
+				continue;
+			}
+			// ‰æ–ÊŠO‚È‚ç•`‚©‚È‚¢
+			if (drawY < Screen::startY - h || drawY > Screen::endY - h) {
+				continue;
+			}
+
 			if (c == 9) {
 				int px = x * imageSize.x + imageSize.x / 2.0f;
 				int py = y * imageSize.y + imageSize.y / 2.0f;
@@ -98,6 +114,7 @@ void Stage::Draw()
 			else if (c == 4) {
 				DrawRectGraph(drawX, drawY, 0 * w, 0 * h, w, h, iImage, TRUE);
 			}
+			
 			
 		}
 	}

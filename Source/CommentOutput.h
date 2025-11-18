@@ -2,6 +2,7 @@
 #include "../Library/GameObject.h"
 #include <string>
 #include <vector>
+#include"MobCommentDatabase.h"
 
 class CommentOutput : public GameObject
 {
@@ -12,6 +13,7 @@ public:
     void Update() override;
     void Draw() override;
 
+    void AddMobComment();
     void SetSpeed(int vx, int vy = 0) { defaultVx_ = vx; defaultVy_ = vy; }
     void SetStreamArea(int x, int y, int w, int h) {
         streamX_ = x; streamY_ = y; streamW_ = w; streamH_ = h;
@@ -29,6 +31,8 @@ private:
         int width = 0; // ピクセル幅（左に抜けた判定用）
 		int height = 0;
 		bool superChatMode = false;
+        bool playerComment = true;
+
     };
 
     int bImage_ = -1;      //チャット背景
@@ -46,4 +50,9 @@ private:
     int defaultVy_ = 0;
 
     std::vector<Comment> comments_;
+
+    MobCommentDatabase mobDB_;
+    int mobCommentTimer = 0;
+    int nextMobComment = 120;
+
 };
