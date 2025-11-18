@@ -53,11 +53,21 @@ void CommentOutput::Update() {
 }
 
 void CommentOutput::Draw() {
-    for (const auto& com : comments_) {
-        if (com.superChatMode) {
-            DrawBox(com.x, com.y, com.x + com.width, com.y + com.height, GetColor(255, 0, 0), TRUE);
-        }
-        DrawString(com.x, com.y, com.text.c_str(), GetColor(0, 0, 0));
-    }
+    RECT oldRect;
+    GetDrawArea(&oldRect);
 
+    SetDrawArea(
+		streamX_, 
+        streamY_, 
+        streamX_ + streamW_,
+        streamY_ + streamH_
+    );
+
+    for (const auto& com : comments_) {
+        if (com.superChatMode == TRUE) {
+			DrawBox(com.x, com.y, com.x + com.width, com.y + com.height, GetColor(255, 0, 0), TRUE);
+        }
+		DrawString(com.x, com.y, com.text.c_str(), GetColor(0, 0, 0));
+    }
+    SetDrawAreaFull();
 }
