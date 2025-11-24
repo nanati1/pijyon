@@ -36,6 +36,7 @@ void Enemy::Update()
 void Enemy::Draw()
 {
 	Object2D::Draw();
+	SetDrawOrder(100);
 	Stage* st = FindGameObject<Stage>();
 	float x = position.x - st->ScrollX();
 	DrawBox(x - 24, position.y - 32, x + 24, position.y + 32,
