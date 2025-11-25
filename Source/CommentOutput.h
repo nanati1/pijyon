@@ -9,7 +9,7 @@ class CommentOutput : public GameObject
 public:
     CommentOutput();
     ~CommentOutput();
-    void SetCommentText(const std::string& comment);   // コメント追加
+    void SetCommentText(const std::string& comment, bool isMob = false);
     void Update() override;
     void Draw() override;
 
@@ -31,7 +31,7 @@ private:
         int width = 0; // ピクセル幅（左に抜けた判定用）
 		int height = 0;
 		bool superChatMode = false;
-        bool playerComment = true;
+        bool isMob = false;
 
     };
 
@@ -53,6 +53,6 @@ private:
 
     MobCommentDatabase mobDB_;
     int mobCommentTimer = 0;
-    int nextMobComment = 120;
+    int nextMobComment = 300;
 
 };

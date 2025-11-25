@@ -15,6 +15,7 @@ bool MobCommentDatabase::Load(const std::string& filename)
         MobComment mc;
         mc.text = csv.GetString(i, 0);   // Text
         mc.weight = csv.GetInt(i, 1);    // Weight
+        
         if (mc.weight <= 0) mc.weight = 1;
         if (!mc.text.empty()) {
             list_.push_back(mc);

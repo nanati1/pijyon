@@ -17,7 +17,7 @@ ChatOutput::~ChatOutput()
     }
 }
 
-void ChatOutput::AddChat(const std::string& text)
+void ChatOutput::AddChat(const std::string& text,bool isMob)
 {
     int h = lineHeight_;
     for (auto& c : chats_) {
@@ -30,6 +30,7 @@ void ChatOutput::AddChat(const std::string& text)
     cht.vy = 0;
     cht.height = h;
 	cht.width = GetDrawStringWidth(cht.text.c_str(), (int)cht.text.size());
+    cht.isMob = isMob;
 
     if (auto* cs = FindGameObject<CommentSelect>()) {
 		cht.superChatMode = cs->IsSuperChatMode();
@@ -65,11 +66,15 @@ void ChatOutput::Draw()
 {
 
     for (const auto& cht : chats_) {
-      //  DrawBox(areaX_, areaY_, areaX_ + areaW_, areaY_ + areaH_, GetColor(255, 255, 255), TRUE);
         if (cht.superChatMode) {
-            DrawBox(cht.x, cht.y, cht.x+cht.width, cht.y + cht.height, GetColor(255, 0, 0), TRUE);
+            if(cht.isMob==false)DrawBox(cht.x, cht.y, cht.x+cht.width, cht.y + cht.height, GetColor(255, 0, 0), TRUE);
         }
-        DrawString(cht.x, cht.y, cht.text.c_str(), GetColor(0, 0, 0));
+        if (cht.isMob == false) { 
+            DrawString(cht.x, cht.y, cht.text.c_str(), GetColor(0, 127, 255)); 
+        }
+        else{
+			DrawString(cht.x, cht.y, cht.text.c_str(), GetColor(0, 0, 0));
+        }
     }
     DrawExtendGraph(areaX_, areaY_, areaX_ + areaW_, areaY_ + areaH_, hImage_, TRUE);
 

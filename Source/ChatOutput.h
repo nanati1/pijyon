@@ -9,7 +9,7 @@ public:
     ChatOutput();
     ~ChatOutput();
 
-    void AddChat(const std::string& comment);  // チャット追加
+    void AddChat(const std::string& comment,bool isMob=false);  // チャット追加
     void Update() override;
     void Draw() override;
 
@@ -29,6 +29,7 @@ private:
         int height = 0;   
         int width = 0;
         bool superChatMode = false;
+        bool isMob = false;
     };
 
     int hImage_ = -1;      // 枠画像
