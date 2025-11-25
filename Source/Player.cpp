@@ -122,6 +122,7 @@ void Player::Update()
 						walkByCommentActive = true;
 						walkByCommentDir = +1;
 						directionRight = true;
+						animY = 3;
 					}
 					else if (dir == LEFT) {        // LEFT
 						walkByCommentActive = true;
@@ -147,6 +148,7 @@ void Player::Update()
 						walkByCommentActive = true;
 						walkByCommentDir = +1;
 						directionRight = true;
+						animY = 3;
 					}
 					else if (dir == LEFT) {        // LEFT
 						walkByCommentActive = true;
@@ -397,7 +399,7 @@ void Player::Update()
 
 	
 	//画面の外に出たらスタート地点に戻る
-	if (position.y >= 710)
+	if (position.y >= 820)
 	{
 		Avatar* avt = FindGameObject<Avatar>();
 		avt->StressSet(10);

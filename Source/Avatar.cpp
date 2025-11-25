@@ -1,5 +1,6 @@
 #include "Avatar.h"
 #include <assert.h>
+#include "Screen.h"
 
 namespace {
 	std::string voicePath[4] = {
@@ -51,7 +52,7 @@ void Avatar::Update()
 
 void Avatar::Draw()
 {
-	DrawRectExtendGraph(1040, 500, 1380, 765, 200 * (animX), 0, 200, 150, hImage, 1);
+	DrawRectExtendGraph(1040, 600, 1380, Screen::HEIGHTSMALL, 200 * (animX), 0, 200, 150, hImage, 1);
 }
 
 
