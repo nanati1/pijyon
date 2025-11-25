@@ -70,6 +70,9 @@ Player::Player(VECTOR2 pos)
 	anim = 0;
 	animY = 3;
 
+	animCell = 4;
+	animTimer = 0;
+	
 	position = pos;
 	velocityY = 0.0f;
 	prevPushed = false;
@@ -83,6 +86,7 @@ void Player::Update()
 {
 	Stage* st = FindGameObject<Stage>();
 	Avatar* avt = FindGameObject<Avatar>();
+
 
 
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) { 
@@ -123,6 +127,8 @@ void Player::Update()
 						walkByCommentActive = true;
 						walkByCommentDir = -1;
 						directionRight = false;
+						animY = 1;
+
 					}
 					else {                      // NONE
 						walkByCommentActive = true;
@@ -146,6 +152,7 @@ void Player::Update()
 						walkByCommentActive = true;
 						walkByCommentDir = -1;
 						directionRight = false;
+						animY = 1;
 					}
 					else {                      // NONE
 						walkByCommentActive = true;
@@ -296,6 +303,7 @@ void Player::Update()
 			}
 			else {
 				// ”wŒã‚©‚ç“–‚½‚Á‚½ ¨ i—áj‘ŠŽE‚â‰½‚à‚µ‚È‚¢
+
 			}
 		}
 	}
@@ -363,10 +371,16 @@ void Player::Update()
 		if (drawX > RightLimit) {
 			st->SetScrollX(position.x - RightLimit);
 		}
-		else if (drawX < LeftLimit) {
-			position.x = LeftLimit + st->ScrollX();
+		else if (drawX < 200) {
+			st->SetScrollX(position.x - 200);
 		}
+		/*else if (drawX < LeftLimit) {
+			position.x = LeftLimit + st->ScrollX();
+		}*/
+
 	}
+
+
 	ImGui::Begin("Player");
 	ImGui::Checkbox("onGround", &onGround);
 	ImGui::InputFloat("positionY", &position.y);

@@ -35,4 +35,7 @@ private:
 	bool superChatMode;
 	int  walkByCommentDir = 0;      // -1:¶ / 0:‚»‚Ì‚Ü‚Ü / +1:‰E
 	int  jumpMoveDir=0;				//ª‚Æ“¯‚¶
+
+	int animTimer;
+	int animCell;
 };

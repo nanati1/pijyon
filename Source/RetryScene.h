@@ -8,6 +8,7 @@
 /// </summary>
 class RetryScene : public SceneBase
 {
+	int startTime = 0;
 public:
 	RetryScene();
 	~RetryScene();

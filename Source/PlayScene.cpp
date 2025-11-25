@@ -28,6 +28,7 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
+
 	if (CheckHitKey(KEY_INPUT_G)) {
 		SceneManager::ChangeScene("GAMEOVER");
 	}

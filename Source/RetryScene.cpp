@@ -4,6 +4,7 @@
 RetryScene::RetryScene()
 {
 	new BackGround();
+	startTime = GetNowCount();  // シーン開始時に時刻を記録
 }
 
 RetryScene::~RetryScene()
@@ -12,12 +13,21 @@ RetryScene::~RetryScene()
 
 void RetryScene::Update()
 {
-	if (CheckHitKey(KEY_INPUT_P)) {
+
+	int now = GetNowCount();
+
+	// 3秒経過したらシーン変更
+	if (now - startTime >= 3000) {   // ← 3000ミリ秒
 		SceneManager::ChangeScene("PLAY");
 	}
-	if (CheckHitKey(KEY_INPUT_G)) {
-		SceneManager::ChangeScene("GAMEOVER");
-	}
+
+
+	//if (CheckHitKey(KEY_INPUT_P)) {
+	//	SceneManager::ChangeScene("PLAY");
+	//}
+	//if (CheckHitKey(KEY_INPUT_G)) {
+	//	SceneManager::ChangeScene("GAMEOVER");
+	//}
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
 		SceneManager::Exit();
 	}
