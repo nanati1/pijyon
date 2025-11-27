@@ -11,6 +11,7 @@ public:
 	void Draw() override;
 	void StressSet(int s);
 	int GetStress() { return stress; }
+	void StressReset();
 private:
 	int animX;//表情を変えるための変数。0～3,大きくなるほど怒る
 	int hImage;//画像ハンドル
