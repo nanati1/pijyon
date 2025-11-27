@@ -29,6 +29,7 @@ private:
 	bool superChatMode_ = false;
 	float superChatTimer;
 	float superChatTimerCount;
+	int superChatCounter;
 
 	Select focus_;
 	DirectionSelect dir_;

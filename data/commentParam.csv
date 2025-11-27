@@ -5,3 +5,4 @@ SevereCommentStress,10,コメントによるストレス値の上昇量（SEVERE）
 NormalCommentStress,5,コメントによるストレス値の上昇量（NORMAL）
 KindCommentStress,1,コメントによるストレス値の上昇量（KIND）
 SuperChatTimer,5,スーパーチャット状態継続時間
+SuperChatCounter,5,スーパーチャットの回数

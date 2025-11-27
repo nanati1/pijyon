@@ -24,6 +24,9 @@ CommentSelect::CommentSelect()
 		if (tag == "SuperChatTimer") {
 			superChatTimerCount = commentCsv->GetFloat(i, 1);
 		}
+		if (tag == "SuperChatCounter") {
+			superChatCounter = commentCsv->GetInt(i, 1);
+		}
 
 	}
 }
@@ -83,7 +86,7 @@ void CommentSelect::Update()
 #if 0
 			case StateSelect::WARK:st_ = StateSelect::RUN; break;
 #else
-			case StateSelect::WARK:st_=StateSelect::JUMP;break;
+			case StateSelect::WARK:st_ = StateSelect::JUMP; break;
 #endif
 			case StateSelect::RUN:st_ = StateSelect::JUMP; break;
 			case StateSelect::JUMP:st_ = StateSelect::STOP; break;
@@ -93,12 +96,13 @@ void CommentSelect::Update()
 		if (Input::IsKeyDown(KEY_INPUT_DOWN)) {
 			switch (st_) {
 			case StateSelect::STOP:st_ = StateSelect::JUMP; break;
-#if 0
+
 			case StateSelect::WARK:st_ = StateSelect::STOP; break;
-#else
-			case StateSelect::RUN:st_ = StateSelect::WARK; break;
-#endif
+#if 0
 			case StateSelect::JUMP:st_ = StateSelect::RUN; break;
+#else
+			case StateSelect::JUMP:st_ = StateSelect::WARK; break;
+#endif
 			default:break;
 			}
 		}
@@ -141,9 +145,10 @@ void CommentSelect::Update()
 			}
 		}
 	}
-
-	if (Input::IsKeyDown(KEY_INPUT_LSHIFT) || Input::IsKeyDown(KEY_INPUT_RSHIFT)) {
-		ToggleSuperChat();
+	if (superChatCounter > 0) {
+		if (Input::IsKeyDown(KEY_INPUT_LSHIFT) || Input::IsKeyDown(KEY_INPUT_RSHIFT)) {
+			ToggleSuperChat();
+		}
 	}
 
 	if( commentOutputInstance) {
@@ -156,6 +161,7 @@ void CommentSelect::Update()
 		if (superChatTimer < 0.0f) {
 			superChatMode_ = false;
 			superChatOn_ = false;
+			superChatCounter--;
 		}
 	}
 	else {
