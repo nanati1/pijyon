@@ -396,7 +396,7 @@ void Player::Update()
 		Stage::currentStage++;
 
 		// StagePath ‚Ì”
-		const int STAGE_COUNT = 4;
+		const int STAGE_COUNT = 3;
 
 		// ÅŒã‚Ü‚Å—ˆ‚½‚çƒQ[ƒ€ƒNƒŠƒA
 		if (Stage::currentStage >= STAGE_COUNT)

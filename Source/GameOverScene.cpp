@@ -4,6 +4,7 @@
 
 GameOverScene::GameOverScene()
 {
+	Screen::startTime = GetNowCount();  // シーン開始時に時刻を記録
 }
 
 GameOverScene::~GameOverScene()
@@ -12,9 +13,13 @@ GameOverScene::~GameOverScene()
 
 void GameOverScene::Update()
 {
-	if (CheckHitKey(KEY_INPUT_T)) {
+	int now = GetNowCount();
+
+	// 3秒経過したらシーン変更
+	if (now - Screen::startTime >= 3000) {   // ← 3000ミリ秒
 		SceneManager::ChangeScene("TITLE");
 	}
+
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
 		SceneManager::Exit();
 	}
@@ -39,6 +44,6 @@ void GameOverScene::Draw()
 	// フォントサイズを元に戻す
 	SetFontSize(16);
 
-	DrawString(0, 0, "GAMEOVER SCENE", GetColor(255, 255, 255));
-	DrawString(100, 400, "Push [T]Key To Title", GetColor(255, 255, 255));
+	//DrawString(0, 0, "GAMEOVER SCENE", GetColor(255, 255, 255));
+	//DrawString(100, 400, "Push [T]Key To Title", GetColor(255, 255, 255));
 }

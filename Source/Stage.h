@@ -32,7 +32,7 @@ public:
 	bool IsGoal(VECTOR2 pos);
 
 	static int currentStage;  // © éŒ¾‚¾‚¯‚É‚·‚é
-	static const char* StagePath[4];
+	static const char* StagePath[3];
 
 private:
 	float scrollX; // ‰¡ƒXƒNƒ[ƒ‹—Ê
