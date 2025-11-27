@@ -98,12 +98,14 @@
     <ClCompile Include="Source\AnalyzeKey.cpp">
       <Filter>PlayScene\Comment</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\ChatOutput.cpp">
       <Filter>PlayScene\Comment</Filter>
     </ClCompile>
     <ClCompile Include="Source\MobCommentDatabase.cpp">
       <Filter>PlayScene\Comment</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>PlayScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -217,12 +219,14 @@
     <ClInclude Include="Source\AnalyzeKey.h">
       <Filter>PlayScene\Comment</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\ChatOutput.h">
       <Filter>PlayScene\Comment</Filter>
     </ClInclude>
     <ClInclude Include="Source\MobCommentDatabase.h">
       <Filter>PlayScene\Comment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

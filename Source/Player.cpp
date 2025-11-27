@@ -388,11 +388,27 @@ void Player::Update()
 	ImGui::InputFloat("positionY", &position.y);
 	ImGui::End();
 
-
-
+	// ゴール判定
+	//StagePathを進める
 	if (st->IsGoal(position))
 	{
-		SceneManager::ChangeScene("CLEAR");
+		// 次のステージへ
+		Stage::currentStage++;
+
+		// StagePath の数
+		const int STAGE_COUNT = 4;
+
+		// 最後まで来たらゲームクリア
+		if (Stage::currentStage >= STAGE_COUNT)
+		{
+			Avatar* avt = FindGameObject<Avatar>();
+			avt->StressSet(10);
+			SceneManager::ChangeScene("CLEAR");
+			return;
+		}
+
+		// 次のステージを読み込む
+		SceneManager::ChangeScene("RETRY");
 	}
 
 

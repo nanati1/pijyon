@@ -6,11 +6,20 @@
 #include "Screen.h"
 #include "Enemy.h"
 
+const char* Stage::StagePath[4] = {
+	"data/map/stage1.csv",
+	"data/map/stage2.csv",
+	"data/map/stage3.csv",
+	"data/map/stage4.csv",
+};
+
+int Stage::currentStage = 0;  // ← ここにだけ書く！！
 
 Stage::Stage()
 {
 	// ステージデータの読み込み
-	CsvReader* csv = new CsvReader("data/map/testStage.csv");
+	//CsvReader* csv = new CsvReader("data/map/testStage.csv");
+	CsvReader* csv = new CsvReader(StagePath[currentStage]);
 	for (int line = 0; line < csv->GetLines(); line++) {
 		std::vector<int> mapLine;
 		for (int column = 0; column < csv->GetColumns(line); column++) {
@@ -199,5 +208,5 @@ bool Stage::IsGoal(VECTOR2 pos)
 	if (y < 0 || y >= map.size()) return false;
 	if (x < 0 || x >= map[y].size()) return false;
 
-	return (map[y][x] ==4); // ゴール
+	return (map[y][x] == 4); // ゴール
 }

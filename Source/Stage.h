@@ -30,6 +30,10 @@ public:
 	int CheckUp(VECTOR2 pos);
 
 	bool IsGoal(VECTOR2 pos);
+
+	static int currentStage;  // © éŒ¾‚¾‚¯‚É‚·‚é
+	static const char* StagePath[4];
+
 private:
 	float scrollX; // ‰¡ƒXƒNƒ[ƒ‹—Ê
 	int bImage;
@@ -38,4 +42,5 @@ private:
 	bool IsWall(VECTOR2 pos);
 
 	std::vector<std::vector<int>> map;
+
 };
