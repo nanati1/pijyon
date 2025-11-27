@@ -6,11 +6,10 @@
 #include "Screen.h"
 #include "Enemy.h"
 
-const char* Stage::StagePath[4] = {
+const char* Stage::StagePath[3] = {
 	"data/map/stage1.csv",
 	"data/map/stage2.csv",
 	"data/map/stage3.csv",
-	"data/map/stage4.csv",
 };
 
 int Stage::currentStage = 0;  // © ‚±‚±‚É‚¾‚¯‘‚­II

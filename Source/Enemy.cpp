@@ -8,12 +8,12 @@ Enemy::Enemy()
 
 Enemy::Enemy(VECTOR2 pos)
 {
-	hImage = LoadGraph("data/image/tamadot.png");
+	hImage = LoadGraph("data/image/toge.png");
 	assert(hImage > 0);
 
 	imageSize = VECTOR2(64, 64);
 	anim = 0;
-	animY = 1;
+	animY = 0;
 
 	position = pos;
 	originX = pos.x;

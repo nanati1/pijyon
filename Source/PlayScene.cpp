@@ -42,9 +42,9 @@ void PlayScene::Update()
 
 void PlayScene::Draw()
 {
-	DrawString(0, 0, "PLAY SCENE", GetColor(255, 255, 255));
-	DrawString(100, 400, "Push [G]Key To Title", GetColor(255, 255, 255));
-	DrawString(100, 500, "Push [C]Key To Title", GetColor(255, 255, 255));
+	//DrawString(0, 0, "PLAY SCENE", GetColor(255, 255, 255));
+	//DrawString(100, 400, "Push [G]Key To Title", GetColor(255, 255, 255));
+	//DrawString(100, 500, "Push [C]Key To Title", GetColor(255, 255, 255));
 	
 	// ‘¾‚³1‚Ì˜g
 	//DrawBox(Screen::startX, Screen::startY, Screen::endX, Screen::endY, GetColor(255, 0, 0), FALSE);
