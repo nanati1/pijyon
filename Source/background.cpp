@@ -4,6 +4,7 @@
 #include "Avatar.h"
 #include "CommentArea.h"
 #include "KeyInput.h"
+#include "Screen.h"
 
 BackGround::BackGround()
 {
@@ -22,7 +23,7 @@ BackGround::BackGround()
 	bImage = LoadGraph("data/image/bell.png");
 	new Avatar();
 	new CommentArea();
-	new KeyInput();
+	//new KeyInput();
 }
 
 BackGround::BackGround(VECTOR2 pos)
@@ -41,7 +42,7 @@ void BackGround::Update()
 void BackGround::Draw()
 {
 	//DrawExtendGraph(1360, 72, 1920, 765, wImage, 0);//右端
-	DrawExtendGraph(1360, 72, 1920, 765, wImage, 0);//右端 白
+	DrawExtendGraph(1360, 72, 1920, Screen::HEIGHTSMALL, wImage, 0);//右端 白
 	//DrawExtendGraph(1360, 72, 1920, 765, hImage, 1);//右端　枠
 	DrawExtendGraph(0, 0, 1920, 72, wImage, 0);//上
 	DrawExtendGraph(400, 0, 1400, 72, sImage, 0);//上 検索
@@ -49,5 +50,5 @@ void BackGround::Draw()
 	DrawExtendGraph(0, 0, 72, 72, tImage, 1);//タブ
 	DrawExtendGraph(1720, 0, 1820, 72, iImage, 1);//アイコン
 	DrawExtendGraph(1620, 0, 1720, 72, bImage, 1);//ベル
-	DrawExtendGraph(0, 765, 1920, 1080, wImage, 0);//下
+	DrawExtendGraph(0, Screen::HEIGHTSMALL, 1920, 1080, wImage, 0);//下
 }
