@@ -64,7 +64,7 @@ void ChatOutput::Update()
 
 void ChatOutput::Draw()
 {
-
+	SetDrawArea(areaX_, areaY_, areaX_ + areaW_, areaY_ + areaH_);
     for (const auto& cht : chats_) {
         if (cht.superChatMode) {
             if(cht.isMob==false)DrawBox(cht.x, cht.y, cht.x+cht.width, cht.y + cht.height, GetColor(255, 0, 0), TRUE);
@@ -77,5 +77,5 @@ void ChatOutput::Draw()
         }
     }
     DrawExtendGraph(areaX_, areaY_, areaX_ + areaW_, areaY_ + areaH_, hImage_, TRUE);
-
+    SetDrawAreaFull();
 }

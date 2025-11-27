@@ -134,9 +134,9 @@ void CommentSelect::Update()
 		}
 
 		srand((unsigned int)time(NULL));
-		if (st_ == StateSelect::STOP) {
-			dir_ = DirectionSelect::NONE;
-		}
+		//if (st_ == StateSelect::STOP) {
+		//	dir_ = DirectionSelect::NONE;
+		//}
 		if (commentOutputInstance) {
 			std::string comment = CommentDatabase::GetComment(dir_, st_, lv_);
 			commentOutputInstance->SetCommentText(comment);
@@ -207,38 +207,47 @@ void CommentSelect::Draw()
 		case DirectionSelect::NONE:
 			break;
 		case DirectionSelect::RIGHT:
-			DrawString(CommentUi::BoxX + 20, CommentUi::BoxY + 20, "RIGHT", GetColor(255, 255, 255));
+			DrawString(CommentUi::BoxX + 20, CommentUi::BoxY + 20, "RIGHT", 
+				(superChatOn_?GetColor(0,0,255):GetColor(255, 255, 255)));
 			break;
 		case DirectionSelect::LEFT:
-			DrawString(CommentUi::BoxX + 20, CommentUi::BoxY + 20, "LEFT", GetColor(255, 255, 255));
+			DrawString(CommentUi::BoxX + 20, CommentUi::BoxY + 20, "LEFT", 
+				(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
 			break;
 		default:break;
 
 	}
 	switch (st_) {
 	case StateSelect::STOP:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "STOP", GetColor(255, 255, 255));
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "STOP", 
+			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
 		break;
 	case StateSelect::WARK:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "WARK", GetColor(255, 255, 255));
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "WARK", 
+			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
 		break;
 	case StateSelect::RUN:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "RUN", GetColor(255, 255, 255));
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "RUN", 
+			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
 		break;
 	case StateSelect::JUMP:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "JUMP", GetColor(255, 255, 255));
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "JUMP", 
+			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
 		break;
 	default:break;
 	}
 	switch (lv_) {
 	case CommentLevel::KIND:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "KIND", GetColor(255, 255, 255));
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "KIND", 
+			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
 		break;
 	case CommentLevel::NORMAL:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "NORMAL", GetColor(255, 255, 255));
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "NORMAL", 
+			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
 		break;
 	case CommentLevel::SEVERE:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "SEVERE", GetColor(255, 255, 255));
+		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "SEVERE", 
+			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
 		break;
 	default:break;
 	}

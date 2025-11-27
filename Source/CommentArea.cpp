@@ -36,5 +36,6 @@ void CommentArea::Draw()
 		(superChatOnUI?GetColor(255, 255, 0):GetColor(200,200,200)), TRUE);
 
 	//コメント送信ボタン
-	DrawBox(CommentUi::SendButtonX, CommentUi::SendButtonY, CommentUi::SendButtonX + CommentUi::SendButtonWidth, CommentUi::SendButtonY + CommentUi::SendButtonHeight, GetColor(100, 100, 255), TRUE);
+	DrawBox(CommentUi::SendButtonX, CommentUi::SendButtonY, CommentUi::SendButtonX + CommentUi::SendButtonWidth, CommentUi::SendButtonY + CommentUi::SendButtonHeight,
+		GetColor(100, 100, 255), TRUE);
 }
