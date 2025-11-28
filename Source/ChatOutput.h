@@ -48,5 +48,5 @@ private:
 
     std::vector<Chat> chats_;
 
-    int hImageSuperChatRad;
+    int hImageSuperChatRed;
 };

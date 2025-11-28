@@ -8,7 +8,7 @@ CommentOutput::CommentOutput()
 {
     bImage_ = LoadGraph("data/image/chat.jpg");
     assert(bImage_ > 0);
-    hImageSuperChatRad = LoadGraph("data/image/comment/superChatRad.png");
+    hImageSuperChatRed = LoadGraph("data/image/comment/superChatRed.png");
 	mobDB_.Load("data/mobComments.csv");
 }
 
@@ -86,7 +86,7 @@ void CommentOutput::Draw() {
 
     for (const auto& com : comments_) {
             if (com.superChatMode) {
-                if (com.isMob == false)DrawGraph(com.x, com.y - com.height, hImageSuperChatRad, TRUE);
+                if (com.isMob == false)DrawGraph(com.x, com.y - com.height, hImageSuperChatRed, TRUE);
             }
             if (com.isMob == false) {
                 DrawString(com.x, com.y, com.text.c_str(), (com.superChatMode ? GetColor(255, 255, 255) : GetColor(0, 0, 255)));
