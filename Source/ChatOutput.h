@@ -47,4 +47,6 @@ private:
     int chatVy_ = 2;       // 上へスクロール速度
 
     std::vector<Chat> chats_;
+
+    int hImageSuperChatRad;
 };

@@ -7,6 +7,7 @@
 ChatOutput::ChatOutput()
 {
     hImage_ = LoadGraph("data/image/chat.png");
+    hImageSuperChatRad = LoadGraph("data/image/comment/superChatRad.png");
     assert(hImage_ > 0);
 }
 
@@ -67,10 +68,10 @@ void ChatOutput::Draw()
 	SetDrawArea(areaX_, areaY_, areaX_ + areaW_, areaY_ + areaH_);
     for (const auto& cht : chats_) {
         if (cht.superChatMode) {
-            if(cht.isMob==false)DrawBox(cht.x, cht.y, cht.x+cht.width, cht.y + cht.height, GetColor(255, 0, 0), TRUE);
+            if(cht.isMob==false)DrawGraph(cht.x, cht.y-cht.height, hImageSuperChatRad, TRUE);
         }
         if (cht.isMob == false) { 
-            DrawString(cht.x, cht.y, cht.text.c_str(), GetColor(0, 127, 255)); 
+            DrawString(cht.x, cht.y, cht.text.c_str(), (cht.superChatMode ? GetColor(255,255,255): GetColor(0, 127, 255)));
         }
         else{
 			DrawString(cht.x, cht.y, cht.text.c_str(), GetColor(0, 0, 0));

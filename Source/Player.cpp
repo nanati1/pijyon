@@ -173,7 +173,7 @@ void Player::Update()
 							if (dir == RIGHT)      dirH = +1;
 							else if (dir == LEFT)  dirH = -1;
 
-							// ¡‚Ìu•à‚«ó‘Ôv‚Æ‚»‚ÌŒü‚«‚ğ’²‚×‚é
+							// ¡‚Ì•à‚«ó‘Ô‚Æ‚»‚ÌŒü‚«‚ğ’²‚×‚é
 							bool walkingNow = walkByCommentActive || autoMovingRight;
 							int  walkDir = 0;
 							if (walkByCommentActive) {

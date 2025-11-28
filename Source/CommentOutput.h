@@ -55,4 +55,7 @@ private:
     int mobCommentTimer = 0;
     int nextMobComment = 300;
 
+    int hImageSuperChatRad;
+
+
 };
