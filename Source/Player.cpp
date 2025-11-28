@@ -162,29 +162,60 @@ void Player::Update()
 					}
 
 				}
-				else if (state == JUMP) {//JUMP
-					const bool idleNow = (!walkByCommentActive && !autoMovingRight);
+				else if (state == JUMP) { // JUMP
 					if (onGround) {
 						if (prevPushed == false) {
+							// 縦方向ジャンプ
 							velocityY = JumpV0;
+
+							// コメントの左右指示をジャンプ方向に変換
 							int dirH = 0;
-							if (dir == 0)velocityY = JumpV0;
-							else if (dir == RIGHT)dirH = +1;//RIGHT
-							else if (dir == LEFT)dirH = -1;//LEFT
-							else dirH = (directionRight ? +1 : -1);//NONE:現在の向き
-							if (idleNow && dirH != 0) {
-								jumpMoveActive = true;
-								jumpMoveDir = dirH;
-								airMoveSpeed = moveSpeed;
-								directionRight = (dirH > 0);
-								stopAfterLanding = true;   // 着地したら完全停止
+							if (dir == RIGHT)      dirH = +1;
+							else if (dir == LEFT)  dirH = -1;
+
+							// 今の「歩き状態」とその向きを調べる
+							bool walkingNow = walkByCommentActive || autoMovingRight;
+							int  walkDir = 0;
+							if (walkByCommentActive) {
+								walkDir = walkByCommentDir;
 							}
+							else if (autoMovingRight) {
+								walkDir = +1; // 自動移動は右とみなす
+							}
+
+							if (dirH != 0) {
+								if (walkingNow && dirH == walkDir) {
+									// 歩いている向きと同じ方向にジャンプ
+									// → 歩きはそのまま続ける
+									directionRight = (dirH > 0);
+									jumpMoveActive = false;
+									jumpMoveDir = 0;
+									stopAfterLanding = false; // 着地後も歩き継続
+								}
+								else {
+									// 逆方向にジャンプ、または停止状態からジャンプ
+									// → 歩きを切って、ジャンプ専用の横移動に切り替え
+									jumpMoveActive = true;
+									jumpMoveDir = dirH;
+									airMoveSpeed = moveSpeed;
+									directionRight = (dirH > 0);
+									stopAfterLanding = true;  // 着地したら完全停止
+
+									// いままでの歩行・自動移動はオフにする
+									walkByCommentActive = false;
+									walkByCommentDir = 0;
+									autoMovingRight = false;
+								}
+							}
+							else {
+								// dirH == 0 の場合 → 真上ジャンプ
+								// 歩いていたらそのまま歩きながらジャンプ
+								// （何もしなくてOK）
+							}
+
+							prevPushed = true;
 						}
-
-						prevPushed = true;
 					}
-					
-
 				}
 				else {
 					autoMovingRight = false;
