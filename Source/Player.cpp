@@ -208,9 +208,8 @@ void Player::Update()
 								}
 							}
 							else {
-								// dirH == 0 の場合 → 真上ジャンプ
+								//真上ジャンプ
 								// 歩いていたらそのまま歩きながらジャンプ
-								// （何もしなくてOK）
 							}
 
 							prevPushed = true;

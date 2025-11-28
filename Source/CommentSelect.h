@@ -30,7 +30,8 @@ private:
 	float superChatTimer;
 	float superChatTimerCount;
 	int superChatCounter;
-
+	int hImageCommentSelectUI;
+	int hImageSuperChatSelectUI;
 	Select focus_;
 	DirectionSelect dir_;
 	StateSelect st_;

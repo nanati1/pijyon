@@ -7,6 +7,11 @@
 #include<stdlib.h>
 #include"Time.h"
 
+enum ComemntUI {
+	UI_NONE, UI_RIGHT, UI_LEFT, UI_STOP, UI_WARK, UI_JUMP, UI_KIND, UI_NORMAL, UI_SEVERE
+};
+
+
 CommentSelect::CommentSelect()
 	:focus_(Select::DIRECTION), dir_(DirectionSelect::NONE), st_(StateSelect::STOP), lv_(CommentLevel::KIND)
 {
@@ -15,6 +20,8 @@ CommentSelect::CommentSelect()
 	st_=STOP;
 	lv_ = KIND;
 
+	hImageCommentSelectUI = LoadGraph("data/image/comment/CommentSelectUI.png");
+	hImageSuperChatSelectUI=LoadGraph("data/image/comment/SuperChatCommentSelectUI.png");
 	commentOutputInstance = new CommentOutput();
 	chatOutputInstance = new ChatOutput();
 	Input::Initialize();
@@ -173,13 +180,78 @@ void CommentSelect::Draw()
 {
 	int commentSelectNumber = 3;
 
+	//文字の描画
+
+	int rowDir = UI_NONE;
+
+	switch (dir_) {
+	case DirectionSelect::NONE:  rowDir = UI_NONE;  break;
+	case DirectionSelect::RIGHT: rowDir = UI_RIGHT; break;
+	case DirectionSelect::LEFT:  rowDir = UI_LEFT;  break;
+	default: break;
+	}
+
+	int cellW = CommentUi::BoxWidth / commentSelectNumber;
+	int cellH = CommentUi::BoxHeight;
+
+	DrawRectGraph(
+		CommentUi::BoxX,
+		CommentUi::BoxY,
+		0,
+		cellH * rowDir,
+		cellW,
+		cellH,
+		(superChatOn_ ? hImageSuperChatSelectUI : hImageCommentSelectUI),
+		TRUE
+	);
+
+	int rowState = UI_STOP;
+	switch (st_) {
+	case StateSelect::STOP:rowState = UI_STOP; break;
+	case StateSelect::WARK:rowState = UI_WARK; break;
+	case StateSelect::JUMP:rowState = UI_JUMP; break;
+	default:break;
+	}
+
+	DrawRectGraph(
+		CommentUi::BoxX + cellW,   // 真ん中
+		CommentUi::BoxY,
+		0,
+		cellH * rowState,
+		cellW,
+		cellH,
+		(superChatOn_ ? hImageSuperChatSelectUI : hImageCommentSelectUI),
+		TRUE
+	);
+
+	int rowLevel = UI_KIND;
+	switch (lv_) {
+	case CommentLevel::KIND:   rowLevel = UI_KIND;   break;
+	case CommentLevel::NORMAL: rowLevel = UI_NORMAL; break;
+	case CommentLevel::SEVERE: rowLevel = UI_SEVERE; break;
+	default: break;
+	}
+
+	DrawRectGraph(
+		CommentUi::BoxX + cellW * 2, // 右
+		CommentUi::BoxY,
+		0,
+		cellH * rowLevel,
+		cellW,
+		cellH,
+		(superChatOn_?hImageSuperChatSelectUI:hImageCommentSelectUI),
+		TRUE
+	);
+
 	//コメント選択の描画
 	for (int i = 1; i <= commentSelectNumber; i++) {
 		DrawBox(CommentUi::BoxX, CommentUi::BoxY,
 			CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * i,
 			CommentUi::BoxY + CommentUi::BoxHeight,
-			(superChatMode_?GetColor(255,215,0):GetColor(0, 0, 255)), FALSE, 5);
+			(superChatMode_ ? GetColor(255, 215, 0) : GetColor(0, 0, 255)), FALSE, 5);
 	}
+
+
 	//選択中の枠線の色を変える
 	switch (focus_) {
 	case Select::DIRECTION:
@@ -202,60 +274,15 @@ void CommentSelect::Draw()
 		break;
 	default:break;
 	}
-	//文字の描画
-	switch (dir_) {
-		case DirectionSelect::NONE:
-			break;
-		case DirectionSelect::RIGHT:
-			DrawString(CommentUi::BoxX + 20, CommentUi::BoxY + 20, "RIGHT", 
-				(superChatOn_?GetColor(0,0,255):GetColor(255, 255, 255)));
-			break;
-		case DirectionSelect::LEFT:
-			DrawString(CommentUi::BoxX + 20, CommentUi::BoxY + 20, "LEFT", 
-				(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
-			break;
-		default:break;
 
-	}
-	switch (st_) {
-	case StateSelect::STOP:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "STOP", 
-			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
-		break;
-	case StateSelect::WARK:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "WARK", 
-			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
-		break;
-	case StateSelect::RUN:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "RUN", 
-			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
-		break;
-	case StateSelect::JUMP:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 + 20, CommentUi::BoxY + 20, "JUMP", 
-			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
-		break;
-	default:break;
-	}
-	switch (lv_) {
-	case CommentLevel::KIND:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "KIND", 
-			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
-		break;
-	case CommentLevel::NORMAL:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "NORMAL", 
-			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
-		break;
-	case CommentLevel::SEVERE:
-		DrawString(CommentUi::BoxX + CommentUi::BoxWidth / 3 * 2 + 20, CommentUi::BoxY + 20, "SEVERE", 
-			(superChatOn_ ? GetColor(0, 0, 255) : GetColor(255, 255, 255)));
-		break;
-	default:break;
-	}
 
+	
+
+
+	// コメントのログ描画
 	if (commentOutputInstance) {
 		commentOutputInstance->Draw();
 	}
-
 }
 
 void CommentSelect::ToggleSuperChat()
