@@ -61,3 +61,9 @@ void Avatar::StressSet(int s)
 	stress += s;
 
 }
+
+void Avatar::StressReset()
+{
+	stress = 0;
+
+}
