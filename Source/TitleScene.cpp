@@ -6,6 +6,7 @@
 
 TitleScene::TitleScene()
 {
+	ObjectManager::DeleteForceAllGameObject();
 	static bool sTimeInited = false;
 	if (!sTimeInited) {
 		Time::Init();
