@@ -2,6 +2,7 @@
 #include "SceneBase.h"
 #include "../Source/SceneFactory.h"
 #include <DxLib.h>
+#include "../Source/background.h"
 
 namespace
 {
@@ -23,6 +24,8 @@ void SceneManager::Init()
 	// 最初に動くシーンを、SceneFactoryに作ってもらう
 	currentScene = factory->CreateFirst();
 	exitRequest = false;
+	//auto bg= new BackGround;
+	//bg->SetDrawOrder(50);
 }
 
 void SceneManager::Update()
@@ -35,6 +38,13 @@ void SceneManager::Update()
 			delete currentScene;
 			currentScene = nullptr;
 		}
+		if (currentScene != nullptr && *nextName == "TITLE")
+		{
+			ObjectManager::DeleteForceAllGameObject();
+			delete currentScene;
+			currentScene = nullptr;
+		}
+
 		currentScene = factory->Create(*nextName); // 次のシーンを作成
 		*currentName = *nextName;
 	}

@@ -1,6 +1,7 @@
 #pragma once
 #include "../Library/SceneBase.h"
 
+class BackGround;
 /// <summary>
 /// タイトルシーン
 /// 
@@ -13,4 +14,6 @@ public:
 	~RetryScene();
 	void Update() override;
 	void Draw() override;
+private:
+	BackGround* bg;
 };

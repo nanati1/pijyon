@@ -90,6 +90,17 @@ void ObjectManager::DeleteAllGameObject()
 	}
 }
 
+void ObjectManager::DeleteForceAllGameObject()
+{
+	assert(running == nullptr);
+
+	std::list<GameObject*> deleteObjects = *objects;
+	for (GameObject* obj : deleteObjects) {
+			delete obj;
+	}
+}
+
+
 const std::list<GameObject*>& ObjectManager::GetAllObject()
 {
 	return *objects;

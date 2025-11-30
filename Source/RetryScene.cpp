@@ -4,7 +4,9 @@
 
 RetryScene::RetryScene()
 {
-	new BackGround();
+	//new BackGround();
+
+	bg = FindGameObject<BackGround>();
 	Screen::startTime = GetNowCount();  // シーン開始時に時刻を記録
 }
 
@@ -14,7 +16,7 @@ RetryScene::~RetryScene()
 
 void RetryScene::Update()
 {
-
+	
 	int now = GetNowCount();
 
 	// 3秒経過したらシーン変更

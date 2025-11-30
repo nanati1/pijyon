@@ -34,6 +34,8 @@ namespace ObjectManager
 	/// </summary>
 	void DeleteAllGameObject();
 
+	void DeleteForceAllGameObject();
+
 	const std::list<GameObject*>& GetAllObject();
 };
 

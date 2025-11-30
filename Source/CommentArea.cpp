@@ -10,6 +10,7 @@ CommentArea::CommentArea()
 	new CommentSelect();
 	new CommentOutput();
 	new ChatOutput();
+	GameObject::StayOnSceneChange();
 }
 
 CommentArea::~CommentArea()

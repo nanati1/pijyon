@@ -19,6 +19,7 @@ Avatar::Avatar()
 	hImage = LoadGraph("data/image/AvaterChip.png");
 	assert(hImage > 0);
 	animX = (stress / 10);
+	GameObject::StayOnSceneChange();
 }
 
 Avatar::~Avatar()

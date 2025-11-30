@@ -36,6 +36,7 @@ CommentSelect::CommentSelect()
 		}
 
 	}
+	GameObject::StayOnSceneChange();
 }
 
 CommentSelect::~CommentSelect()

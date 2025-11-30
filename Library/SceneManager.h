@@ -9,6 +9,7 @@
 
 class SceneFactory;
 class SceneBase;
+class BackGround;
 
 /// <summary>
 /// 現在のシーンを呼び出している。

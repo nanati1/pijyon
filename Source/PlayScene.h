@@ -1,6 +1,8 @@
 #pragma once
 #include "../Library/SceneBase.h"
 
+class BackGround;
+
 class PlayScene : public SceneBase
 {
 public:
@@ -10,4 +12,5 @@ public:
 	void Draw() override;
 private:
 	int hBGM_;
+	BackGround* bg;
 };

@@ -24,6 +24,7 @@ BackGround::BackGround()
 	new Avatar();
 	new CommentArea();
 	//new KeyInput();
+	GameObject::StayOnSceneChange();
 }
 
 BackGround::BackGround(VECTOR2 pos)

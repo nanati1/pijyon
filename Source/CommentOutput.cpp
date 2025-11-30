@@ -10,6 +10,7 @@ CommentOutput::CommentOutput()
     assert(bImage_ > 0);
     hImageSuperChatRed = LoadGraph("data/image/comment/superChatRed.png");
 	mobDB_.Load("data/mobComments.csv");
+    GameObject::StayOnSceneChange();
 }
 
 CommentOutput::~CommentOutput()

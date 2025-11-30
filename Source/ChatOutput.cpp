@@ -9,6 +9,7 @@ ChatOutput::ChatOutput()
     hImage_ = LoadGraph("data/image/chat.png");
     hImageSuperChatRed = LoadGraph("data/image/comment/superChatRed.png");
     assert(hImage_ > 0);
+    GameObject::StayOnSceneChange();
 }
 
 ChatOutput::~ChatOutput()

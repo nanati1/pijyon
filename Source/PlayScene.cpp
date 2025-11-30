@@ -8,7 +8,16 @@
 
 PlayScene::PlayScene()
 {
-	auto bg = new BackGround();
+
+	if (FindGameObject<BackGround>() != nullptr)
+	{
+		bg = FindGameObject<BackGround>();
+	}
+	else
+	{
+		bg = new BackGround();
+	}
+	
 	bg->SetDrawOrder(50);  // ”wŒi‚æ‚èŽè‘O
 
 	auto stage = new Stage();
