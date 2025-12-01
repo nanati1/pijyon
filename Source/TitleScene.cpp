@@ -3,9 +3,11 @@
 #include"Time.h"
 #include <assert.h>
 #include "Screen.h"
+#include "../Library/Input.h"
 
 TitleScene::TitleScene()
 {
+	Input::Initialize();
 	ObjectManager::DeleteForceAllGameObject();
 	static bool sTimeInited = false;
 	if (!sTimeInited) {
@@ -15,7 +17,6 @@ TitleScene::TitleScene()
 
 	hImage = LoadGraph("data/image/Title2.png");
 	assert(hImage > 0);
-
 }
 
 TitleScene::~TitleScene()
@@ -24,8 +25,9 @@ TitleScene::~TitleScene()
 
 void TitleScene::Update()
 {
+	Input::Update();
 	Time::Refresh();
-	if (CheckHitKey(KEY_INPUT_SPACE)) {
+	if (Input::IsKeyDown(KEY_INPUT_SPACE)) {
 		SceneManager::ChangeScene("PLAY");
 	}
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {

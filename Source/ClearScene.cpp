@@ -2,11 +2,12 @@
 #include"CommentArea.h"
 #include <DxLib.h>
 #include "Screen.h"
+#include "../Library/Input.h"
 
 ClearScene::ClearScene()
 {
+	Input::Initialize();
 	Screen::startTime = GetNowCount();  // シーン開始時に時刻を記録
-	new CommentArea();
 }
 
 ClearScene::~ClearScene()
@@ -15,6 +16,7 @@ ClearScene::~ClearScene()
 
 void ClearScene::Update()
 {
+	Input::Update();
 	int now = GetNowCount();
 
 	// 3秒経過したらシーン変更
@@ -22,7 +24,7 @@ void ClearScene::Update()
 		SceneManager::ChangeScene("TITLE");
 	}
 
-	if (CheckHitKey(KEY_INPUT_SPACE)) {   // ← 3000ミリ秒
+	if (Input::IsKeyDown(KEY_INPUT_SPACE)) {   // ← 3000ミリ秒
 		SceneManager::ChangeScene("TITLE");
 	}
 
