@@ -38,16 +38,15 @@ void Avatar::Update()
 	}
 	if (stress >= maxStress)
 	{
-		stress = 0;
-		prevAnim = animX;
 		SceneManager::ChangeScene("GAMEOVER");
+		prevAnim = animX;
 
 	}
 
 
-	ImGui::Begin("Screen::stress");
+	/*ImGui::Begin("Screen::stress");
 	ImGui::InputInt("Screen::stress", &stress);
-	ImGui::End();
+	ImGui::End();*/
 
 }
 

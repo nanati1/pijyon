@@ -1,6 +1,7 @@
 #include "GameOverScene.h"
 #include <DxLib.h>
 #include "Screen.h"
+#include "../Source/Avatar.h"
 
 GameOverScene::GameOverScene()
 {
@@ -16,7 +17,8 @@ void GameOverScene::Update()
 	int now = GetNowCount();
 
 	// 3秒経過したらシーン変更
-	if (now - Screen::startTime >= 3000) {   // ← 3000ミリ秒
+	if (now - Screen::startTime >= 3000) {// ← 3000ミリ秒
+		FindGameObject<Avatar>()->StressReset();
 		SceneManager::ChangeScene("TITLE");
 	}
 
@@ -36,7 +38,7 @@ void GameOverScene::Draw()
 	int textW = GetDrawStringWidth(titleText, strlen(titleText));
 
 	// 画面中央に配置
-	int x = (Screen::WIDTH - textW) / 2;
+	int x = (Screen::WIDTH - textW) / 3;
 	int y = Screen::HEIGHT / 3;
 	// 描画
 	DrawString(x, y, titleText, GetColor(255, 255, 255));
