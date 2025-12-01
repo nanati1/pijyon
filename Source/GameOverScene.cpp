@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include "Screen.h"
 #include "../Source/Avatar.h"
+#include "../Library/Input.h"
 
 GameOverScene::GameOverScene()
 {
@@ -18,6 +19,10 @@ void GameOverScene::Update()
 
 	// 3秒経過したらシーン変更
 	if (now - Screen::startTime >= 3000) {   // ← 3000ミリ秒
+		SceneManager::ChangeScene("TITLE");
+	}
+
+	if (Input::IsKeyDown(KEY_INPUT_SPACE)) {   // ← 3000ミリ秒
 		SceneManager::ChangeScene("TITLE");
 	}
 
