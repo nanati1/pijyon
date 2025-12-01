@@ -78,6 +78,11 @@ void SceneManager::ChangeScene(const std::string& sceneName)
 	*nextName = sceneName;
 }
 
+const std::string& SceneManager::GetCurrentSceneName()
+{
+	return *currentName;
+}
+
 void SceneManager::Exit()
 {
 	exitRequest = true;

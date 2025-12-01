@@ -10,7 +10,7 @@ CommentOutput::CommentOutput()
     bImage_ = LoadGraph("data/image/chat.jpg");
     assert(bImage_ > 0);
     hImageSuperChat = LoadGraph("data/image/comment/superChat.png");
-	mobDB_.Load("data/mobComments.csv");
+	mobDB_.Load("data/mobComment/mobComments.csv");
     hImageSuperChatRed= LoadGraph("data/image/comment/superChatRed.png");
     GameObject::StayOnSceneChange();
 }
@@ -55,6 +55,15 @@ void CommentOutput::SetCommentText(const std::string& comment,bool isMob) {
 }
 
 void CommentOutput::Update() {
+
+    if (SceneManager::GetCurrentSceneName() == "CLEAR") {
+        mobDB_.Load("data/mobComment/mobComments_clear.csv");
+    }
+    if (SceneManager::GetCurrentSceneName() == "RETRY") {
+        mobDB_.Load("data/mobComment/mobComments_retry.csv");
+    }
+
+
     for (auto& com : comments_) {
         com.x -= com.vx;
         com.y += com.vy;
@@ -96,7 +105,10 @@ void CommentOutput::Draw() {
                 DrawString(com.x, com.y, com.text.c_str(), (com.superChatMode ? GetColor(255, 255, 255) : GetColor(0, 0, 255)));
             }
             else {
-                DrawString(com.x, com.y, com.text.c_str(), GetColor(0, 0, 0));
+                if (SceneManager::GetCurrentSceneName() == "CLEAR") {
+                    DrawGraph(com.x, com.y - com.height, hImageSuperChatRed, TRUE);
+                }
+             DrawString(com.x, com.y, com.text.c_str(), GetColor(0, 0, 0));
             }
         }
 

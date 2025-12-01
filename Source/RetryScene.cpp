@@ -1,11 +1,12 @@
 #include "RetryScene.h"
 #include "background.h"
+#include"CommentArea.h"
 #include "Screen.h"
 
 RetryScene::RetryScene()
 {
 	//new BackGround();
-
+	new CommentArea();
 	bg = FindGameObject<BackGround>();
 	Screen::startTime = GetNowCount();  // シーン開始時に時刻を記録
 }

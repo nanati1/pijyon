@@ -35,4 +35,5 @@ namespace SceneManager
 
 	bool IsExit();
 
+	const std::string& GetCurrentSceneName();
 };

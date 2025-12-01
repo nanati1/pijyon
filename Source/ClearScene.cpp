@@ -1,10 +1,12 @@
 #include "ClearScene.h"
+#include"CommentArea.h"
 #include <DxLib.h>
 #include "Screen.h"
 
 ClearScene::ClearScene()
 {
 	Screen::startTime = GetNowCount();  // シーン開始時に時刻を記録
+	new CommentArea();
 }
 
 ClearScene::~ClearScene()
