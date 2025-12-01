@@ -1,6 +1,6 @@
 ﻿#include "CommentOutput.h"
 #include"CommentSelect.h"
-#include"SceneFactory.h"
+#include"../Library/SceneManager.h"
 #include <DxLib.h>
 #include <algorithm>
 #include <assert.h>
@@ -86,6 +86,7 @@ void CommentOutput::Draw() {
         streamX_ + streamW_,
         streamY_ + streamH_
     );
+
 
     for (const auto& com : comments_) {
             if (com.superChatMode) {

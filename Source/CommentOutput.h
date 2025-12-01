@@ -59,7 +59,7 @@ private:
     int superChatW = 200;
     int superChatH = 250;
     enum superChatColor {
-        NONE,RED,PINK,ORANGE,GREEN,BLUE
+        RED,PINK,ORANGE,GREEN,BLUE
     };
     int hImageSuperChat;
     int hImageSuperChatRed;

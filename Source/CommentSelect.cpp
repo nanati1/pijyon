@@ -187,7 +187,7 @@ void CommentSelect::Draw()
 
 	//文字の描画
 	std::string superChatCount = std::to_string(superChatCounter);
-	DrawFormatString(100, 900,GetColor(255,0,0),"スパチャ残り%d回", superChatCounter);
+	DrawFormatString(1380, 1000,GetColor(255,0,0),"スパチャ残り%d回", superChatCounter);
 	int rowDir = UI_NONE;
 
 	switch (dir_) {

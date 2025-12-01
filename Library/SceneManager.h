@@ -34,4 +34,5 @@ namespace SceneManager
 	void Exit();
 
 	bool IsExit();
+
 };
