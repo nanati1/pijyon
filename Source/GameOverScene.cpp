@@ -17,8 +17,7 @@ void GameOverScene::Update()
 	int now = GetNowCount();
 
 	// 3秒経過したらシーン変更
-	if (now - Screen::startTime >= 3000) {// ← 3000ミリ秒
-		FindGameObject<Avatar>()->StressReset();
+	if (now - Screen::startTime >= 3000) {   // ← 3000ミリ秒
 		SceneManager::ChangeScene("TITLE");
 	}
 
