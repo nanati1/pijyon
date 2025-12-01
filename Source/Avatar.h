@@ -17,5 +17,5 @@ private:
 	int hImage;//画像ハンドル
 	static int prevAnim; //ストレス値を取得するための変数
 	static int stress; //ストレス値
-	static const int maxStress = 40; //最大ストレス値
+	static const int maxStress = 120; //最大ストレス値
 };

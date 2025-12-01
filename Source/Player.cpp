@@ -413,10 +413,10 @@ void Player::Update()
 	}
 
 
-	ImGui::Begin("Player");
+	/*ImGui::Begin("Player");
 	ImGui::Checkbox("onGround", &onGround);
 	ImGui::InputFloat("positionY", &position.y);
-	ImGui::End();
+	ImGui::End();*/
 
 	// ƒS[ƒ‹”»’è
 	//StagePath‚ği‚ß‚é
