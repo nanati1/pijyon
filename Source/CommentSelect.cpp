@@ -139,6 +139,7 @@ void CommentSelect::Update()
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) {
 		if (superChatOn_) {
 			superChatMode_ = true;
+
 		}
 
 		srand((unsigned int)time(NULL));
@@ -156,6 +157,7 @@ void CommentSelect::Update()
 	if (superChatCounter > 0) {
 		if (Input::IsKeyDown(KEY_INPUT_LSHIFT) || Input::IsKeyDown(KEY_INPUT_RSHIFT)) {
 			ToggleSuperChat();
+
 		}
 	}
 
@@ -163,6 +165,7 @@ void CommentSelect::Update()
 		commentOutputInstance->Update();
 	}
 	if (superChatMode_) {
+
 		if (superChatTimer > 0.0f) {
 			superChatTimer -= dt;
 		}
@@ -170,6 +173,7 @@ void CommentSelect::Update()
 			superChatMode_ = false;
 			superChatOn_ = false;
 			superChatCounter--;
+
 		}
 	}
 	else {
@@ -182,7 +186,8 @@ void CommentSelect::Draw()
 	int commentSelectNumber = 3;
 
 	//文字の描画
-
+	std::string superChatCount = std::to_string(superChatCounter);
+	DrawFormatString(100, 900,GetColor(255,0,0),"スパチャ残り%d回", superChatCounter);
 	int rowDir = UI_NONE;
 
 	switch (dir_) {

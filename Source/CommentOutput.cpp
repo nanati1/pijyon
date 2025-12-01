@@ -1,5 +1,6 @@
 ﻿#include "CommentOutput.h"
 #include"CommentSelect.h"
+#include"SceneFactory.h"
 #include <DxLib.h>
 #include <algorithm>
 #include <assert.h>
@@ -8,8 +9,9 @@ CommentOutput::CommentOutput()
 {
     bImage_ = LoadGraph("data/image/chat.jpg");
     assert(bImage_ > 0);
-    hImageSuperChatRed = LoadGraph("data/image/comment/superChatRed.png");
+    hImageSuperChat = LoadGraph("data/image/comment/superChat.png");
 	mobDB_.Load("data/mobComments.csv");
+    hImageSuperChatRed= LoadGraph("data/image/comment/superChatRed.png");
     GameObject::StayOnSceneChange();
 }
 

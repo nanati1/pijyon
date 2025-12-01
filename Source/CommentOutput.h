@@ -55,7 +55,15 @@ private:
     int mobCommentTimer = 0;
     int nextMobComment = 300;
 
+    int superChatNum = 5;
+    int superChatW = 200;
+    int superChatH = 250;
+    enum superChatColor {
+        NONE,RED,PINK,ORANGE,GREEN,BLUE
+    };
+    int hImageSuperChat;
     int hImageSuperChatRed;
+
 
 
 };
