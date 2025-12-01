@@ -432,12 +432,16 @@ void Player::Update()
 		if (Stage::currentStage >= STAGE_COUNT)
 		{
 			Avatar* avt = FindGameObject<Avatar>();
-			avt->StressSet(10);
+			avt->StressReset();
+			PlaySoundFile("data/voice/ClearVoice.mp3", DX_PLAYTYPE_BACK);
 			SceneManager::ChangeScene("CLEAR");
 			return;
 		}
 
+		Avatar* avt = FindGameObject<Avatar>();
+		avt->StressReset();
 		// 次のステージを読み込む
+		PlaySoundFile("data/voice/ClearVoice.mp3", DX_PLAYTYPE_BACK);
 		SceneManager::ChangeScene("RETRY");
 	}
 

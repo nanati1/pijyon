@@ -18,7 +18,11 @@ void ClearScene::Update()
 	int now = GetNowCount();
 
 	// 3秒経過したらシーン変更
-	if (now - Screen::startTime >= 3000) {   // ← 3000ミリ秒
+	if (now - Screen::startTime >= 20000) {   // ← 3000ミリ秒
+		SceneManager::ChangeScene("TITLE");
+	}
+
+	if (CheckHitKey(KEY_INPUT_SPACE)) {   // ← 3000ミリ秒
 		SceneManager::ChangeScene("TITLE");
 	}
 
