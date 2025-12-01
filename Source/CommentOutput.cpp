@@ -107,8 +107,12 @@ void CommentOutput::Draw() {
             else {
                 if (SceneManager::GetCurrentSceneName() == "CLEAR") {
                     DrawGraph(com.x, com.y - com.height, hImageSuperChatRed, TRUE);
+                    DrawString(com.x, com.y, com.text.c_str(), GetColor(255, 255, 255));
+
                 }
-             DrawString(com.x, com.y, com.text.c_str(), GetColor(0, 0, 0));
+                else {
+                    DrawString(com.x, com.y, com.text.c_str(), GetColor(0, 0, 0));
+                }
             }
         }
 
