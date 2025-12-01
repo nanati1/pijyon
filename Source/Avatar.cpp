@@ -29,7 +29,7 @@ Avatar::~Avatar()
 
 void Avatar::Update()
 {
-	animX = (stress / 30);
+	animX = (stress / 10);
 
 	if (prevAnim != animX)
 	{
