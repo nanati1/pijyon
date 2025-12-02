@@ -221,6 +221,10 @@ void Player::Update()
 
 				}
 			}
+			else
+			{
+				PlaySoundFile("data/voice/OppsitionVoice.mp3", DX_PLAYTYPE_BACK);
+			}
 			if (superChatMode==false) {
 				if (lv == KIND) {
 					avt->StressSet(kindCommentStress);

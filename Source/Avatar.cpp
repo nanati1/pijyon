@@ -33,6 +33,7 @@ void Avatar::Update()
 
 	if (prevAnim != animX)
 	{
+		StopSoundFile();
 		PlaySoundFile(voicePath[animX - 1].c_str(), DX_PLAYTYPE_BACK);
 		prevAnim = animX;
 	}
