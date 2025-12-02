@@ -100,13 +100,17 @@ void Player::Update()
 
 
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) { 
+		int state;
+
 		if (auto* cs = FindGameObject<CommentSelect>()) {
 			queuedDir = cs->GetDirectionValue(); // 0:None,1:Right,2:Left
 			queuedState = cs->GetStateValue();     // 0:Stop,1:Walk,2:Run,3:Jump
 			queuedLv = cs->GetLevelValue();
+			state= cs->GetLevelValue();
 			queuedSuperChatMode = cs->IsSuperChatMode();
 
 			float r = rand() % 1000/10.0f;
+
 
 			//コメントに従う確率/ディレイ
 			moveProbabillity = false; 
@@ -142,17 +146,6 @@ void Player::Update()
 #endif
 			}
 			
-			if (superChatMode == false) {
-				if (queuedLv == KIND) {
-					avt->StressSet(kindCommentStress);
-				}
-				if (queuedLv == NORMAL) {
-					avt->StressSet(normalCommentStress);
-				}
-				if (queuedLv == SEVERE) {
-					avt->StressSet(severeCommentStress);
-				}
-			}
 
 			   
 		}
@@ -277,6 +270,18 @@ void Player::Update()
 			autoMovingRight = false;
 
 		}
+		if (!superChatMode) {
+			if (lv == KIND) {
+				avt->StressSet(kindCommentStress);
+			}
+			if (lv == NORMAL) {
+				avt->StressSet(normalCommentStress);
+			}
+			if (lv == SEVERE) {
+				avt->StressSet(severeCommentStress);
+			}
+		}
+		moveProbabillity = false;
 
 	}
 
