@@ -25,6 +25,13 @@ private:
 	int severeCommentStress;
 	int normalCommentStress;
 	int kindCommentStress;
+	float DelaySevere;
+	float DelayNormal;
+	float DelayKind;
+	float CommentCount;
+	bool CommentDelay;
+	bool moveProbabillity;
+
 
 	float commentMoveSpeed ;
 	float airMoveSpeed;//‹ó’†‰¡ˆÚ“®‚Ì‘¬“x
@@ -39,4 +46,10 @@ private:
 
 	int animTimer;
 	int animCell;
+
+	int queuedDir = 0;
+	int queuedState = 0;
+	int queuedLv = 0;
+	bool queuedSuperChatMode = false;
+
 };

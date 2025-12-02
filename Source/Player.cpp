@@ -58,6 +58,15 @@ Player::Player(VECTOR2 pos)
 		else if (tag == "KindCommentStress") {
 			kindCommentStress = commentCsv->GetInt(i, 1);
 		}
+		else if (tag == "DelaySevere") {
+			DelaySevere = commentCsv->GetFloat(i, 1);
+		}
+		else if (tag == "DelayNormal") {
+			DelayNormal = commentCsv->GetFloat(i, 1);
+		}
+		else if (tag == "DelayKind") {
+			DelayKind = commentCsv->GetFloat(i, 1);
+		}
 		
 
 	}
@@ -86,24 +95,29 @@ void Player::Update()
 {
 	Stage* st = FindGameObject<Stage>();
 	Avatar* avt = FindGameObject<Avatar>();
+	float dt = Time::DeltaTime();
 
 
 
 	if (Input::IsKeyDown(KEY_INPUT_RETURN)) { 
 		if (auto* cs = FindGameObject<CommentSelect>()) {
-			const int dir = cs->GetDirectionValue(); // 0:None,1:Right,2:Left
-			const int state = cs->GetStateValue();     // 0:Stop,1:Wark,2:Run,3Jump
-			const int lv = cs->GetLevelValue();
-			const bool superChatMode = cs->IsSuperChatMode();
+			queuedDir = cs->GetDirectionValue(); // 0:None,1:Right,2:Left
+			queuedState = cs->GetStateValue();     // 0:Stop,1:Walk,2:Run,3:Jump
+			queuedLv = cs->GetLevelValue();
+			queuedSuperChatMode = cs->IsSuperChatMode();
+
 			float r = rand() % 1000/10.0f;
 
-			//コメントに従う確率
-			bool moveProbabillity = false; 
+			//コメントに従う確率/ディレイ
+			moveProbabillity = false; 
 			if (superChatMode == true) {
 				moveProbabillity = true;
 			}else{
+#if 0	
+				//確率で動く
 				if (lv == SEVERE) {
 					moveProbabillity = (r < severeProbability);
+
 				}
 				else if (lv == NORMAL) {
 					moveProbabillity = (r < normalProbability);
@@ -112,130 +126,160 @@ void Player::Update()
 				{
 					moveProbabillity = (r < kindProbability);
 				}
+#else
+				//ディレイを挟む
+				if (queuedLv == SEVERE) {
+					CommentCount = DelaySevere;
+				}
+				else if (queuedLv == NORMAL) {
+					CommentCount = DelayNormal;
+				}
+				else if (queuedLv == KIND) {
+					CommentCount = DelayKind;
+				}
+				CommentDelay = true;
+				
+#endif
 			}
-
-			if (moveProbabillity) {
-
-				if (state == WARK) { // WARK のときだけ継続歩行を更新
-					commentMoveSpeed = moveSpeed;
-					if (dir == RIGHT) {             // RIGHT
-						walkByCommentActive = true;
-						walkByCommentDir = +1;
-						directionRight = true;
-						animY = 3;
-					}
-					else if (dir == LEFT) {        // LEFT
-						walkByCommentActive = true;
-						walkByCommentDir = -1;
-						directionRight = false;
-						animY = 1;
-
-					}
-					else {                      // NONE
-						walkByCommentActive = true;
-						walkByCommentDir = (directionRight ? +1 : -1);
-					}
-				}
-				else if (state == STOP) { // STOP 指示で止める
-					walkByCommentActive = false;
-					walkByCommentDir = 0;
-					autoMovingRight = false;
-				}
-				else if (state == RUN) //RUN
-				{
-					commentMoveSpeed = DashSpeed;
-					if (dir == RIGHT) {             // RIGHT
-						walkByCommentActive = true;
-						walkByCommentDir = +1;
-						directionRight = true;
-						animY = 3;
-					}
-					else if (dir == LEFT) {        // LEFT
-						walkByCommentActive = true;
-						walkByCommentDir = -1;
-						directionRight = false;
-						animY = 1;
-					}
-					else {                      // NONE
-						walkByCommentActive = true;
-						walkByCommentDir = (directionRight ? +1 : -1);
-					}
-
-				}
-				else if (state == JUMP) { // JUMP
-					if (onGround) {
-						if (prevPushed == false) {
-							// 縦方向ジャンプ
-							velocityY = JumpV0;
-
-							// コメントの左右指示をジャンプ方向に変換
-							int dirH = 0;
-							if (dir == RIGHT)      dirH = +1;
-							else if (dir == LEFT)  dirH = -1;
-
-							// 今の歩き状態とその向きを調べる
-							bool walkingNow = walkByCommentActive || autoMovingRight;
-							int  walkDir = 0;
-							if (walkByCommentActive) {
-								walkDir = walkByCommentDir;
-							}
-							else if (autoMovingRight) {
-								walkDir = +1; // 自動移動は右とみなす
-							}
-
-							if (dirH != 0) {
-								if (walkingNow && dirH == walkDir) {
-									// 歩いている向きと同じ方向にジャンプ
-									// → 歩きはそのまま続ける
-									directionRight = (dirH > 0);
-									jumpMoveActive = false;
-									jumpMoveDir = 0;
-									stopAfterLanding = false; // 着地後も歩き継続
-								}
-								else {
-									// 逆方向にジャンプ、または停止状態からジャンプ
-									// → 歩きを切って、ジャンプ専用の横移動に切り替え
-									jumpMoveActive = true;
-									jumpMoveDir = dirH;
-									airMoveSpeed = moveSpeed;
-									directionRight = (dirH > 0);
-									stopAfterLanding = true;  // 着地したら完全停止
-
-									// いままでの歩行・自動移動はオフにする
-									walkByCommentActive = false;
-									walkByCommentDir = 0;
-									autoMovingRight = false;
-								}
-							}
-							else {
-								//真上ジャンプ
-								// 歩いていたらそのまま歩きながらジャンプ
-							}
-
-							prevPushed = true;
-						}
-					}
-				}
-				else {
-					autoMovingRight = false;
-
-				}
-			}
-			if (superChatMode==false) {
-				if (lv == KIND) {
+			
+			if (superChatMode == false) {
+				if (queuedLv == KIND) {
 					avt->StressSet(kindCommentStress);
 				}
-				if (lv == NORMAL) {
+				if (queuedLv == NORMAL) {
 					avt->StressSet(normalCommentStress);
 				}
-				if (lv == SEVERE) {
+				if (queuedLv == SEVERE) {
 					avt->StressSet(severeCommentStress);
 				}
 			}
-			
 
+			   
 		}
 	}
+	if (CommentDelay) {
+		if (CommentCount > 0.0f) {
+			CommentCount -= dt;
+		}
+		else if (CommentCount <= 0.0f) {
+			moveProbabillity = TRUE;
+			CommentDelay = FALSE;
+		}
+
+	}
+	if (moveProbabillity) {
+		const int dir = queuedDir;
+		const int state = queuedState;
+		const int lv = queuedLv;
+		const bool superChatMode = queuedSuperChatMode;
+
+		if (state == WARK) { // WARK のときだけ継続歩行を更新
+			commentMoveSpeed = moveSpeed;
+			if (dir == RIGHT) {             // RIGHT
+				walkByCommentActive = true;
+				walkByCommentDir = +1;
+				directionRight = true;
+				animY = 3;
+			}
+			else if (dir == LEFT) {        // LEFT
+				walkByCommentActive = true;
+				walkByCommentDir = -1;
+				directionRight = false;
+				animY = 1;
+
+			}
+			else {                      // NONE
+				walkByCommentActive = true;
+				walkByCommentDir = (directionRight ? +1 : -1);
+			}
+		}
+		else if (state == STOP) { // STOP 指示で止める
+			walkByCommentActive = false;
+			walkByCommentDir = 0;
+			autoMovingRight = false;
+		}
+		else if (state == RUN) //RUN
+		{
+			commentMoveSpeed = DashSpeed;
+			if (dir == RIGHT) {             // RIGHT
+				walkByCommentActive = true;
+				walkByCommentDir = +1;
+				directionRight = true;
+				animY = 3;
+			}
+			else if (dir == LEFT) {        // LEFT
+				walkByCommentActive = true;
+				walkByCommentDir = -1;
+				directionRight = false;
+				animY = 1;
+			}
+			else {                      // NONE
+				walkByCommentActive = true;
+				walkByCommentDir = (directionRight ? +1 : -1);
+			}
+
+		}
+		else if (state == JUMP) { // JUMP
+			if (onGround) {
+				if (prevPushed == false) {
+					// 縦方向ジャンプ
+					velocityY = JumpV0;
+
+					// コメントの左右指示をジャンプ方向に変換
+					int dirH = 0;
+					if (dir == RIGHT)      dirH = +1;
+					else if (dir == LEFT)  dirH = -1;
+
+					// 今の歩き状態とその向きを調べる
+					bool walkingNow = walkByCommentActive || autoMovingRight;
+					int  walkDir = 0;
+					if (walkByCommentActive) {
+						walkDir = walkByCommentDir;
+					}
+					else if (autoMovingRight) {
+						walkDir = +1; // 自動移動は右とみなす
+					}
+
+					if (dirH != 0) {
+						if (walkingNow && dirH == walkDir) {
+							// 歩いている向きと同じ方向にジャンプ
+							// → 歩きはそのまま続ける
+							directionRight = (dirH > 0);
+							jumpMoveActive = false;
+							jumpMoveDir = 0;
+							stopAfterLanding = false; // 着地後も歩き継続
+						}
+						else {
+							// 逆方向にジャンプ、または停止状態からジャンプ
+							// → 歩きを切って、ジャンプ専用の横移動に切り替え
+							jumpMoveActive = true;
+							jumpMoveDir = dirH;
+							airMoveSpeed = moveSpeed;
+							directionRight = (dirH > 0);
+							stopAfterLanding = true;  // 着地したら完全停止
+
+							// いままでの歩行・自動移動はオフにする
+							walkByCommentActive = false;
+							walkByCommentDir = 0;
+							autoMovingRight = false;
+						}
+					}
+					else {
+						//真上ジャンプ
+						// 歩いていたらそのまま歩きながらジャンプ
+					}
+
+					prevPushed = true;
+				}
+			}
+		}
+		else {
+			autoMovingRight = false;
+
+		}
+
+	}
+
 	//空中移動
 	if (jumpMoveActive) {
 		const float spd = (airMoveSpeed > 0.0f) ? airMoveSpeed : moveSpeed;
