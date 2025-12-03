@@ -190,6 +190,9 @@ void CommentSelect::Draw()
 	//文字の描画
 	std::string superChatCount = std::to_string(superChatCounter);
 	DrawFormatString(1380, 1000,GetColor(255,0,0),"スパチャ残り%d回", superChatCounter);
+	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber) / 2, CommentUi::BoxY - 60, "方向", GetColor(255, 0, 0));
+	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber + CommentUi::BoxWidth / commentSelectNumber * 2) / 2, CommentUi::BoxY - 60, "動作", GetColor(255, 0, 0));
+	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * 2 + CommentUi::BoxWidth) / 2-20, CommentUi::BoxY - 60, "コメントレベル", GetColor(255, 0, 0));
 	int rowDir = UI_NONE;
 
 	switch (dir_) {
@@ -257,6 +260,7 @@ void CommentSelect::Draw()
 	);
 
 
+
 	int rowLevel = UI_KIND;
 	switch (lv_) {
 	case CommentLevel::KIND:   rowLevel = UI_KIND;   break;
@@ -305,18 +309,21 @@ void CommentSelect::Draw()
 			CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber,
 			CommentUi::BoxY + CommentUi::BoxHeight,
 			GetColor(255, 0, 0), FALSE, 5);
+		DrawString((CommentUi::BoxX+CommentUi::BoxWidth / commentSelectNumber)/2, CommentUi::BoxY - 30, "↓", GetColor(255, 0, 0));
 		break;
 	case Select::STATE:
 		DrawBox(CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber, CommentUi::BoxY,
 			CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * 2,
 			CommentUi::BoxY + CommentUi::BoxHeight,
 			GetColor(255, 0, 0), FALSE, 5);
+		DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber + CommentUi::BoxWidth / commentSelectNumber * 2) / 2, CommentUi::BoxY - 30, "↓", GetColor(255, 0, 0));
 		break;
 	case Select::LEVEL:
 		DrawBox(CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * 2, CommentUi::BoxY,
 			CommentUi::BoxX + CommentUi::BoxWidth,
 			CommentUi::BoxY + CommentUi::BoxHeight,
 			GetColor(255, 0, 0), FALSE, 5);
+		DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * 2 + CommentUi::BoxWidth) / 2, CommentUi::BoxY - 30, "↓", GetColor(255, 0, 0));
 		break;
 	default:break;
 	}
