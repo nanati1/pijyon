@@ -29,9 +29,12 @@ private:
 	bool superChatMode_ = false;
 	float superChatTimer;
 	float superChatTimerCount;
+	int CommentArrowHeight = 15;
 	int superChatCounter;
 	int hImageCommentSelectUI;
 	int hImageSuperChatSelectUI;
+	int hImageArrowUp;
+	int hImageArrowDown;
 	Select focus_;
 	DirectionSelect dir_;
 	StateSelect st_;

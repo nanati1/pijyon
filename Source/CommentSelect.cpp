@@ -22,6 +22,8 @@ CommentSelect::CommentSelect()
 
 	hImageCommentSelectUI = LoadGraph("data/image/comment/CommentSelectUI.png");
 	hImageSuperChatSelectUI=LoadGraph("data/image/comment/SuperChatCommentSelectUI.png");
+	hImageArrowUp = LoadGraph("data/image/comment/CommentArrow.png");
+	hImageArrowDown = LoadGraph("data/image/comment/CommentArrowDown.png");
 	commentOutputInstance = new CommentOutput();
 	chatOutputInstance = new ChatOutput();
 	Input::Initialize();
@@ -210,6 +212,18 @@ void CommentSelect::Draw()
 		(superChatOn_ ? hImageSuperChatSelectUI : hImageCommentSelectUI),
 		TRUE
 	);
+	DrawGraph(
+		CommentUi::BoxX,
+		CommentUi::BoxY -CommentArrowHeight,
+		hImageArrowUp,
+		TRUE
+	);
+	DrawGraph(
+		CommentUi::BoxX,
+		CommentUi::BoxY + CommentUi::BoxHeight,
+		hImageArrowDown,
+		TRUE
+	);
 
 	int rowState = UI_STOP;
 	switch (st_) {
@@ -229,6 +243,19 @@ void CommentSelect::Draw()
 		(superChatOn_ ? hImageSuperChatSelectUI : hImageCommentSelectUI),
 		TRUE
 	);
+	DrawGraph(
+		CommentUi::BoxX+cellW,
+		CommentUi::BoxY - CommentArrowHeight,
+		hImageArrowUp,
+		TRUE
+	);
+	DrawGraph(
+		CommentUi::BoxX+cellW,
+		CommentUi::BoxY + CommentUi::BoxHeight,
+		hImageArrowDown,
+		TRUE
+	);
+
 
 	int rowLevel = UI_KIND;
 	switch (lv_) {
@@ -248,6 +275,19 @@ void CommentSelect::Draw()
 		(superChatOn_?hImageSuperChatSelectUI:hImageCommentSelectUI),
 		TRUE
 	);
+	DrawGraph(
+		CommentUi::BoxX+cellW*2,
+		CommentUi::BoxY - CommentArrowHeight,
+		hImageArrowUp,
+		TRUE
+	);
+	DrawGraph(
+		CommentUi::BoxX+cellW*2,
+		CommentUi::BoxY + CommentUi::BoxHeight,
+		hImageArrowDown,
+		TRUE
+	);
+
 
 	//ÉRÉÅÉìÉgëIëÇÃï`âÊ
 	for (int i = 1; i <= commentSelectNumber; i++) {
