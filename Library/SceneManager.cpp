@@ -32,18 +32,19 @@ void SceneManager::Update()
 {
 	if (*nextName != *currentName)
 	{ // シーン切り替えの指定があったので
-		if (currentScene != nullptr)
-		{ // 今までのシーンを解放
-			ObjectManager::DeleteAllGameObject();
-			delete currentScene;
-			currentScene = nullptr;
-		}
 		if (currentScene != nullptr && *nextName == "TITLE")
 		{
 			ObjectManager::DeleteForceAllGameObject();
 			delete currentScene;
 			currentScene = nullptr;
 		}
+		else if (currentScene != nullptr)
+		{ // 今までのシーンを解放
+			ObjectManager::DeleteAllGameObject();
+			delete currentScene;
+			currentScene = nullptr;
+		}
+		
 
 		currentScene = factory->Create(*nextName); // 次のシーンを作成
 		*currentName = *nextName;

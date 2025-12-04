@@ -39,6 +39,7 @@ void Avatar::Update()
 	}
 	if (stress >= maxStress)
 	{
+		GameObject::StayOnSceneChange(false);
 		SceneManager::ChangeScene("GAMEOVER");
 		prevAnim = animX;
 
