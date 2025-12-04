@@ -10,7 +10,7 @@ namespace CommentUi {
 	inline int BoxWidth = 1220;
 	inline int BoxHeight = 48;
 	inline int BoxX = 20;
-	inline int BoxY = 995;
+	inline int BoxY = 950;
 	inline int SendButtonWidth = 80;
 	inline int SendButtonHeight = 48;
 	inline int SendButtonX = BoxX + BoxWidth;

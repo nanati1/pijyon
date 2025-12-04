@@ -15,7 +15,7 @@ TitleScene::TitleScene()
 		sTimeInited = true;
 	}
 
-	hImage = LoadGraph("data/image/Title2.png");
+	hImage = LoadGraph("data/image/Title.png");
 	assert(hImage > 0);
 }
 
@@ -28,8 +28,10 @@ void TitleScene::Update()
 	Input::Update();
 	Time::Refresh();
 	if (Input::IsKeyDown(KEY_INPUT_SPACE)) {
-		SceneManager::ChangeScene("PLAY");
+		SceneManager::ChangeScene("LOAD");
 	}
+
+
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
 		SceneManager::Exit();
 	}

@@ -1,6 +1,6 @@
 SevereProbability,100,命令を聞く確率（SEVERE）
 NormalProbability,80,命令を聞く確率（NORMAL）
-KindProbability,20,命令を聞く確率（KIND）
+KindProbability,30,命令を聞く確率（KIND）
 SevereCommentStress,10,コメントによるストレス値の上昇量（SEVERE）
 NormalCommentStress,5,コメントによるストレス値の上昇量（NORMAL）
 KindCommentStress,1,コメントによるストレス値の上昇量（KIND）
