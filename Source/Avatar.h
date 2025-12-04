@@ -12,6 +12,7 @@ public:
 	void StressSet(int s);
 	int GetStress() { return stress; }
 	void StressReset();
+	void PlayVoice(int v = 0);//何も代入しないければ失敗ボイス
 private:
 	int animX;//表情を変えるための変数。0～3,大きくなるほど怒る
 	int hImage;//画像ハンドル

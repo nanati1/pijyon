@@ -29,12 +29,12 @@ Avatar::~Avatar()
 
 void Avatar::Update()
 {
+	maxStress / 4;
 	animX = (stress / 10);
 
 	if (prevAnim != animX)
 	{
-		StopSoundFile();
-		PlaySoundFile(voicePath[animX - 1].c_str(), DX_PLAYTYPE_BACK);
+		this->PlayVoice(animX);
 		prevAnim = animX;
 	}
 	if (stress >= maxStress)
@@ -54,6 +54,7 @@ void Avatar::Update()
 void Avatar::Draw()
 {
 	DrawRectExtendGraph(1040, 600, 1380, Screen::HEIGHTSMALL, 200 * (animX), 0, 200, 150, hImage, 1);
+	CheckSoundFile();
 }
 
 
@@ -67,4 +68,9 @@ void Avatar::StressReset()
 {
 	stress = 0;
 
+}
+
+void Avatar::PlayVoice(int v)
+{
+	PlaySoundFile(voicePath[v].c_str(), DX_PLAYTYPE_BACK);
 }

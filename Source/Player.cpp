@@ -223,7 +223,7 @@ void Player::Update()
 			}
 			else
 			{
-				PlaySoundFile("data/voice/OppsitionVoice.mp3", DX_PLAYTYPE_BACK);
+				avt->PlayVoice();
 			}
 			if (superChatMode==false) {
 				if (lv == KIND) {
