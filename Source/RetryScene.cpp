@@ -5,7 +5,7 @@
 
 RetryScene::RetryScene()
 {
-	//new BackGround();
+	
 	bg = FindGameObject<BackGround>();
 	Time::startTime = GetNowCount();  // シーン開始時に時刻を記録
 }
@@ -25,9 +25,9 @@ void RetryScene::Update()
 	}
 
 
-	//if (CheckHitKey(KEY_INPUT_P)) {
-	//	SceneManager::ChangeScene("PLAY");
-	//}
+	if (CheckHitKey(KEY_INPUT_SPACE)) {
+		SceneManager::ChangeScene("PLAY");
+	}
 	//if (CheckHitKey(KEY_INPUT_G)) {
 	//	SceneManager::ChangeScene("GAMEOVER");
 	//}

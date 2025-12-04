@@ -15,7 +15,7 @@ TitleScene::TitleScene()
 		sTimeInited = true;
 	}
 
-	hImage = LoadGraph("data/image/Title2.png");
+	hImage = LoadGraph("data/image/Title.png");
 	assert(hImage > 0);
 }
 

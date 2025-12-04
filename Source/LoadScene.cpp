@@ -1,5 +1,6 @@
 #include "LoadScene.h"
 #include <assert.h>
+#include "Screen.h"
 
 LoadScene::LoadScene()
 {
@@ -16,8 +17,8 @@ void LoadScene::Update()
 {
 	int now = GetNowCount();
 
-	// 3秒経過したらシーン変更
-	if (now - Time::startTime >= 5000) {   // ← 3000ミリ秒
+	// 5秒経過したらシーン変更
+	if (now - Time::startTime >= 5000) {   // ← 5秒
 		SceneManager::ChangeScene("PLAY");
 	}
 
@@ -28,5 +29,5 @@ void LoadScene::Update()
 
 void LoadScene::Draw()
 {
-	DrawExtendGraph(0, 0, 1920, 1080, hImage, 0);
+	DrawExtendGraph(0, 0, Screen::WIDTH, Screen::HEIGHT, hImage, 0);
 }
