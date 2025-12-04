@@ -18,13 +18,11 @@ Avatar::Avatar()
 	:hImage(-1), animX(0),qImage(-1) {
 	hImage = LoadGraph("data/image/AvaterChip.png");
 	qImage = LoadGraph("data/image/hatena.png");
+	hVoice = LoadSoundMem("data/voice/OppositionVoice.mp3");
 	assert(hImage > 0);
 	animX = (stress / 10);
 	GameObject::StayOnSceneChange();
-	//for (int i = 0; i < voicePath->size(); i++)
-	//{
-	//	hVoice[i]=LoadSoundMem
-	//}
+	
 
 }
 
@@ -40,7 +38,7 @@ void Avatar::Update()
 
 	if (prevAnim != animX)
 	{
-		this->PlayVoice(animX);
+		PlaySoundFile(voicePath[animX-1].c_str(), DX_PLAYTYPE_BACK);
 		prevAnim = animX;
 	}
 	if (stress >= maxStress)
@@ -96,12 +94,11 @@ void Avatar::StressReset()
 
 void Avatar::PlayVoice(int v)
 {
-
-	//PlaySoundFile(voicePath[v].c_str(), DX_PLAYTYPE_BACK);
 	if (v == 0&&NoInstruction==false)
 	{
+		PlaySoundMem(hVoice, DX_PLAYTYPE_BACK, true);
 		NoInstruction = true;
 		Time::startTime = GetNowCount();
 	}
-
+	
 }
