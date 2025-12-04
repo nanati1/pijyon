@@ -15,11 +15,17 @@ int Avatar::stress = 0;
 int Avatar::prevAnim = 0;
 
 Avatar::Avatar()
-	:hImage(-1), animX(0) {
+	:hImage(-1), animX(0),qImage(-1) {
 	hImage = LoadGraph("data/image/AvaterChip.png");
+	qImage = LoadGraph("data/image/hatena.png");
 	assert(hImage > 0);
 	animX = (stress / 10);
 	GameObject::StayOnSceneChange();
+	//for (int i = 0; i < voicePath->size(); i++)
+	//{
+	//	hVoice[i]=LoadSoundMem
+	//}
+
 }
 
 Avatar::~Avatar()
@@ -39,11 +45,15 @@ void Avatar::Update()
 	}
 	if (stress >= maxStress)
 	{
+		this->StressReset();
 		GameObject::StayOnSceneChange(false);
 		SceneManager::ChangeScene("GAMEOVER");
 		prevAnim = animX;
 
 	}
+
+	
+
 
 
 	/*ImGui::Begin("Screen::stress");
@@ -54,8 +64,21 @@ void Avatar::Update()
 
 void Avatar::Draw()
 {
+
 	DrawRectExtendGraph(1040, 600, 1380, Screen::HEIGHTSMALL, 200 * (animX), 0, 200, 150, hImage, 1);
-	CheckSoundFile();
+	if (NoInstruction)
+	{
+		int nowTime = GetNowCount();
+		DrawExtendGraph(1080, 400, 1400, 600, qImage, 1);
+
+		if (nowTime - Time::startTime >= 600)
+		{
+			NoInstruction = false;
+			nowTime = 0;
+			Time::startTime = 0;
+		}
+		
+	}
 }
 
 
@@ -73,5 +96,12 @@ void Avatar::StressReset()
 
 void Avatar::PlayVoice(int v)
 {
-	PlaySoundFile(voicePath[v].c_str(), DX_PLAYTYPE_BACK);
+
+	//PlaySoundFile(voicePath[v].c_str(), DX_PLAYTYPE_BACK);
+	if (v == 0&&NoInstruction==false)
+	{
+		NoInstruction = true;
+		Time::startTime = GetNowCount();
+	}
+
 }
