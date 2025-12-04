@@ -1,13 +1,13 @@
 #include "RetryScene.h"
 #include "background.h"
 #include"CommentArea.h"
-#include "Screen.h"
+#include "Time.h"
 
 RetryScene::RetryScene()
 {
 	//new BackGround();
 	bg = FindGameObject<BackGround>();
-	Screen::startTime = GetNowCount();  // シーン開始時に時刻を記録
+	Time::startTime = GetNowCount();  // シーン開始時に時刻を記録
 }
 
 RetryScene::~RetryScene()
@@ -20,7 +20,7 @@ void RetryScene::Update()
 	int now = GetNowCount();
 
 	// 3秒経過したらシーン変更
-	if (now - Screen::startTime >= 3000) {   // ← 3000ミリ秒
+	if (now - Time::startTime >= 3000) {   // ← 3000ミリ秒
 		SceneManager::ChangeScene("PLAY");
 	}
 

@@ -30,6 +30,11 @@ void TitleScene::Update()
 	if (Input::IsKeyDown(KEY_INPUT_SPACE)) {
 		SceneManager::ChangeScene("PLAY");
 	}
+
+	if (Input::IsKeyDown(KEY_INPUT_L)) {
+		SceneManager::ChangeScene("LOAD");
+	}
+
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
 		SceneManager::Exit();
 	}

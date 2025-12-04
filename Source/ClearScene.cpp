@@ -3,11 +3,12 @@
 #include <DxLib.h>
 #include "Screen.h"
 #include "../Library/Input.h"
+#include "Time.h"
 
 ClearScene::ClearScene()
 {
 	Input::Initialize();
-	Screen::startTime = GetNowCount();  // シーン開始時に時刻を記録
+	Time::startTime = GetNowCount();  // シーン開始時に時刻を記録
 }
 
 ClearScene::~ClearScene()
@@ -20,7 +21,7 @@ void ClearScene::Update()
 	int now = GetNowCount();
 
 	// 3秒経過したらシーン変更
-	if (now - Screen::startTime >= 20000) {   // ← 3000ミリ秒
+	if (now - Time::startTime >= 20000) {   // ← 3000ミリ秒
 		SceneManager::ChangeScene("TITLE");
 	}
 

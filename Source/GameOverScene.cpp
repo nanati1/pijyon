@@ -3,10 +3,11 @@
 #include "Screen.h"
 #include "../Source/Avatar.h"
 #include "../Library/Input.h"
+#include "Time.h"
 
 GameOverScene::GameOverScene()
 {
-	Screen::startTime = GetNowCount();  // シーン開始時に時刻を記録
+	Time::startTime = GetNowCount();  // シーン開始時に時刻を記録
 }
 
 GameOverScene::~GameOverScene()
@@ -18,7 +19,7 @@ void GameOverScene::Update()
 	int now = GetNowCount();
 
 	// 3秒経過したらシーン変更
-	if (now - Screen::startTime >= 3000) {   // ← 3000ミリ秒
+	if (now - Time::startTime >= 3000) {   // ← 3000ミリ秒
 		SceneManager::ChangeScene("TITLE");
 	}
 
