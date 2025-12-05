@@ -189,10 +189,13 @@ void CommentSelect::Draw()
 
 	//文字の描画
 	std::string superChatCount = std::to_string(superChatCounter);
-	DrawFormatString(1380, 1000,GetColor(255,0,0),"スパチャ残り%d回", superChatCounter);
-	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber) / 2, CommentUi::BoxY - 60, "方向", GetColor(255, 0, 0));
-	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber + CommentUi::BoxWidth / commentSelectNumber * 2) / 2, CommentUi::BoxY - 60, "動作", GetColor(255, 0, 0));
-	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * 2 + CommentUi::BoxWidth) / 2-20, CommentUi::BoxY - 60, "コメントレベル", GetColor(255, 0, 0));
+	SetFontSize(35);//文字サイズ
+	DrawFormatString(1400, 950,GetColor(255,0,0),"スパチャ残り%d回", superChatCounter);
+	SetFontSize(30);
+	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber) / 2-20, CommentUi::BoxY - 70, "方向", GetColor(255, 0, 0));
+	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber + CommentUi::BoxWidth / commentSelectNumber * 2) / 2-20, CommentUi::BoxY - 70, "動作", GetColor(255, 0, 0));
+	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber * 2 + CommentUi::BoxWidth) / 2-95, CommentUi::BoxY - 70, "コメントレベル", GetColor(255, 0, 0));
+	SetFontSize(23);
 	int rowDir = UI_NONE;
 
 	switch (dir_) {
