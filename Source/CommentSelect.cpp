@@ -189,8 +189,8 @@ void CommentSelect::Draw()
 
 	//文字の描画
 	std::string superChatCount = std::to_string(superChatCounter);
-	SetFontSize(35);//文字サイズ
-	DrawFormatString(1400, 950,GetColor(255,0,0),"スパチャ残り%d回", superChatCounter);
+	SetFontSize(40);//文字サイズ
+	DrawFormatString(1430, 950,GetColor(255,0,0),"スパチャ残り%d回", superChatCounter);
 	SetFontSize(30);
 	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber) / 2-20, CommentUi::BoxY - 70, "方向", GetColor(255, 0, 0));
 	DrawString((CommentUi::BoxX + CommentUi::BoxWidth / commentSelectNumber + CommentUi::BoxWidth / commentSelectNumber * 2) / 2-20, CommentUi::BoxY - 70, "動作", GetColor(255, 0, 0));
